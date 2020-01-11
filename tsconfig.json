@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "outDir": ".",
+    "baseUrl": "./src",
+    "allowJs": false,
+    "target": "es6",
+    "lib": ["es2020"],
+    "moduleResolution": "node",
+    "strict": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "paths": {"*": [
+      "../node_modules/*/src/index",
+      "../node_modules/*/lib/index",
+      "../node_modules/*/index",
+      "../node_modules/*/dist/index"
+    ]},
+    "plugins": [{"transform": "@zerollup/ts-transform-paths"}],
+    "types": [
+      "@types/jest",
+      "war3-types/core/compat",
+      "war3-types/core/common",
+      "war3-types/core/blizzard",
+      "war3-types/core/commonai",
+      "war3-types/core/polyfill"
+    ]
+  },
+  "include": ["src"],
+  "exclude": []
+}

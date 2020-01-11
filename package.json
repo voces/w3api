@@ -1,0 +1,36 @@
+{
+  "name": "w3api",
+  "version": "1.0.0",
+  "description": "TypeScript API for Warcraft III natives",
+  "author": "verit",
+  "license": "MIT",
+  "scripts": {
+    "build": "ts-node bin/build.ts",
+    "dev": "npm-watch"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.25",
+    "@types/node": "^12.0.2",
+    "@typescript-eslint/eslint-plugin": "^2.15.0",
+    "@typescript-eslint/parser": "^2.15.0",
+    "eslint": "^6.8.0",
+    "eslint-config-mdcs": "^4.2.3",
+    "eslint-config-verit": "^1.0.3",
+    "fast-glob": "^3.1.1",
+    "jest": "^24.9.0",
+    "npm-watch": "^0.6.0",
+    "recast": "^0.18.5",
+    "ts-jest": "^24.2.0",
+    "ts-node": "^8.6.1",
+    "ts-transformer-imports": "^0.4.3",
+    "typescript": "^3.7.4",
+    "war3-types": "^1.0.0"
+  },
+  "watch": {
+    "build": {
+		"patterns": ["src"],
+		"extensions": "ts",
+		"legacyWatch": true
+	}
+  }
+}
