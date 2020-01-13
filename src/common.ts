@@ -2,444 +2,255 @@
 // Native types. All native functions take extended handle types when
 // possible to help prevent passing bad values to native functions
 //
-declare interface agent extends handle { __agent: boolean; }
-
-declare interface event extends agent { __event: boolean; }
-
-declare interface player extends agent { __player: boolean; }
-
-declare interface widget extends agent { __widget: boolean; }
-
-declare interface unit extends widget { __unit: boolean; }
-
-declare interface destructable extends widget { __destructable: boolean; }
-
-declare interface item extends widget { __item: boolean; }
-
-declare interface ability extends agent { __ability: boolean; }
-
-declare interface buff extends ability { __buff: boolean; }
-
-declare interface force extends agent { __force: boolean; }
-
-declare interface group extends agent { __group: boolean; }
-
-declare interface trigger extends agent { __trigger: boolean; }
-
-declare interface triggercondition extends agent { __triggercondition: boolean; }
-
-declare interface triggeraction extends handle { __triggeraction: boolean; }
-
-declare interface timer extends agent { __timer: boolean; }
-
-declare interface location extends agent { __location: boolean; }
-
-declare interface region extends agent { __region: boolean; }
-
-declare interface rect extends agent { __rect: boolean; }
-
-declare interface boolexpr extends agent { __boolexpr: boolean; }
-
-declare interface sound extends agent { __sound: boolean; }
-
-declare interface conditionfunc extends boolexpr { __conditionfunc: boolean; }
-
-declare interface filterfunc extends boolexpr { __filterfunc: boolean; }
-
-declare interface unitpool extends handle { __unitpool: boolean; }
-
-declare interface itempool extends handle { __itempool: boolean; }
-
-declare interface race extends handle { __race: boolean; }
-
-declare interface alliancetype extends handle { __alliancetype: boolean; }
-
-declare interface racepreference extends handle { __racepreference: boolean; }
-
-declare interface gamestate extends handle { __gamestate: boolean; }
-
-declare interface igamestate extends gamestate { __igamestate: boolean; }
-
-declare interface fgamestate extends gamestate { __fgamestate: boolean; }
-
-declare interface playerstate extends handle { __playerstate: boolean; }
-
-declare interface playerscore extends handle { __playerscore: boolean; }
-
-declare interface playergameresult extends handle { __playergameresult: boolean; }
-
-declare interface unitstate extends handle { __unitstate: boolean; }
-
-declare interface aidifficulty extends handle { __aidifficulty: boolean; }
-
-
-declare interface eventid extends handle { __eventid: boolean; }
-
-declare interface gameevent extends eventid { __gameevent: boolean; }
-
-declare interface playerevent extends eventid { __playerevent: boolean; }
-
-declare interface playerunitevent extends eventid { __playerunitevent: boolean; }
-
-declare interface unitevent extends eventid { __unitevent: boolean; }
-
-declare interface limitop extends eventid { __limitop: boolean; }
-
-declare interface widgetevent extends eventid { __widgetevent: boolean; }
-
-declare interface dialogevent extends eventid { __dialogevent: boolean; }
-
-declare interface unittype extends handle { __unittype: boolean; }
-
-
-declare interface gamespeed extends handle { __gamespeed: boolean; }
-
-declare interface gamedifficulty extends handle { __gamedifficulty: boolean; }
-
-declare interface gametype extends handle { __gametype: boolean; }
-
-declare interface mapflag extends handle { __mapflag: boolean; }
-
-declare interface mapvisibility extends handle { __mapvisibility: boolean; }
-
-declare interface mapsetting extends handle { __mapsetting: boolean; }
-
-declare interface mapdensity extends handle { __mapdensity: boolean; }
-
-declare interface mapcontrol extends handle { __mapcontrol: boolean; }
-
-declare interface playerslotstate extends handle { __playerslotstate: boolean; }
-
-declare interface volumegroup extends handle { __volumegroup: boolean; }
-
-declare interface camerafield extends handle { __camerafield: boolean; }
-
-declare interface camerasetup extends handle { __camerasetup: boolean; }
-
-declare interface playercolor extends handle { __playercolor: boolean; }
-
-declare interface placement extends handle { __placement: boolean; }
-
-declare interface startlocprio extends handle { __startlocprio: boolean; }
-
-declare interface raritycontrol extends handle { __raritycontrol: boolean; }
-
-declare interface blendmode extends handle { __blendmode: boolean; }
-
-declare interface texmapflags extends handle { __texmapflags: boolean; }
-
-declare interface effect extends agent { __effect: boolean; }
-
-declare interface effecttype extends handle { __effecttype: boolean; }
-
-declare interface weathereffect extends handle { __weathereffect: boolean; }
-
-declare interface terraindeformation extends handle { __terraindeformation: boolean; }
-
-declare interface fogstate extends handle { __fogstate: boolean; }
-
-declare interface fogmodifier extends agent { __fogmodifier: boolean; }
-
-declare interface dialog extends agent { __dialog: boolean; }
-
-declare interface button extends agent { __button: boolean; }
-
-declare interface quest extends agent { __quest: boolean; }
-
-declare interface questitem extends agent { __questitem: boolean; }
-
-declare interface defeatcondition extends agent { __defeatcondition: boolean; }
-
-declare interface timerdialog extends agent { __timerdialog: boolean; }
-
-declare interface leaderboard extends agent { __leaderboard: boolean; }
-
-declare interface multiboard extends agent { __multiboard: boolean; }
-
-declare interface multiboarditem extends agent { __multiboarditem: boolean; }
-
-declare interface trackable extends agent { __trackable: boolean; }
-
-declare interface gamecache extends agent { __gamecache: boolean; }
-
-declare interface version extends handle { __version: boolean; }
-
-declare interface itemtype extends handle { __itemtype: boolean; }
-
-declare interface texttag extends handle { __texttag: boolean; }
-
-declare interface attacktype extends handle { __attacktype: boolean; }
-
-declare interface damagetype extends handle { __damagetype: boolean; }
-
-declare interface weapontype extends handle { __weapontype: boolean; }
-
-declare interface soundtype extends handle { __soundtype: boolean; }
-
-declare interface lightning extends handle { __lightning: boolean; }
-
-declare interface pathingtype extends handle { __pathingtype: boolean; }
-
-declare interface mousebuttontype extends handle { __mousebuttontype: boolean; }
-
-declare interface animtype extends handle { __animtype: boolean; }
-
-declare interface subanimtype extends handle { __subanimtype: boolean; }
-
-declare interface image extends handle { __image: boolean; }
-
-declare interface ubersplat extends handle { __ubersplat: boolean; }
-
-declare interface hashtable extends agent { __hashtable: boolean; }
-
-declare interface framehandle extends handle { __framehandle: boolean; }
-
-declare interface originframetype extends handle { __originframetype: boolean; }
-
-declare interface framepointtype extends handle { __framepointtype: boolean; }
-
-declare interface textaligntype extends handle { __textaligntype: boolean; }
-
-declare interface frameeventtype extends handle { __frameeventtype: boolean; }
-
-declare interface oskeytype extends handle { __oskeytype: boolean; }
-
-declare interface abilityintegerfield extends handle { __abilityintegerfield: boolean; }
-
-declare interface abilityrealfield extends handle { __abilityrealfield: boolean; }
-
-declare interface abilitybooleanfield extends handle { __abilitybooleanfield: boolean; }
-
-declare interface abilitystringfield extends handle { __abilitystringfield: boolean; }
-
-declare interface abilityintegerlevelfield extends handle { __abilityintegerlevelfield: boolean; }
-
-declare interface abilityreallevelfield extends handle { __abilityreallevelfield: boolean; }
-
-declare interface abilitybooleanlevelfield extends handle { __abilitybooleanlevelfield: boolean; }
-
-declare interface abilitystringlevelfield extends handle { __abilitystringlevelfield: boolean; }
-
-declare interface abilityintegerlevelarrayfield extends handle { __abilityintegerlevelarrayfield: boolean; }
-
-declare interface abilityreallevelarrayfield extends handle { __abilityreallevelarrayfield: boolean; }
-
-declare interface abilitybooleanlevelarrayfield extends handle { __abilitybooleanlevelarrayfield: boolean; }
-
-declare interface abilitystringlevelarrayfield extends handle { __abilitystringlevelarrayfield: boolean; }
-
-declare interface unitintegerfield extends handle { __unitintegerfield: boolean; }
-
-declare interface unitrealfield extends handle { __unitrealfield: boolean; }
-
-declare interface unitbooleanfield extends handle { __unitbooleanfield: boolean; }
-
-declare interface unitstringfield extends handle { __unitstringfield: boolean; }
-
-declare interface unitweaponintegerfield extends handle { __unitweaponintegerfield: boolean; }
-
-declare interface unitweaponrealfield extends handle { __unitweaponrealfield: boolean; }
-
-declare interface unitweaponbooleanfield extends handle { __unitweaponbooleanfield: boolean; }
-
-declare interface unitweaponstringfield extends handle { __unitweaponstringfield: boolean; }
-
-declare interface itemintegerfield extends handle { __itemintegerfield: boolean; }
-
-declare interface itemrealfield extends handle { __itemrealfield: boolean; }
-
-declare interface itembooleanfield extends handle { __itembooleanfield: boolean; }
-
-declare interface itemstringfield extends handle { __itemstringfield: boolean; }
-
-declare interface movetype extends handle { __movetype: boolean; }
-
-declare interface targetflag extends handle { __targetflag: boolean; }
-
-declare interface armortype extends handle { __armortype: boolean; }
-
-declare interface heroattribute extends handle { __heroattribute: boolean; }
-
-declare interface defensetype extends handle { __defensetype: boolean; }
-
-declare interface regentype extends handle { __regentype: boolean; }
-
-declare interface unitcategory extends handle { __unitcategory: boolean; }
-
-declare interface pathingflag extends handle { __pathingflag: boolean; }
-
-
-
-export const ConvertRace = ( i: number ): race => {};
-
-export const ConvertAllianceType = ( i: number ): alliancetype => {};
-
-export const ConvertRacePref = ( i: number ): racepreference => {};
-
-export const ConvertIGameState = ( i: number ): igamestate => {};
-
-export const ConvertFGameState = ( i: number ): fgamestate => {};
-
-export const ConvertPlayerState = ( i: number ): playerstate => {};
-
-export const ConvertPlayerScore = ( i: number ): playerscore => {};
-
-export const ConvertPlayerGameResult = ( i: number ): playergameresult => {};
-
-export const ConvertUnitState = ( i: number ): unitstate => {};
-
-export const ConvertAIDifficulty = ( i: number ): aidifficulty => {};
-
-export const ConvertGameEvent = ( i: number ): gameevent => {};
-
-export const ConvertPlayerEvent = ( i: number ): playerevent => {};
-
-export const ConvertPlayerUnitEvent = ( i: number ): playerunitevent => {};
-
-export const ConvertWidgetEvent = ( i: number ): widgetevent => {};
-
-export const ConvertDialogEvent = ( i: number ): dialogevent => {};
-
-export const ConvertUnitEvent = ( i: number ): unitevent => {};
-
-export const ConvertLimitOp = ( i: number ): limitop => {};
-
-export const ConvertUnitType = ( i: number ): unittype => {};
-
-export const ConvertGameSpeed = ( i: number ): gamespeed => {};
-
-export const ConvertPlacement = ( i: number ): placement => {};
-
-export const ConvertStartLocPrio = ( i: number ): startlocprio => {};
-
-export const ConvertGameDifficulty = ( i: number ): gamedifficulty => {};
-
-export const ConvertGameType = ( i: number ): gametype => {};
-
-export const ConvertMapFlag = ( i: number ): mapflag => {};
-
-export const ConvertMapVisibility = ( i: number ): mapvisibility => {};
-
-export const ConvertMapSetting = ( i: number ): mapsetting => {};
-
-export const ConvertMapDensity = ( i: number ): mapdensity => {};
-
-export const ConvertMapControl = ( i: number ): mapcontrol => {};
-
-export const ConvertPlayerColor = ( i: number ): playercolor => {};
-
-export const ConvertPlayerSlotState = ( i: number ): playerslotstate => {};
-
-export const ConvertVolumeGroup = ( i: number ): volumegroup => {};
-
-export const ConvertCameraField = ( i: number ): camerafield => {};
-
-export const ConvertBlendMode = ( i: number ): blendmode => {};
-
-export const ConvertRarityControl = ( i: number ): raritycontrol => {};
-
-export const ConvertTexMapFlags = ( i: number ): texmapflags => {};
-
-export const ConvertFogState = ( i: number ): fogstate => {};
-
-export const ConvertEffectType = ( i: number ): effecttype => {};
-
-export const ConvertVersion = ( i: number ): version => {};
-
-export const ConvertItemType = ( i: number ): itemtype => {};
-
-export const ConvertAttackType = ( i: number ): attacktype => {};
-
-export const ConvertDamageType = ( i: number ): damagetype => {};
-
-export const ConvertWeaponType = ( i: number ): weapontype => {};
-
-export const ConvertSoundType = ( i: number ): soundtype => {};
-
-export const ConvertPathingType = ( i: number ): pathingtype => {};
-
-export const ConvertMouseButtonType = ( i: number ): mousebuttontype => {};
-
-export const ConvertAnimType = ( i: number ): animtype => {};
-
-export const ConvertSubAnimType = ( i: number ): subanimtype => {};
-
-export const ConvertOriginFrameType = ( i: number ): originframetype => {};
-
-export const ConvertFramePointType = ( i: number ): framepointtype => {};
-
-export const ConvertTextAlignType = ( i: number ): textaligntype => {};
-
-export const ConvertFrameEventType = ( i: number ): frameeventtype => {};
-
-export const ConvertOsKeyType = ( i: number ): oskeytype => {};
-
-export const ConvertAbilityIntegerField = ( i: number ): abilitynumberfield => {};
-
-export const ConvertAbilityRealField = ( i: number ): abilitynumberfield => {};
-
-export const ConvertAbilityBooleanField = ( i: number ): abilitybooleanfield => {};
-
-export const ConvertAbilityStringField = ( i: number ): abilitystringfield => {};
-
-export const ConvertAbilityIntegerLevelField = ( i: number ): abilitynumberlevelfield => {};
-
-export const ConvertAbilityRealLevelField = ( i: number ): abilitynumberlevelfield => {};
-
-export const ConvertAbilityBooleanLevelField = ( i: number ): abilitybooleanlevelfield => {};
-
-export const ConvertAbilityStringLevelField = ( i: number ): abilitystringlevelfield => {};
-
-export const ConvertAbilityIntegerLevelArrayField = ( i: number ): abilitynumberlevelarrayfield => {};
-
-export const ConvertAbilityRealLevelArrayField = ( i: number ): abilitynumberlevelarrayfield => {};
-
-export const ConvertAbilityBooleanLevelArrayField = ( i: number ): abilitybooleanlevelarrayfield => {};
-
-export const ConvertAbilityStringLevelArrayField = ( i: number ): abilitystringlevelarrayfield => {};
-
-export const ConvertUnitIntegerField = ( i: number ): unitnumberfield => {};
-
-export const ConvertUnitRealField = ( i: number ): unitnumberfield => {};
-
-export const ConvertUnitBooleanField = ( i: number ): unitbooleanfield => {};
-
-export const ConvertUnitStringField = ( i: number ): unitstringfield => {};
-
-export const ConvertUnitWeaponIntegerField = ( i: number ): unitweaponnumberfield => {};
-
-export const ConvertUnitWeaponRealField = ( i: number ): unitweaponnumberfield => {};
-
-export const ConvertUnitWeaponBooleanField = ( i: number ): unitweaponbooleanfield => {};
-
-export const ConvertUnitWeaponStringField = ( i: number ): unitweaponstringfield => {};
-
-export const ConvertItemIntegerField = ( i: number ): itemnumberfield => {};
-
-export const ConvertItemRealField = ( i: number ): itemnumberfield => {};
-
-export const ConvertItemBooleanField = ( i: number ): itembooleanfield => {};
-
-export const ConvertItemStringField = ( i: number ): itemstringfield => {};
-
-export const ConvertMoveType = ( i: number ): movetype => {};
-
-export const ConvertTargetFlag = ( i: number ): targetflag => {};
-
-export const ConvertArmorType = ( i: number ): armortype => {};
-
-export const ConvertHeroAttribute = ( i: number ): heroattribute => {};
-
-export const ConvertDefenseType = ( i: number ): defensetype => {};
-
-export const ConvertRegenType = ( i: number ): regentype => {};
-
-export const ConvertUnitCategory = ( i: number ): unitcategory => {};
-
-export const ConvertPathingFlag = ( i: number ): pathingflag => {};
-
-
-export const OrderId = ( orderIdString: string ): number => {};
+/* eslint-disable @typescript-eslint/class-name-casing */
+declare interface handle { __handle: boolean }
+declare interface agent extends handle { __agent: boolean }
+declare interface event extends agent { __event: boolean }
+declare interface player extends agent { __player: boolean }
+declare interface widget extends agent { __widget: boolean }
+declare interface unit extends widget { __unit: boolean }
+declare interface destructable extends widget { __destructable: boolean }
+declare interface item extends widget { __item: boolean }
+declare interface ability extends agent { __ability: boolean }
+declare interface buff extends ability { __buff: boolean }
+declare interface force extends agent { __force: boolean }
+declare interface group extends agent { __group: boolean }
+declare interface trigger extends agent { __trigger: boolean }
+declare interface triggercondition extends agent { __triggercondition: boolean }
+declare interface triggeraction extends handle { __triggeraction: boolean }
+declare interface timer extends agent { __timer: boolean }
+declare interface location extends agent { __location: boolean }
+declare interface region extends agent { __region: boolean }
+declare interface rect extends agent { __rect: boolean }
+declare interface boolexpr extends agent { __boolexpr: boolean }
+declare interface sound extends agent { __sound: boolean }
+declare interface conditionfunc extends boolexpr { __conditionfunc: boolean }
+declare interface filterfunc extends boolexpr { __filterfunc: boolean }
+declare interface unitpool extends handle { __unitpool: boolean }
+declare interface itempool extends handle { __itempool: boolean }
+declare interface race extends handle { __race: boolean }
+declare interface alliancetype extends handle { __alliancetype: boolean }
+declare interface racepreference extends handle { __racepreference: boolean }
+declare interface gamestate extends handle { __gamestate: boolean }
+declare interface igamestate extends gamestate { __igamestate: boolean }
+declare interface fgamestate extends gamestate { __fgamestate: boolean }
+declare interface playerstate extends handle { __playerstate: boolean }
+declare interface playerscore extends handle { __playerscore: boolean }
+declare interface playergameresult extends handle { __playergameresult: boolean }
+declare interface unitstate extends handle { __unitstate: boolean }
+declare interface aidifficulty extends handle { __aidifficulty: boolean }
+
+declare interface eventid extends handle { __eventid: boolean }
+declare interface gameevent extends eventid { __gameevent: boolean }
+declare interface playerevent extends eventid { __playerevent: boolean }
+declare interface playerunitevent extends eventid { __playerunitevent: boolean }
+declare interface unitevent extends eventid { __unitevent: boolean }
+declare interface limitop extends eventid { __limitop: boolean }
+declare interface widgetevent extends eventid { __widgetevent: boolean }
+declare interface dialogevent extends eventid { __dialogevent: boolean }
+declare interface unittype extends handle { __unittype: boolean }
+
+declare interface gamespeed extends handle { __gamespeed: boolean }
+declare interface gamedifficulty extends handle { __gamedifficulty: boolean }
+declare interface gametype extends handle { __gametype: boolean }
+declare interface mapflag extends handle { __mapflag: boolean }
+declare interface mapvisibility extends handle { __mapvisibility: boolean }
+declare interface mapsetting extends handle { __mapsetting: boolean }
+declare interface mapdensity extends handle { __mapdensity: boolean }
+declare interface mapcontrol extends handle { __mapcontrol: boolean }
+declare interface playerslotstate extends handle { __playerslotstate: boolean }
+declare interface volumegroup extends handle { __volumegroup: boolean }
+declare interface camerafield extends handle { __camerafield: boolean }
+declare interface camerasetup extends handle { __camerasetup: boolean }
+declare interface playercolor extends handle { __playercolor: boolean }
+declare interface placement extends handle { __placement: boolean }
+declare interface startlocprio extends handle { __startlocprio: boolean }
+declare interface raritycontrol extends handle { __raritycontrol: boolean }
+declare interface blendmode extends handle { __blendmode: boolean }
+declare interface texmapflags extends handle { __texmapflags: boolean }
+declare interface effect extends agent { __effect: boolean }
+declare interface effecttype extends handle { __effecttype: boolean }
+declare interface weathereffect extends handle { __weathereffect: boolean }
+declare interface terraindeformation extends handle { __terraindeformation: boolean }
+declare interface fogstate extends handle { __fogstate: boolean }
+declare interface fogmodifier extends agent { __fogmodifier: boolean }
+declare interface dialog extends agent { __dialog: boolean }
+declare interface button extends agent { __button: boolean }
+declare interface quest extends agent { __quest: boolean }
+declare interface questitem extends agent { __questitem: boolean }
+declare interface defeatcondition extends agent { __defeatcondition: boolean }
+declare interface timerdialog extends agent { __timerdialog: boolean }
+declare interface leaderboard extends agent { __leaderboard: boolean }
+declare interface multiboard extends agent { __multiboard: boolean }
+declare interface multiboarditem extends agent { __multiboarditem: boolean }
+declare interface trackable extends agent { __trackable: boolean }
+declare interface gamecache extends agent { __gamecache: boolean }
+declare interface version extends handle { __version: boolean }
+declare interface itemtype extends handle { __itemtype: boolean }
+declare interface texttag extends handle { __texttag: boolean }
+declare interface attacktype extends handle { __attacktype: boolean }
+declare interface damagetype extends handle { __damagetype: boolean }
+declare interface weapontype extends handle { __weapontype: boolean }
+declare interface soundtype extends handle { __soundtype: boolean }
+declare interface lightning extends handle { __lightning: boolean }
+declare interface pathingtype extends handle { __pathingtype: boolean }
+declare interface mousebuttontype extends handle { __mousebuttontype: boolean }
+declare interface animtype extends handle { __animtype: boolean }
+declare interface subanimtype extends handle { __subanimtype: boolean }
+declare interface image extends handle { __image: boolean }
+declare interface ubersplat extends handle { __ubersplat: boolean }
+declare interface hashtable extends agent { __hashtable: boolean }
+declare interface framehandle extends handle { __framehandle: boolean }
+declare interface originframetype extends handle { __originframetype: boolean }
+declare interface framepointtype extends handle { __framepointtype: boolean }
+declare interface textaligntype extends handle { __textaligntype: boolean }
+declare interface frameeventtype extends handle { __frameeventtype: boolean }
+declare interface oskeytype extends handle { __oskeytype: boolean }
+declare interface abilityintegerfield extends handle { __abilityintegerfield: boolean }
+declare interface abilityrealfield extends handle { __abilityrealfield: boolean }
+declare interface abilitybooleanfield extends handle { __abilitybooleanfield: boolean }
+declare interface abilitystringfield extends handle { __abilitystringfield: boolean }
+declare interface abilityintegerlevelfield extends handle { __abilityintegerlevelfield: boolean }
+declare interface abilityreallevelfield extends handle { __abilityreallevelfield: boolean }
+declare interface abilitybooleanlevelfield extends handle { __abilitybooleanlevelfield: boolean }
+declare interface abilitystringlevelfield extends handle { __abilitystringlevelfield: boolean }
+declare interface abilityintegerlevelarrayfield extends handle { __abilityintegerlevelarrayfield: boolean }
+declare interface abilityreallevelarrayfield extends handle { __abilityreallevelarrayfield: boolean }
+declare interface abilitybooleanlevelarrayfield extends handle { __abilitybooleanlevelarrayfield: boolean }
+declare interface abilitystringlevelarrayfield extends handle { __abilitystringlevelarrayfield: boolean }
+declare interface unitintegerfield extends handle { __unitintegerfield: boolean }
+declare interface unitrealfield extends handle { __unitrealfield: boolean }
+declare interface unitbooleanfield extends handle { __unitbooleanfield: boolean }
+declare interface unitstringfield extends handle { __unitstringfield: boolean }
+declare interface unitweaponintegerfield extends handle { __unitweaponintegerfield: boolean }
+declare interface unitweaponrealfield extends handle { __unitweaponrealfield: boolean }
+declare interface unitweaponbooleanfield extends handle { __unitweaponbooleanfield: boolean }
+declare interface unitweaponstringfield extends handle { __unitweaponstringfield: boolean }
+declare interface itemintegerfield extends handle { __itemintegerfield: boolean }
+declare interface itemrealfield extends handle { __itemrealfield: boolean }
+declare interface itembooleanfield extends handle { __itembooleanfield: boolean }
+declare interface itemstringfield extends handle { __itemstringfield: boolean }
+declare interface movetype extends handle { __movetype: boolean }
+declare interface targetflag extends handle { __targetflag: boolean }
+declare interface armortype extends handle { __armortype: boolean }
+declare interface heroattribute extends handle { __heroattribute: boolean }
+declare interface defensetype extends handle { __defensetype: boolean }
+declare interface regentype extends handle { __regentype: boolean }
+declare interface unitcategory extends handle { __unitcategory: boolean }
+declare interface pathingflag extends handle { __pathingflag: boolean }
+
+declare interface abilitynumberfield extends handle { __abilitynumberfield: boolean }
+declare interface abilitynumberlevelfield extends handle { __abilitynumberlevelfield: boolean }
+declare interface abilitynumberlevelarrayfield extends handle { __abilitynumberlevelarrayfield: boolean }
+declare interface unitnumberfield extends handle { __unitnumberfield: boolean }
+declare interface unitweaponnumberfield extends handle { __unitweaponnumberfield: boolean }
+declare interface itemnumberfield extends handle { __itemnumberfield: boolean }
+/* eslint-enable @typescript-eslint/class-name-casing */
+
+const converter = <T>( fn: () => T ) => {
+
+	const memory: Array<T> = [];
+	return ( i: number ) => {
+
+		if ( memory[ i ] !== undefined ) return memory[ i ];
+		memory[ i ] = fn();
+		return memory[ i ];
+
+	};
+
+};
+
+export const ConvertRace = converter( (): race => ( { __race: true, __handle: true } ) );
+export const ConvertAllianceType = converter( (): alliancetype => ( { __alliancetype: true, __handle: true } ) );
+export const ConvertRacePref = converter( (): racepreference => ( { __racepreference: true, __handle: true } ) );
+export const ConvertIGameState = converter( (): igamestate => ( { __igamestate: true, __gamestate: true, __handle: true } ) );
+export const ConvertFGameState = converter( (): fgamestate => ( { __fgamestate: true, __gamestate: true, __handle: true } ) );
+export const ConvertPlayerState = converter( (): playerstate => ( { __playerstate: true, __handle: true } ) );
+export const ConvertPlayerScore = converter( (): playerscore => ( { __playerscore: true, __handle: true } ) );
+export const ConvertPlayerGameResult = converter( (): playergameresult => ( { __playergameresult: true, __handle: true } ) );
+export const ConvertUnitState = converter( (): unitstate => ( { __unitstate: true, __handle: true } ) );
+export const ConvertAIDifficulty = converter( (): aidifficulty => ( { __aidifficulty: true, __handle: true } ) );
+export const ConvertGameEvent = converter( (): gameevent => ( { __gameevent: true, __eventid: true, __handle: true } ) );
+export const ConvertPlayerEvent = converter( (): playerevent => ( { __playerevent: true, __eventid: true, __handle: true } ) );
+export const ConvertPlayerUnitEvent = converter( (): playerunitevent => ( { __playerunitevent: true, __eventid: true, __handle: true } ) );
+export const ConvertWidgetEvent = converter( (): widgetevent => ( { __widgetevent: true, __eventid: true, __handle: true } ) );
+export const ConvertDialogEvent = converter( (): dialogevent => ( { __dialogevent: true, __eventid: true, __handle: true } ) );
+export const ConvertUnitEvent = converter( (): unitevent => ( { __unitevent: true, __eventid: true, __handle: true } ) );
+export const ConvertLimitOp = converter( (): limitop => ( { __limitop: true, __eventid: true, __handle: true } ) );
+export const ConvertUnitType = converter( (): unittype => ( { __unittype: true, __handle: true } ) );
+export const ConvertGameSpeed = converter( (): gamespeed => ( { __gamespeed: true, __handle: true } ) );
+export const ConvertPlacement = converter( (): placement => ( { __placement: true, __handle: true } ) );
+export const ConvertStartLocPrio = converter( (): startlocprio => ( { __startlocprio: true, __handle: true } ) );
+export const ConvertGameDifficulty = converter( (): gamedifficulty => ( { __gamedifficulty: true, __handle: true } ) );
+export const ConvertGameType = converter( (): gametype => ( { __gametype: true, __handle: true } ) );
+export const ConvertMapFlag = converter( (): mapflag => ( { __mapflag: true, __handle: true } ) );
+export const ConvertMapVisibility = converter( (): mapvisibility => ( { __mapvisibility: true, __handle: true } ) );
+export const ConvertMapSetting = converter( (): mapsetting => ( { __mapsetting: true, __handle: true } ) );
+export const ConvertMapDensity = converter( (): mapdensity => ( { __mapdensity: true, __handle: true } ) );
+export const ConvertMapControl = converter( (): mapcontrol => ( { __mapcontrol: true, __handle: true } ) );
+export const ConvertPlayerColor = converter( (): playercolor => ( { __playercolor: true, __handle: true } ) );
+export const ConvertPlayerSlotState = converter( (): playerslotstate => ( { __playerslotstate: true, __handle: true } ) );
+export const ConvertVolumeGroup = converter( (): volumegroup => ( { __volumegroup: true, __handle: true } ) );
+export const ConvertCameraField = converter( (): camerafield => ( { __camerafield: true, __handle: true } ) );
+export const ConvertBlendMode = converter( (): blendmode => ( { __blendmode: true, __handle: true } ) );
+export const ConvertRarityControl = converter( (): raritycontrol => ( { __raritycontrol: true, __handle: true } ) );
+export const ConvertTexMapFlags = converter( (): texmapflags => ( { __texmapflags: true, __handle: true } ) );
+export const ConvertFogState = converter( (): fogstate => ( { __fogstate: true, __handle: true } ) );
+export const ConvertEffectType = converter( (): effecttype => ( { __effecttype: true, __handle: true } ) );
+export const ConvertVersion = converter( (): version => ( { __version: true, __handle: true } ) );
+export const ConvertItemType = converter( (): itemtype => ( { __itemtype: true, __handle: true } ) );
+export const ConvertAttackType = converter( (): attacktype => ( { __attacktype: true, __handle: true } ) );
+export const ConvertDamageType = converter( (): damagetype => ( { __damagetype: true, __handle: true } ) );
+export const ConvertWeaponType = converter( (): weapontype => ( { __weapontype: true, __handle: true } ) );
+export const ConvertSoundType = converter( (): soundtype => ( { __soundtype: true, __handle: true } ) );
+export const ConvertPathingType = converter( (): pathingtype => ( { __pathingtype: true, __handle: true } ) );
+export const ConvertMouseButtonType = converter( (): mousebuttontype => ( { __mousebuttontype: true, __handle: true } ) );
+export const ConvertAnimType = converter( (): animtype => ( { __animtype: true, __handle: true } ) );
+export const ConvertSubAnimType = converter( (): subanimtype => ( { __subanimtype: true, __handle: true } ) );
+export const ConvertOriginFrameType = converter( (): originframetype => ( { __originframetype: true, __handle: true } ) );
+export const ConvertFramePointType = converter( (): framepointtype => ( { __framepointtype: true, __handle: true } ) );
+export const ConvertTextAlignType = converter( (): textaligntype => ( { __textaligntype: true, __handle: true } ) );
+export const ConvertFrameEventType = converter( (): frameeventtype => ( { __frameeventtype: true, __handle: true } ) );
+export const ConvertOsKeyType = converter( (): oskeytype => ( { __oskeytype: true, __handle: true } ) );
+export const ConvertAbilityIntegerField = converter( (): abilitynumberfield => ( { __abilitynumberfield: true, __handle: true } ) );
+export const ConvertAbilityRealField = converter( (): abilitynumberfield => ( { __abilitynumberfield: true, __handle: true } ) );
+export const ConvertAbilityBooleanField = converter( (): abilitybooleanfield => ( { __abilitybooleanfield: true, __handle: true } ) );
+export const ConvertAbilityStringField = converter( (): abilitystringfield => ( { __abilitystringfield: true, __handle: true } ) );
+export const ConvertAbilityIntegerLevelField = converter( (): abilitynumberlevelfield => ( { __abilitynumberlevelfield: true, __handle: true } ) );
+export const ConvertAbilityRealLevelField = converter( (): abilitynumberlevelfield => ( { __abilitynumberlevelfield: true, __handle: true } ) );
+export const ConvertAbilityBooleanLevelField = converter( (): abilitybooleanlevelfield => ( { __abilitybooleanlevelfield: true, __handle: true } ) );
+export const ConvertAbilityStringLevelField = converter( (): abilitystringlevelfield => ( { __abilitystringlevelfield: true, __handle: true } ) );
+export const ConvertAbilityIntegerLevelArrayField = converter( (): abilitynumberlevelarrayfield => ( { __abilitynumberlevelarrayfield: true, __handle: true } ) );
+export const ConvertAbilityRealLevelArrayField = converter( (): abilitynumberlevelarrayfield => ( { __abilitynumberlevelarrayfield: true, __handle: true } ) );
+export const ConvertAbilityBooleanLevelArrayField = converter( (): abilitybooleanlevelarrayfield => ( { __abilitybooleanlevelarrayfield: true, __handle: true } ) );
+export const ConvertAbilityStringLevelArrayField = converter( (): abilitystringlevelarrayfield => ( { __abilitystringlevelarrayfield: true, __handle: true } ) );
+export const ConvertUnitIntegerField = converter( (): unitnumberfield => ( { __unitnumberfield: true, __handle: true } ) );
+export const ConvertUnitRealField = converter( (): unitnumberfield => ( { __unitnumberfield: true, __handle: true } ) );
+export const ConvertUnitBooleanField = converter( (): unitbooleanfield => ( { __unitbooleanfield: true, __handle: true } ) );
+export const ConvertUnitStringField = converter( (): unitstringfield => ( { __unitstringfield: true, __handle: true } ) );
+export const ConvertUnitWeaponIntegerField = converter( (): unitweaponnumberfield => ( { __unitweaponnumberfield: true, __handle: true } ) );
+export const ConvertUnitWeaponRealField = converter( (): unitweaponnumberfield => ( { __unitweaponnumberfield: true, __handle: true } ) );
+export const ConvertUnitWeaponBooleanField = converter( (): unitweaponbooleanfield => ( { __unitweaponbooleanfield: true, __handle: true } ) );
+export const ConvertUnitWeaponStringField = converter( (): unitweaponstringfield => ( { __unitweaponstringfield: true, __handle: true } ) );
+export const ConvertItemIntegerField = converter( (): itemnumberfield => ( { __itemnumberfield: true, __handle: true } ) );
+export const ConvertItemRealField = converter( (): itemnumberfield => ( { __itemnumberfield: true, __handle: true } ) );
+export const ConvertItemBooleanField = converter( (): itembooleanfield => ( { __itembooleanfield: true, __handle: true } ) );
+export const ConvertItemStringField = converter( (): itemstringfield => ( { __itemstringfield: true, __handle: true } ) );
+export const ConvertMoveType = converter( (): movetype => ( { __movetype: true, __handle: true } ) );
+export const ConvertTargetFlag = converter( (): targetflag => ( { __targetflag: true, __handle: true } ) );
+export const ConvertArmorType = converter( (): armortype => ( { __armortype: true, __handle: true } ) );
+export const ConvertHeroAttribute = converter( (): heroattribute => ( { __heroattribute: true, __handle: true } ) );
+export const ConvertDefenseType = converter( (): defensetype => ( { __defensetype: true, __handle: true } ) );
+export const ConvertRegenType = converter( (): regentype => ( { __regentype: true, __handle: true } ) );
+export const ConvertUnitCategory = converter( (): unitcategory => ( { __unitcategory: true, __handle: true } ) );
+export const ConvertPathingFlag = converter( (): pathingflag => ( { __pathingflag: true, __handle: true } ) );
+
+export const OrderId = ( orderIdString: string ): number => {
+
+    console.warn("OrderID not implemented")
+    return 0;
+
+};
 
 export const OrderId2String = ( orderId: number ): string => {};
 
@@ -447,16 +258,13 @@ export const UnitId = ( unitIdString: string ): number => {};
 
 export const UnitId2String = ( unitId: number ): string => {};
 
-
 // Not currently working correctly...
 export const AbilityId = ( abilityIdString: string ): number => {};
 
 export const AbilityId2String = ( abilityId: number ): string => {};
 
-
 // Looks up the "name" field for any object (unit, item, ability)
 export const GetObjectName = ( objectId: number ): string => {};
-
 
 export const GetBJMaxPlayers = (): number => {};
 
@@ -470,10 +278,8 @@ export const GetPlayerNeutralPassive = (): number => {};
 
 export const GetPlayerNeutralAggressive = (): number => {};
 
-
-
 // ===================================================
-// Game Constants    
+// Game Constants
 // ===================================================
 
 // pfff
@@ -670,7 +476,7 @@ export const SUBANIM_TYPE_ENTANGLE = ConvertSubAnimType( 61 );
 export const SUBANIM_TYPE_BERSERK = ConvertSubAnimType( 62 );
 
 // ===================================================
-// Map Setup Constants    
+// Map Setup Constants
 // ===================================================
 
 export const RACE_PREF_HUMAN = ConvertRacePref( 1 );
@@ -763,7 +569,6 @@ export const SOUND_VOLUMEGROUP_UI = ConvertVolumeGroup( 4 );
 export const SOUND_VOLUMEGROUP_MUSIC = ConvertVolumeGroup( 5 );
 export const SOUND_VOLUMEGROUP_AMBIENTSOUNDS = ConvertVolumeGroup( 6 );
 export const SOUND_VOLUMEGROUP_FIRE = ConvertVolumeGroup( 7 );
-
 
 // ===================================================
 // Game, Player, and Unit States
@@ -858,8 +663,8 @@ export const PLAYER_SCORE_TOTAL = ConvertPlayerScore( 24 );
 // ===================================================
 
 // ===================================================
-// For use with TriggerRegisterGameEvent    
-// ===================================================    
+// For use with TriggerRegisterGameEvent
+// ===================================================
 
 export const EVENT_GAME_VICTORY = ConvertGameEvent( 0 );
 export const EVENT_GAME_END_LEVEL = ConvertGameEvent( 1 );
@@ -958,8 +763,8 @@ export const EVENT_UNIT_DESELECTED = ConvertUnitEvent( 58 );
 
 export const EVENT_UNIT_STATE_LIMIT = ConvertUnitEvent( 59 );
 
-// Events which may have a filter for the "other unit"              
-//                                                                  
+// Events which may have a filter for the "other unit"
+//
 export const EVENT_UNIT_ACQUIRED_TARGET = ConvertUnitEvent( 60 );
 export const EVENT_UNIT_TARGET_IN_RANGE = ConvertUnitEvent( 61 );
 export const EVENT_UNIT_ATTACKED = ConvertUnitEvent( 62 );
@@ -972,9 +777,9 @@ export const EVENT_UNIT_UPGRADE_START = ConvertUnitEvent( 66 );
 export const EVENT_UNIT_UPGRADE_CANCEL = ConvertUnitEvent( 67 );
 export const EVENT_UNIT_UPGRADE_FINISH = ConvertUnitEvent( 68 );
 
-// Events which involve the specified unit performing               
-// training of other units                                          
-//                                                                  
+// Events which involve the specified unit performing
+// training of other units
+//
 export const EVENT_UNIT_TRAIN_START = ConvertUnitEvent( 69 );
 export const EVENT_UNIT_TRAIN_CANCEL = ConvertUnitEvent( 70 );
 export const EVENT_UNIT_TRAIN_FINISH = ConvertUnitEvent( 71 );
@@ -1011,7 +816,7 @@ export const EVENT_DIALOG_CLICK = ConvertDialogEvent( 91 );
 // ===================================================
 // Frozen Throne Expansion Events
 // Need to be added here to preserve compat
-// ===================================================    
+// ===================================================
 
 export const EVENT_GAME_LOADED = ConvertGameEvent( 256 );
 export const EVENT_GAME_TOURNAMENT_FINISH_SOON = ConvertGameEvent( 257 );
@@ -1068,7 +873,7 @@ export const EVENT_UNIT_SPELL_ENDCAST = ConvertUnitEvent( 293 );
 export const EVENT_UNIT_PAWN_ITEM = ConvertUnitEvent( 294 );
 
 // ===================================================
-// Limit Event API constants    
+// Limit Event API constants
 // variable, player state, game state, and unit state events
 // ( do NOT change the order of these... )
 // ===================================================
@@ -2404,13 +2209,11 @@ export const PATHING_FLAG_UNFLOATABLE = ConvertPathingFlag( 64 );
 export const PATHING_FLAG_UNAMPHIBIOUS = ConvertPathingFlag( 128 );
 export const PATHING_FLAG_UNITEMPLACABLE = ConvertPathingFlag( 256 );
 
-
 // ============================================================================
 // MathAPI
 export const Deg2Rad = ( degrees: number ): number => {};
 
 export const Rad2Deg = ( radians: number ): number => {};
-
 
 export const Sin = ( radians: number ): number => {};
 
@@ -2418,30 +2221,24 @@ export const Cos = ( radians: number ): number => {};
 
 export const Tan = ( radians: number ): number => {};
 
-
 // Expect values between -1 and 1...returns 0 for invalid input
 export const Asin = ( y: number ): number => {};
 
 export const Acos = ( x: number ): number => {};
 
-
 export const Atan = ( x: number ): number => {};
-
 
 // Returns 0 if x and y are both 0
 export const Atan2 = ( y: number, x: number ): number => {};
 
-
 // Returns 0 if x <= 0
 export const SquareRoot = ( x: number ): number => {};
-
 
 // computes x to the y power
 // y == 0.0             => 1
 // x ==0.0 and y < 0    => 0
 //
 export const Pow = ( x: number, power: number ): number => {};
-
 
 // ============================================================================
 // String Utility API
@@ -2469,11 +2266,9 @@ export const StringCase = ( source: string, upper: boolean ): string => {};
 
 export const StringHash = ( s: string ): number => {};
 
-
 export const GetLocalizedString = ( source: string ): string => {};
 
 export const GetLocalizedHotkey = ( source: string ): number => {};
-
 
 // ============================================================================
 // Map Setup API
@@ -2488,11 +2283,9 @@ export const SetMapName = ( name: string ): void => {};
 
 export const SetMapDescription = ( description: string ): void => {};
 
-
 export const SetTeams = ( teamcount: number ): void => {};
 
 export const SetPlayers = ( playercount: number ): void => {};
-
 
 export const DefineStartLocation = ( whichStartLoc: number, x: number, y: number ): void => {};
 
@@ -2505,7 +2298,6 @@ export const SetStartLocPrio = ( whichStartLoc: number, prioSlotIndex: number, o
 export const GetStartLocPrioSlot = ( whichStartLoc: number, prioSlotIndex: number ): number => {};
 
 export const GetStartLocPrio = ( whichStartLoc: number, prioSlotIndex: number ): startlocprio => {};
-
 
 export const SetGameTypeSupported = ( whichGameType: gametype, value: boolean ): void => {};
 
@@ -2521,18 +2313,15 @@ export const SetResourceDensity = ( whichdensity: mapdensity ): void => {};
 
 export const SetCreatureDensity = ( whichdensity: mapdensity ): void => {};
 
-
 export const GetTeams = (): number => {};
 
 export const GetPlayers = (): number => {};
-
 
 export const IsGameTypeSupported = ( whichGameType: gametype ): boolean => {};
 
 export const GetGameTypeSelected = (): gametype => {};
 
 export const IsMapFlagSet = ( whichMapFlag: mapflag ): boolean => {};
-
 
 export const GetGamePlacement = (): placement => {};
 
@@ -2549,8 +2338,6 @@ export const GetStartLocationX = ( whichStartLocation: number ): number => {};
 export const GetStartLocationY = ( whichStartLocation: number ): number => {};
 
 export const GetStartLocationLoc = ( whichStartLocation: number ): location => {};
-
-
 
 export const SetPlayerTeam = ( whichPlayer: player, whichTeam: number ): void => {};
 
@@ -2576,9 +2363,7 @@ export const SetPlayerController = ( whichPlayer: player, controlType: mapcontro
 
 export const SetPlayerName = ( whichPlayer: player, name: string ): void => {};
 
-
 export const SetPlayerOnScoreScreen = ( whichPlayer: player, flag: boolean ): void => {};
-
 
 export const GetPlayerTeam = ( whichPlayer: player ): number => {};
 
@@ -2597,7 +2382,6 @@ export const GetPlayerTaxRate = ( sourcePlayer: player, otherPlayer: player, whi
 export const IsPlayerRacePrefSet = ( whichPlayer: player, pref: racepreference ): boolean => {};
 
 export const GetPlayerName = ( whichPlayer: player ): string => {};
-
 
 // ============================================================================
 // Timer API
@@ -2619,7 +2403,6 @@ export const PauseTimer = ( whichTimer: timer ): void => {};
 export const ResumeTimer = ( whichTimer: timer ): void => {};
 
 export const GetExpiredTimer = (): timer => {};
-
 
 // ============================================================================
 // Group API
@@ -2662,7 +2445,6 @@ export const GroupEnumUnitsInRangeOfLocCounted = ( whichGroup: group, whichLocat
 
 export const GroupEnumUnitsSelected = ( whichGroup: group, whichPlayer: player, filter: boolexpr ): void => {};
 
-
 export const GroupImmediateOrder = ( whichGroup: group, order: string ): boolean => {};
 
 export const GroupImmediateOrderById = ( whichGroup: group, order: number ): boolean => {};
@@ -2679,7 +2461,6 @@ export const GroupTargetOrder = ( whichGroup: group, order: string, targetWidget
 
 export const GroupTargetOrderById = ( whichGroup: group, order: number, targetWidget: widget ): boolean => {};
 
-
 // This will be difficult to support with potentially disjoint, cell-based regions
 // as it would involve enumerating all the cells that are covered by a particularregion
 // a better implementation would be a trigger that adds relevant units as they enter
@@ -2687,7 +2468,6 @@ export const GroupTargetOrderById = ( whichGroup: group, order: number, targetWi
 export const ForGroup = ( whichGroup: group, callback: code ): void => {};
 
 export const FirstOfGroup = ( whichGroup: group ): unit => {};
-
 
 // ============================================================================
 // Force API
@@ -2714,7 +2494,6 @@ export const ForceEnumEnemies = ( whichForce: force, whichPlayer: player, filter
 
 export const ForForce = ( whichForce: force, callback: code ): void => {};
 
-
 // ============================================================================
 // Region and Location API
 //
@@ -2732,7 +2511,6 @@ export const MoveRectTo = ( whichRect: rect, newCenterX: number, newCenterY: num
 
 export const MoveRectToLoc = ( whichRect: rect, newCenterLoc: location ): void => {};
 
-
 export const GetRectCenterX = ( whichRect: rect ): number => {};
 
 export const GetRectCenterY = ( whichRect: rect ): number => {};
@@ -2745,16 +2523,13 @@ export const GetRectMaxX = ( whichRect: rect ): number => {};
 
 export const GetRectMaxY = ( whichRect: rect ): number => {};
 
-
 export const CreateRegion = (): region => {};
 
 export const RemoveRegion = ( whichRegion: region ): void => {};
 
-
 export const RegionAddRect = ( whichRegion: region, r: rect ): void => {};
 
 export const RegionClearRect = ( whichRegion: region, r: rect ): void => {};
-
 
 export const RegionAddCell = ( whichRegion: region, x: number, y: number ): void => {};
 
@@ -2763,7 +2538,6 @@ export const RegionAddCellAtLoc = ( whichRegion: region, whichLocation: location
 export const RegionClearCell = ( whichRegion: region, x: number, y: number ): void => {};
 
 export const RegionClearCellAtLoc = ( whichRegion: region, whichLocation: location ): void => {};
-
 
 export const Location = ( x: number, y: number ): location => {};
 
@@ -2775,11 +2549,9 @@ export const GetLocationX = ( whichLocation: location ): number => {};
 
 export const GetLocationY = ( whichLocation: location ): number => {};
 
-
 // This function is asynchronous. The values it returns are not guaranteed synchronous between each player.
 //  If you attempt to use it in a synchronous manner, it may cause a desync.
 export const GetLocationZ = ( whichLocation: location ): number => {};
-
 
 export const IsUnitInRegion = ( whichRegion: region, whichUnit: unit ): boolean => {};
 
@@ -2787,10 +2559,8 @@ export const IsPointInRegion = ( whichRegion: region, x: number, y: number ): bo
 
 export const IsLocationInRegion = ( whichRegion: region, whichLocation: location ): boolean => {};
 
-
 // Returns full map bounds, including unplayable borders, in world coordinates
 export const GetWorldBounds = (): rect => {};
-
 
 // ============================================================================
 // Native trigger interface
@@ -2807,31 +2577,25 @@ export const DisableTrigger = ( whichTrigger: trigger ): void => {};
 
 export const IsTriggerEnabled = ( whichTrigger: trigger ): boolean => {};
 
-
 export const TriggerWaitOnSleeps = ( whichTrigger: trigger, flag: boolean ): void => {};
 
 export const IsTriggerWaitOnSleeps = ( whichTrigger: trigger ): boolean => {};
-
 
 export const GetFilterUnit = (): unit => {};
 
 export const GetEnumUnit = (): unit => {};
 
-
 export const GetFilterDestructable = (): destructable => {};
 
 export const GetEnumDestructable = (): destructable => {};
-
 
 export const GetFilterItem = (): item => {};
 
 export const GetEnumItem = (): item => {};
 
-
 export const GetFilterPlayer = (): player => {};
 
 export const GetEnumPlayer = (): player => {};
-
 
 export const GetTriggeringTrigger = (): trigger => {};
 
@@ -2841,9 +2605,7 @@ export const GetTriggerEvalCount = ( whichTrigger: trigger ): number => {};
 
 export const GetTriggerExecCount = ( whichTrigger: trigger ): number => {};
 
-
 export const ExecuteFunc = ( funcName: string ): void => {};
-
 
 // ============================================================================
 // Boolean Expr API ( for compositing trigger conditions and unit filter funcs...)
@@ -2864,13 +2626,11 @@ export const DestroyFilter = ( f: filterfunc ): void => {};
 
 export const DestroyBoolExpr = ( e: boolexpr ): void => {};
 
-
 // ============================================================================
 // Trigger Game Event API
 // ============================================================================
 
 export const TriggerRegisterVariableEvent = ( whichTrigger: trigger, varName: string, opcode: limitop, limitval: number ): event => {};
-
 
 // EVENT_GAME_VARIABLE_LIMIT
 // constant native string GetTriggeringVariableName takes nothing returns string
@@ -2878,39 +2638,29 @@ export const TriggerRegisterVariableEvent = ( whichTrigger: trigger, varName: st
 // Creates it's own timer and triggers when it expires
 export const TriggerRegisterTimerEvent = ( whichTrigger: trigger, timeout: number, periodic: boolean ): event => {};
 
-
 // Triggers when the timer you tell it about expires
 export const TriggerRegisterTimerExpireEvent = ( whichTrigger: trigger, t: timer ): event => {};
 
-
 export const TriggerRegisterGameStateEvent = ( whichTrigger: trigger, whichState: gamestate, opcode: limitop, limitval: number ): event => {};
-
 
 export const TriggerRegisterDialogEvent = ( whichTrigger: trigger, whichDialog: dialog ): event => {};
 
 export const TriggerRegisterDialogButtonEvent = ( whichTrigger: trigger, whichButton: button ): event => {};
 
-
 //  EVENT_GAME_STATE_LIMIT
 export const GetEventGameState = (): gamestate => {};
 
-
 export const TriggerRegisterGameEvent = ( whichTrigger: trigger, whichGameEvent: gameevent ): event => {};
-
 
 // EVENT_GAME_VICTORY
 export const GetWinningPlayer = (): player => {};
 
-
-
 export const TriggerRegisterEnterRegion = ( whichTrigger: trigger, whichRegion: region, filter: boolexpr ): event => {};
-
 
 // EVENT_GAME_ENTER_REGION
 export const GetTriggeringRegion = (): region => {};
 
 export const GetEnteringUnit = (): unit => {};
-
 
 // EVENT_GAME_LEAVE_REGION
 
@@ -2918,22 +2668,18 @@ export const TriggerRegisterLeaveRegion = ( whichTrigger: trigger, whichRegion: 
 
 export const GetLeavingUnit = (): unit => {};
 
-
 export const TriggerRegisterTrackableHitEvent = ( whichTrigger: trigger, t: trackable ): event => {};
 
 export const TriggerRegisterTrackableTrackEvent = ( whichTrigger: trigger, t: trackable ): event => {};
-
 
 // EVENT_GAME_TRACKABLE_HIT
 // EVENT_GAME_TRACKABLE_TRACK
 export const GetTriggeringTrackable = (): trackable => {};
 
-
 // EVENT_DIALOG_BUTTON_CLICK
 export const GetClickedButton = (): button => {};
 
 export const GetClickedDialog = (): dialog => {};
-
 
 // EVENT_GAME_TOURNAMENT_FINISH_SOON
 export const GetTournamentFinishSoonTimeRemaining = (): number => {};
@@ -2944,10 +2690,8 @@ export const GetTournamentFinishNowPlayer = (): player => {};
 
 export const GetTournamentScore = ( whichPlayer: player ): number => {};
 
-
 // EVENT_GAME_SAVE
 export const GetSaveBasicFilename = (): string => {};
-
 
 // ============================================================================
 // Trigger Player Based Event API
@@ -2955,19 +2699,15 @@ export const GetSaveBasicFilename = (): string => {};
 
 export const TriggerRegisterPlayerEvent = ( whichTrigger: trigger, whichPlayer: player, whichPlayerEvent: playerevent ): event => {};
 
-
 // EVENT_PLAYER_DEFEAT
 // EVENT_PLAYER_VICTORY
 export const GetTriggerPlayer = (): player => {};
 
-
 export const TriggerRegisterPlayerUnitEvent = ( whichTrigger: trigger, whichPlayer: player, whichPlayerUnitEvent: playerunitevent, filter: boolexpr ): event => {};
-
 
 // EVENT_PLAYER_HERO_LEVEL
 // EVENT_UNIT_HERO_LEVEL
 export const GetLevelingUnit = (): unit => {};
-
 
 // EVENT_PLAYER_HERO_SKILL
 // EVENT_UNIT_HERO_SKILL
@@ -2977,10 +2717,8 @@ export const GetLearnedSkill = (): number => {};
 
 export const GetLearnedSkillLevel = (): number => {};
 
-
 // EVENT_PLAYER_HERO_REVIVABLE
 export const GetRevivableUnit = (): unit => {};
-
 
 // EVENT_PLAYER_HERO_REVIVE_START
 // EVENT_PLAYER_HERO_REVIVE_CANCEL
@@ -2990,24 +2728,19 @@ export const GetRevivableUnit = (): unit => {};
 // EVENT_UNIT_HERO_REVIVE_FINISH
 export const GetRevivingUnit = (): unit => {};
 
-
 // EVENT_PLAYER_UNIT_ATTACKED
 export const GetAttacker = (): unit => {};
 
-
 // EVENT_PLAYER_UNIT_RESCUED
 export const GetRescuer = (): unit => {};
-
 
 // EVENT_PLAYER_UNIT_DEATH
 export const GetDyingUnit = (): unit => {};
 
 export const GetKillingUnit = (): unit => {};
 
-
 // EVENT_PLAYER_UNIT_DECAY
 export const GetDecayingUnit = (): unit => {};
-
 
 // EVENT_PLAYER_UNIT_SELECTED
 // constant native GetSelectedUnit takes nothing returns unit
@@ -3015,13 +2748,11 @@ export const GetDecayingUnit = (): unit => {};
 // EVENT_PLAYER_UNIT_CONSTRUCT_START
 export const GetConstructingStructure = (): unit => {};
 
-
 // EVENT_PLAYER_UNIT_CONSTRUCT_FINISH
 // EVENT_PLAYER_UNIT_CONSTRUCT_CANCEL
 export const GetCancelledStructure = (): unit => {};
 
 export const GetConstructedStructure = (): unit => {};
-
 
 // EVENT_PLAYER_UNIT_RESEARCH_START
 // EVENT_PLAYER_UNIT_RESEARCH_CANCEL
@@ -3030,31 +2761,25 @@ export const GetResearchingUnit = (): unit => {};
 
 export const GetResearched = (): number => {};
 
-
 // EVENT_PLAYER_UNIT_TRAIN_START
 // EVENT_PLAYER_UNIT_TRAIN_CANCEL
 export const GetTrainedUnitType = (): number => {};
 
-
 // EVENT_PLAYER_UNIT_TRAIN_FINISH
 export const GetTrainedUnit = (): unit => {};
 
-
 // EVENT_PLAYER_UNIT_DETECTED
 export const GetDetectedUnit = (): unit => {};
-
 
 // EVENT_PLAYER_UNIT_SUMMONED
 export const GetSummoningUnit = (): unit => {};
 
 export const GetSummonedUnit = (): unit => {};
 
-
 // EVENT_PLAYER_UNIT_LOADED
 export const GetTransportUnit = (): unit => {};
 
 export const GetLoadedUnit = (): unit => {};
-
 
 // EVENT_PLAYER_UNIT_SELL
 export const GetSellingUnit = (): unit => {};
@@ -3063,16 +2788,13 @@ export const GetSoldUnit = (): unit => {};
 
 export const GetBuyingUnit = (): unit => {};
 
-
 // EVENT_PLAYER_UNIT_SELL_ITEM
 export const GetSoldItem = (): item => {};
-
 
 // EVENT_PLAYER_UNIT_CHANGE_OWNER
 export const GetChangingUnit = (): unit => {};
 
 export const GetChangingUnitPrevOwner = (): player => {};
-
 
 // EVENT_PLAYER_UNIT_DROP_ITEM
 // EVENT_PLAYER_UNIT_PICKUP_ITEM
@@ -3081,12 +2803,10 @@ export const GetManipulatingUnit = (): unit => {};
 
 export const GetManipulatedItem = (): item => {};
 
-
 // EVENT_PLAYER_UNIT_ISSUED_ORDER
 export const GetOrderedUnit = (): unit => {};
 
 export const GetIssuedOrderId = (): number => {};
-
 
 // EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER
 export const GetOrderPointX = (): number => {};
@@ -3094,7 +2814,6 @@ export const GetOrderPointX = (): number => {};
 export const GetOrderPointY = (): number => {};
 
 export const GetOrderPointLoc = (): location => {};
-
 
 // EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER
 export const GetOrderTarget = (): widget => {};
@@ -3104,7 +2823,6 @@ export const GetOrderTargetDestructable = (): destructable => {};
 export const GetOrderTargetItem = (): item => {};
 
 export const GetOrderTargetUnit = (): unit => {};
-
 
 // EVENT_UNIT_SPELL_CHANNEL
 // EVENT_UNIT_SPELL_CAST
@@ -3134,18 +2852,14 @@ export const GetSpellTargetItem = (): item => {};
 
 export const GetSpellTargetUnit = (): unit => {};
 
-
 export const TriggerRegisterPlayerAllianceChange = ( whichTrigger: trigger, whichPlayer: player, whichAlliance: alliancetype ): event => {};
 
 export const TriggerRegisterPlayerStateEvent = ( whichTrigger: trigger, whichPlayer: player, whichState: playerstate, opcode: limitop, limitval: number ): event => {};
 
-
 // EVENT_PLAYER_STATE_LIMIT
 export const GetEventPlayerState = (): playerstate => {};
 
-
 export const TriggerRegisterPlayerChatEvent = ( whichTrigger: trigger, whichPlayer: player, chatMessageToDetect: string, exactMatchOnly: boolean ): event => {};
-
 
 // EVENT_PLAYER_CHAT
 
@@ -3153,13 +2867,10 @@ export const TriggerRegisterPlayerChatEvent = ( whichTrigger: trigger, whichPlay
 // if you required exact match )
 export const GetEventPlayerChatString = (): string => {};
 
-
 // returns the string that you registered for
 export const GetEventPlayerChatStringMatched = (): string => {};
 
-
 export const TriggerRegisterDeathEvent = ( whichTrigger: trigger, whichWidget: widget ): event => {};
-
 
 // ============================================================================
 // Trigger Unit Based Event API
@@ -3170,38 +2881,30 @@ export const TriggerRegisterDeathEvent = ( whichTrigger: trigger, whichWidget: w
 
 export const GetTriggerUnit = (): unit => {};
 
-
 export const TriggerRegisterUnitStateEvent = ( whichTrigger: trigger, whichUnit: unit, whichState: unitstate, opcode: limitop, limitval: number ): event => {};
-
 
 // EVENT_UNIT_STATE_LIMIT
 export const GetEventUnitState = (): unitstate => {};
 
-
 export const TriggerRegisterUnitEvent = ( whichTrigger: trigger, whichUnit: unit, whichEvent: unitevent ): event => {};
-
 
 // EVENT_UNIT_DAMAGED
 export const GetEventDamage = (): number => {};
 
 export const GetEventDamageSource = (): unit => {};
 
-
 // EVENT_UNIT_DEATH
 // EVENT_UNIT_DECAY
 // Use the GetDyingUnit and GetDecayingUnit funcs above
 
-// EVENT_UNIT_DETECTED 
+// EVENT_UNIT_DETECTED
 export const GetEventDetectingPlayer = (): player => {};
 
-
 export const TriggerRegisterFilterUnitEvent = ( whichTrigger: trigger, whichUnit: unit, whichEvent: unitevent, filter: boolexpr ): event => {};
-
 
 // EVENT_UNIT_ACQUIRED_TARGET
 // EVENT_UNIT_TARGET_IN_RANGE
 export const GetEventTargetUnit = (): unit => {};
-
 
 // EVENT_UNIT_ATTACKED
 // Use GetAttacker from the Player Unit Event API Below...
@@ -3237,13 +2940,11 @@ export const GetEventTargetUnit = (): unit => {};
 
 export const TriggerRegisterUnitInRange = ( whichTrigger: trigger, whichUnit: unit, range: number, filter: boolexpr ): event => {};
 
-
 export const TriggerAddCondition = ( whichTrigger: trigger, condition: boolexpr ): triggercondition => {};
 
 export const TriggerRemoveCondition = ( whichTrigger: trigger, whichCondition: triggercondition ): void => {};
 
 export const TriggerClearConditions = ( whichTrigger: trigger ): void => {};
-
 
 export const TriggerAddAction = ( whichTrigger: trigger, actionFunc: code ): triggeraction => {};
 
@@ -3265,7 +2966,6 @@ export const TriggerSyncStart = (): void => {};
 
 export const TriggerSyncReady = (): void => {};
 
-
 // ============================================================================
 // Widget API
 export const GetWidgetLife = ( whichWidget: widget ): number => {};
@@ -3277,7 +2977,6 @@ export const GetWidgetX = ( whichWidget: widget ): number => {};
 export const GetWidgetY = ( whichWidget: widget ): number => {};
 
 export const GetTriggerWidget = (): widget => {};
-
 
 // ============================================================================
 // Destructable Object API
@@ -3331,7 +3030,6 @@ export const SetDestructableOccluderHeight = ( d: destructable, height: number )
 export const GetDestructableName = ( d: destructable ): string => {};
 
 export const GetTriggerDestructable = (): destructable => {};
-
 
 // ============================================================================
 // Item API
@@ -3397,7 +3095,6 @@ export const GetItemUserData = ( whichItem: item ): number => {};
 
 export const SetItemUserData = ( whichItem: item, data: number ): void => {};
 
-
 // ============================================================================
 // Unit API
 // Facing arguments are specified in degrees
@@ -3411,13 +3108,11 @@ export const CreateUnitAtLocByName = ( id: player, unitname: string, whichLocati
 
 export const CreateCorpse = ( whichPlayer: player, unitid: number, x: number, y: number, face: number ): unit => {};
 
-
 export const KillUnit = ( whichUnit: unit ): void => {};
 
 export const RemoveUnit = ( whichUnit: unit ): void => {};
 
 export const ShowUnit = ( whichUnit: unit, show: boolean ): void => {};
-
 
 export const SetUnitState = ( whichUnit: unit, whichUnitState: unitstate, newVal: number ): void => {};
 
@@ -3445,7 +3140,6 @@ export const SetUnitAcquireRange = ( whichUnit: unit, newAcquireRange: number ):
 
 export const SetUnitCreepGuard = ( whichUnit: unit, creepGuard: boolean ): void => {};
 
-
 export const GetUnitAcquireRange = ( whichUnit: unit ): number => {};
 
 export const GetUnitTurnSpeed = ( whichUnit: unit ): number => {};
@@ -3453,7 +3147,6 @@ export const GetUnitTurnSpeed = ( whichUnit: unit ): number => {};
 export const GetUnitPropWindow = ( whichUnit: unit ): number => {};
 
 export const GetUnitFlyHeight = ( whichUnit: unit ): number => {};
-
 
 export const GetUnitDefaultAcquireRange = ( whichUnit: unit ): number => {};
 
@@ -3463,11 +3156,9 @@ export const GetUnitDefaultPropWindow = ( whichUnit: unit ): number => {};
 
 export const GetUnitDefaultFlyHeight = ( whichUnit: unit ): number => {};
 
-
 export const SetUnitOwner = ( whichUnit: unit, whichPlayer: player, changeColor: boolean ): void => {};
 
 export const SetUnitColor = ( whichUnit: unit, whichColor: playercolor ): void => {};
-
 
 export const SetUnitScale = ( whichUnit: unit, scaleX: number, scaleY: number, scaleZ: number ): void => {};
 
@@ -3476,7 +3167,6 @@ export const SetUnitTimeScale = ( whichUnit: unit, timeScale: number ): void => 
 export const SetUnitBlendTime = ( whichUnit: unit, blendTime: number ): void => {};
 
 export const SetUnitVertexColor = ( whichUnit: unit, red: number, green: number, blue: number, alpha: number ): void => {};
-
 
 export const QueueUnitAnimation = ( whichUnit: unit, whichAnimation: string ): void => {};
 
@@ -3488,16 +3178,13 @@ export const SetUnitAnimationWithRarity = ( whichUnit: unit, whichAnimation: str
 
 export const AddUnitAnimationProperties = ( whichUnit: unit, animProperties: string, add: boolean ): void => {};
 
-
 export const SetUnitLookAt = ( whichUnit: unit, whichBone: string, lookAtTarget: unit, offsetX: number, offsetY: number, offsetZ: number ): void => {};
 
 export const ResetUnitLookAt = ( whichUnit: unit ): void => {};
 
-
 export const SetUnitRescuable = ( whichUnit: unit, byWhichPlayer: player, flag: boolean ): void => {};
 
 export const SetUnitRescueRange = ( whichUnit: unit, range: number ): void => {};
-
 
 export const SetHeroStr = ( whichHero: unit, newStr: number, permanent: boolean ): void => {};
 
@@ -3505,26 +3192,21 @@ export const SetHeroAgi = ( whichHero: unit, newAgi: number, permanent: boolean 
 
 export const SetHeroInt = ( whichHero: unit, newInt: number, permanent: boolean ): void => {};
 
-
 export const GetHeroStr = ( whichHero: unit, includeBonuses: boolean ): number => {};
 
 export const GetHeroAgi = ( whichHero: unit, includeBonuses: boolean ): number => {};
 
 export const GetHeroInt = ( whichHero: unit, includeBonuses: boolean ): number => {};
 
-
 export const UnitStripHeroLevel = ( whichHero: unit, howManyLevels: number ): boolean => {};
-
 
 export const GetHeroXP = ( whichHero: unit ): number => {};
 
 export const SetHeroXP = ( whichHero: unit, newXpVal: number, showEyeCandy: boolean ): void => {};
 
-
 export const GetHeroSkillPoints = ( whichHero: unit ): number => {};
 
 export const UnitModifySkillPoints = ( whichHero: unit, skillPointDelta: number ): boolean => {};
-
 
 export const AddHeroXP = ( whichHero: unit, xpToAdd: number, showEyeCandy: boolean ): void => {};
 
@@ -3564,11 +3246,9 @@ export const IsUnitPaused = ( whichHero: unit ): boolean => {};
 
 export const SetUnitPathing = ( whichUnit: unit, flag: boolean ): void => {};
 
-
 export const ClearSelection = (): void => {};
 
 export const SelectUnit = ( whichUnit: unit, flag: boolean ): void => {};
-
 
 export const GetUnitPointValue = ( whichUnit: unit ): number => {};
 
@@ -3592,20 +3272,17 @@ export const UnitItemInSlot = ( whichUnit: unit, itemSlot: number ): item => {};
 
 export const UnitInventorySize = ( whichUnit: unit ): number => {};
 
-
 export const UnitDropItemPoint = ( whichUnit: unit, whichItem: item, x: number, y: number ): boolean => {};
 
 export const UnitDropItemSlot = ( whichUnit: unit, whichItem: item, slot: number ): boolean => {};
 
 export const UnitDropItemTarget = ( whichUnit: unit, whichItem: item, target: widget ): boolean => {};
 
-
 export const UnitUseItem = ( whichUnit: unit, whichItem: item ): boolean => {};
 
 export const UnitUseItemPoint = ( whichUnit: unit, whichItem: item, x: number, y: number ): boolean => {};
 
 export const UnitUseItemTarget = ( whichUnit: unit, whichItem: item, target: widget ): boolean => {};
-
 
 export const GetUnitX = ( whichUnit: unit ): number => {};
 
@@ -3639,13 +3316,11 @@ export const GetFoodUsed = ( unitId: number ): number => {};
 
 export const SetUnitUseFood = ( whichUnit: unit, useFood: boolean ): void => {};
 
-
 export const GetUnitRallyPoint = ( whichUnit: unit ): location => {};
 
 export const GetUnitRallyUnit = ( whichUnit: unit ): unit => {};
 
 export const GetUnitRallyDestructable = ( whichUnit: unit ): destructable => {};
-
 
 export const IsUnitInGroup = ( whichUnit: unit, whichGroup: group ): boolean => {};
 
@@ -3685,16 +3360,13 @@ export const IsUnitHidden = ( whichUnit: unit ): boolean => {};
 
 export const IsUnitIllusion = ( whichUnit: unit ): boolean => {};
 
-
 export const IsUnitInTransport = ( whichUnit: unit, whichTransport: unit ): boolean => {};
 
 export const IsUnitLoaded = ( whichUnit: unit ): boolean => {};
 
-
 export const IsHeroUnitId = ( unitId: number ): boolean => {};
 
 export const IsUnitIdType = ( unitId: number, whichUnitType: unittype ): boolean => {};
-
 
 export const UnitShareVision = ( whichUnit: unit, whichPlayer: player, share: boolean ): void => {};
 
@@ -3703,7 +3375,6 @@ export const UnitSuspendDecay = ( whichUnit: unit, suspend: boolean ): void => {
 export const UnitAddType = ( whichUnit: unit, whichUnitType: unittype ): boolean => {};
 
 export const UnitRemoveType = ( whichUnit: unit, whichUnitType: unittype ): boolean => {};
-
 
 export const UnitAddAbility = ( whichUnit: unit, abilityId: number ): boolean => {};
 
@@ -3747,11 +3418,9 @@ export const UnitPauseTimedLife = ( whichUnit: unit, flag: boolean ): void => {}
 
 export const UnitSetUsesAltIcon = ( whichUnit: unit, flag: boolean ): void => {};
 
-
 export const UnitDamagePoint = ( whichUnit: unit, delay: number, radius: number, x: number, y: number, amount: number, attack: boolean, ranged: boolean, attackType: attacktype, damageType: damagetype, weaponType: weapontype ): boolean => {};
 
 export const UnitDamageTarget = ( whichUnit: unit, target: widget, amount: number, attack: boolean, ranged: boolean, attackType: attacktype, damageType: damagetype, weaponType: weapontype ): boolean => {};
-
 
 export const IssueImmediateOrder = ( whichUnit: unit, order: string ): boolean => {};
 
@@ -3781,7 +3450,6 @@ export const IssueBuildOrder = ( whichPeon: unit, unitToBuild: string, x: number
 
 export const IssueBuildOrderById = ( whichPeon: unit, unitId: number, x: number, y: number ): boolean => {};
 
-
 export const IssueNeutralImmediateOrder = ( forWhichPlayer: player, neutralStructure: unit, unitToBuild: string ): boolean => {};
 
 export const IssueNeutralImmediateOrderById = ( forWhichPlayer: player, neutralStructure: unit, unitId: number ): boolean => {};
@@ -3794,16 +3462,13 @@ export const IssueNeutralTargetOrder = ( forWhichPlayer: player, neutralStructur
 
 export const IssueNeutralTargetOrderById = ( forWhichPlayer: player, neutralStructure: unit, unitId: number, target: widget ): boolean => {};
 
-
 export const GetUnitCurrentOrder = ( whichUnit: unit ): number => {};
-
 
 export const SetResourceAmount = ( whichUnit: unit, amount: number ): void => {};
 
 export const AddResourceAmount = ( whichUnit: unit, amount: number ): void => {};
 
 export const GetResourceAmount = ( whichUnit: unit ): number => {};
-
 
 export const WaygateGetDestinationX = ( waygate: unit ): number => {};
 
@@ -3815,7 +3480,6 @@ export const WaygateActivate = ( waygate: unit, activate: boolean ): void => {};
 
 export const WaygateIsActive = ( waygate: unit ): boolean => {};
 
-
 export const AddItemToAllStock = ( itemId: number, currentStock: number, stockMax: number ): void => {};
 
 export const AddItemToStock = ( whichUnit: unit, itemId: number, currentStock: number, stockMax: number ): void => {};
@@ -3823,7 +3487,6 @@ export const AddItemToStock = ( whichUnit: unit, itemId: number, currentStock: n
 export const AddUnitToAllStock = ( unitId: number, currentStock: number, stockMax: number ): void => {};
 
 export const AddUnitToStock = ( whichUnit: unit, unitId: number, currentStock: number, stockMax: number ): void => {};
-
 
 export const RemoveItemFromAllStock = ( itemId: number ): void => {};
 
@@ -3833,7 +3496,6 @@ export const RemoveUnitFromAllStock = ( unitId: number ): void => {};
 
 export const RemoveUnitFromStock = ( whichUnit: unit, unitId: number ): void => {};
 
-
 export const SetAllItemTypeSlots = ( slots: number ): void => {};
 
 export const SetAllUnitTypeSlots = ( slots: number ): void => {};
@@ -3842,11 +3504,9 @@ export const SetItemTypeSlots = ( whichUnit: unit, slots: number ): void => {};
 
 export const SetUnitTypeSlots = ( whichUnit: unit, slots: number ): void => {};
 
-
 export const GetUnitUserData = ( whichUnit: unit ): number => {};
 
 export const SetUnitUserData = ( whichUnit: unit, data: number ): void => {};
-
 
 // ============================================================================
 // Player API
@@ -3874,7 +3534,6 @@ export const IsMaskedToPlayer = ( x: number, y: number, whichPlayer: player ): b
 
 export const IsLocationMaskedToPlayer = ( whichLocation: location, whichPlayer: player ): boolean => {};
 
-
 export const GetPlayerRace = ( whichPlayer: player ): race => {};
 
 export const GetPlayerId = ( whichPlayer: player ): number => {};
@@ -3891,7 +3550,6 @@ export const GetPlayerScore = ( whichPlayer: player, whichPlayerScore: playersco
 
 export const GetPlayerAlliance = ( sourcePlayer: player, otherPlayer: player, whichAllianceSetting: alliancetype ): boolean => {};
 
-
 export const GetPlayerHandicap = ( whichPlayer: player ): number => {};
 
 export const GetPlayerHandicapXP = ( whichPlayer: player ): number => {};
@@ -3899,7 +3557,6 @@ export const GetPlayerHandicapXP = ( whichPlayer: player ): number => {};
 export const SetPlayerHandicap = ( whichPlayer: player, handicap: number ): void => {};
 
 export const SetPlayerHandicapXP = ( whichPlayer: player, handicap: number ): void => {};
-
 
 export const SetPlayerTechMaxAllowed = ( whichPlayer: player, techid: number, maximum: number ): void => {};
 
@@ -3913,25 +3570,20 @@ export const GetPlayerTechResearched = ( whichPlayer: player, techid: number, sp
 
 export const GetPlayerTechCount = ( whichPlayer: player, techid: number, specificonly: boolean ): number => {};
 
-
 export const SetPlayerUnitsOwner = ( whichPlayer: player, newOwner: number ): void => {};
 
 export const CripplePlayer = ( whichPlayer: player, toWhichPlayers: force, flag: boolean ): void => {};
 
-
 export const SetPlayerAbilityAvailable = ( whichPlayer: player, abilid: number, avail: boolean ): void => {};
-
 
 export const SetPlayerState = ( whichPlayer: player, whichPlayerState: playerstate, value: number ): void => {};
 
 export const RemovePlayer = ( whichPlayer: player, gameResult: playergameresult ): void => {};
 
-
 // Used to store hero level data for the scorescreen
 // before units are moved to neutral passive in melee games
 //
 export const CachePlayerHeroData = ( whichPlayer: player ): void => {};
-
 
 // ============================================================================
 // Fog of War API
@@ -3949,7 +3601,6 @@ export const FogEnable = ( enable: boolean ): void => {};
 
 export const IsFogEnabled = (): boolean => {};
 
-
 export const CreateFogModifierRect = ( forWhichPlayer: player, whichState: fogstate, where: rect, useSharedVision: boolean, afterUnits: boolean ): fogmodifier => {};
 
 export const CreateFogModifierRadius = ( forWhichPlayer: player, whichState: fogstate, centerx: number, centerY: number, radius: number, useSharedVision: boolean, afterUnits: boolean ): fogmodifier => {};
@@ -3962,7 +3613,6 @@ export const FogModifierStart = ( whichFogModifier: fogmodifier ): void => {};
 
 export const FogModifierStop = ( whichFogModifier: fogmodifier ): void => {};
 
-
 // ============================================================================
 // Game API
 export const VersionGet = (): version => {};
@@ -3971,9 +3621,7 @@ export const VersionCompatible = ( whichVersion: version ): boolean => {};
 
 export const VersionSupported = ( whichVersion: version ): boolean => {};
 
-
 export const EndGame = ( doScoreScreen: boolean ): void => {};
-
 
 // Async only!
 export const ChangeLevel = ( newLevel: string, doScoreScreen: boolean ): void => {};
@@ -3989,7 +3637,6 @@ export const SetCampaignMenuRace = ( r: race ): void => {};
 export const SetCampaignMenuRaceEx = ( campaignIndex: number ): void => {};
 
 export const ForceCampaignSelectScreen = (): void => {};
-
 
 export const LoadGame = ( saveFileName: string, doScoreScreen: boolean ): void => {};
 
@@ -4013,8 +3660,6 @@ export const SetIntegerGameState = ( whichIntegerGameState: igamestate, value: n
 
 export const GetIntegerGameState = ( whichIntegerGameState: igamestate ): number => {};
 
-
-
 // ============================================================================
 // Campaign API
 export const SetTutorialCleared = ( cleared: boolean ): void => {};
@@ -4037,7 +3682,6 @@ export const GetCustomCampaignButtonVisible = ( whichButton: number ): boolean =
 
 export const DoNotSaveReplay = (): void => {};
 
-
 // ============================================================================
 // Dialog API
 export const DialogCreate = (): dialog => {};
@@ -4054,17 +3698,14 @@ export const DialogAddQuitButton = ( whichDialog: dialog, doScoreScreen: boolean
 
 export const DialogDisplay = ( whichPlayer: player, whichDialog: dialog, flag: boolean ): void => {};
 
-
 // Creates a new or reads in an existing game cache file stored
 // in the current campaign profile dir
 //
 export const ReloadGameCachesFromDisk = (): boolean => {};
 
-
 export const InitGameCache = ( campaignFile: string ): gamecache => {};
 
 export const SaveGameCache = ( whichCache: gamecache ): boolean => {};
-
 
 export const StoreInteger = ( cache: gamecache, missionKey: string, key: string, value: number ): void => {};
 
@@ -4076,7 +3717,6 @@ export const StoreUnit = ( cache: gamecache, missionKey: string, key: string, wh
 
 export const StoreString = ( cache: gamecache, missionKey: string, key: string, value: string ): boolean => {};
 
-
 export const SyncStoredInteger = ( cache: gamecache, missionKey: string, key: string ): void => {};
 
 export const SyncStoredReal = ( cache: gamecache, missionKey: string, key: string ): void => {};
@@ -4087,7 +3727,6 @@ export const SyncStoredUnit = ( cache: gamecache, missionKey: string, key: strin
 
 export const SyncStoredString = ( cache: gamecache, missionKey: string, key: string ): void => {};
 
-
 export const HaveStoredInteger = ( cache: gamecache, missionKey: string, key: string ): boolean => {};
 
 export const HaveStoredReal = ( cache: gamecache, missionKey: string, key: string ): boolean => {};
@@ -4097,7 +3736,6 @@ export const HaveStoredBoolean = ( cache: gamecache, missionKey: string, key: st
 export const HaveStoredUnit = ( cache: gamecache, missionKey: string, key: string ): boolean => {};
 
 export const HaveStoredString = ( cache: gamecache, missionKey: string, key: string ): boolean => {};
-
 
 export const FlushGameCache = ( cache: gamecache ): void => {};
 
@@ -4113,7 +3751,6 @@ export const FlushStoredUnit = ( cache: gamecache, missionKey: string, key: stri
 
 export const FlushStoredString = ( cache: gamecache, missionKey: string, key: string ): void => {};
 
-
 // Will return 0 if the specified value's data is not found in the cache
 export const GetStoredInteger = ( cache: gamecache, missionKey: string, key: string ): number => {};
 
@@ -4125,10 +3762,7 @@ export const GetStoredString = ( cache: gamecache, missionKey: string, key: stri
 
 export const RestoreUnit = ( cache: gamecache, missionKey: string, key: string, forWhichPlayer: player, x: number, y: number, facing: number ): unit => {};
 
-
-
 export const InitHashtable = (): hashtable => {};
-
 
 export const SaveInteger = ( table: hashtable, parentKey: number, childKey: number, value: number ): void => {};
 
@@ -4218,8 +3852,6 @@ export const SaveHashtableHandle = ( table: hashtable, parentKey: number, childK
 
 export const SaveFrameHandle = ( table: hashtable, parentKey: number, childKey: number, whichFrameHandle: framehandle ): boolean => {};
 
-
-
 export const LoadInteger = ( table: hashtable, parentKey: number, childKey: number ): number => {};
 
 export const LoadReal = ( table: hashtable, parentKey: number, childKey: number ): number => {};
@@ -4306,7 +3938,6 @@ export const LoadHashtableHandle = ( table: hashtable, parentKey: number, childK
 
 export const LoadFrameHandle = ( table: hashtable, parentKey: number, childKey: number ): framehandle => {};
 
-
 export const HaveSavedInteger = ( table: hashtable, parentKey: number, childKey: number ): boolean => {};
 
 export const HaveSavedReal = ( table: hashtable, parentKey: number, childKey: number ): boolean => {};
@@ -4316,7 +3947,6 @@ export const HaveSavedBoolean = ( table: hashtable, parentKey: number, childKey:
 export const HaveSavedString = ( table: hashtable, parentKey: number, childKey: number ): boolean => {};
 
 export const HaveSavedHandle = ( table: hashtable, parentKey: number, childKey: number ): boolean => {};
-
 
 export const RemoveSavedInteger = ( table: hashtable, parentKey: number, childKey: number ): void => {};
 
@@ -4328,19 +3958,15 @@ export const RemoveSavedString = ( table: hashtable, parentKey: number, childKey
 
 export const RemoveSavedHandle = ( table: hashtable, parentKey: number, childKey: number ): void => {};
 
-
 export const FlushParentHashtable = ( table: hashtable ): void => {};
 
 export const FlushChildHashtable = ( table: hashtable, parentKey: number ): void => {};
-
-
 
 // ============================================================================
 // Randomization API
 export const GetRandomInt = ( lowBound: number, highBound: number ): number => {};
 
 export const GetRandomReal = ( lowBound: number, highBound: number ): number => {};
-
 
 export const CreateUnitPool = (): unitpool => {};
 
@@ -4352,7 +3978,6 @@ export const UnitPoolRemoveUnitType = ( whichPool: unitpool, unitId: number ): v
 
 export const PlaceRandomUnit = ( whichPool: unitpool, forWhichPlayer: player, x: number, y: number, facing: number ): unit => {};
 
-
 export const CreateItemPool = (): itempool => {};
 
 export const DestroyItemPool = ( whichItemPool: itempool ): void => {};
@@ -4362,7 +3987,6 @@ export const ItemPoolAddItemType = ( whichItemPool: itempool, itemId: number, we
 export const ItemPoolRemoveItemType = ( whichItemPool: itempool, itemId: number ): void => {};
 
 export const PlaceRandomItem = ( whichItemPool: itempool, x: number, y: number ): item => {};
-
 
 // Choose any random unit/item. (NP means Neutral Passive)
 export const ChooseRandomCreep = ( level: number ): number => {};
@@ -4375,13 +3999,11 @@ export const ChooseRandomItemEx = ( whichType: itemtype, level: number ): number
 
 export const SetRandomSeed = ( seed: number ): void => {};
 
-
 // ============================================================================
 // Visual API
 export const SetTerrainFog = ( a: number, b: number, c: number, d: number, e: number ): void => {};
 
 export const ResetTerrainFog = (): void => {};
-
 
 export const SetUnitFog = ( a: number, b: number, c: number, d: number, e: number ): void => {};
 
@@ -4443,7 +4065,6 @@ export const SetAltMinimapIcon = ( iconPath: string ): void => {};
 
 export const DisableRestartMission = ( flag: boolean ): void => {};
 
-
 export const CreateTextTag = (): texttag => {};
 
 export const DestroyTextTag = ( t: texttag ): void => {};
@@ -4470,7 +4091,6 @@ export const SetTextTagLifespan = ( t: texttag, lifespan: number ): void => {};
 
 export const SetTextTagFadepoint = ( t: texttag, fadepoint: number ): void => {};
 
-
 export const SetReservedLocalHeroButtons = ( reserved: number ): void => {};
 
 export const GetAllyColorFilterState = (): number => {};
@@ -4489,11 +4109,9 @@ export const EnablePreSelect = ( state: boolean, ui: boolean ): void => {};
 
 export const EnableSelect = ( state: boolean, ui: boolean ): void => {};
 
-
 // ============================================================================
 // Trackable API
 export const CreateTrackable = ( trackableModelPath: string, x: number, y: number, facing: number ): trackable => {};
-
 
 // ============================================================================
 // Quest API
@@ -4507,7 +4125,6 @@ export const QuestSetDescription = ( whichQuest: quest, description: string ): v
 
 export const QuestSetIconPath = ( whichQuest: quest, iconPath: string ): void => {};
 
-
 export const QuestSetRequired = ( whichQuest: quest, required: boolean ): void => {};
 
 export const QuestSetCompleted = ( whichQuest: quest, completed: boolean ): void => {};
@@ -4517,7 +4134,6 @@ export const QuestSetDiscovered = ( whichQuest: quest, discovered: boolean ): vo
 export const QuestSetFailed = ( whichQuest: quest, failed: boolean ): void => {};
 
 export const QuestSetEnabled = ( whichQuest: quest, enabled: boolean ): void => {};
-
 
 export const IsQuestRequired = ( whichQuest: quest ): boolean => {};
 
@@ -4529,16 +4145,13 @@ export const IsQuestFailed = ( whichQuest: quest ): boolean => {};
 
 export const IsQuestEnabled = ( whichQuest: quest ): boolean => {};
 
-
 export const QuestCreateItem = ( whichQuest: quest ): questitem => {};
 
 export const QuestItemSetDescription = ( whichQuestItem: questitem, description: string ): void => {};
 
 export const QuestItemSetCompleted = ( whichQuestItem: questitem, completed: boolean ): void => {};
 
-
 export const IsQuestItemCompleted = ( whichQuestItem: questitem ): boolean => {};
-
 
 export const CreateDefeatCondition = (): defeatcondition => {};
 
@@ -4546,11 +4159,9 @@ export const DestroyDefeatCondition = ( whichCondition: defeatcondition ): void 
 
 export const DefeatConditionSetDescription = ( whichCondition: defeatcondition, description: string ): void => {};
 
-
 export const FlashQuestDialogButton = (): void => {};
 
 export const ForceQuestDialogUpdate = (): void => {};
-
 
 // ============================================================================
 // Timer Dialog API
@@ -4572,7 +4183,6 @@ export const IsTimerDialogDisplayed = ( whichDialog: timerdialog ): boolean => {
 
 export const TimerDialogSetRealTimeRemaining = ( whichDialog: timerdialog, timeRemaining: number ): void => {};
 
-
 // ============================================================================
 // Leaderboard API
 
@@ -4581,14 +4191,11 @@ export const CreateLeaderboard = (): leaderboard => {};
 
 export const DestroyLeaderboard = ( lb: leaderboard ): void => {};
 
-
 export const LeaderboardDisplay = ( lb: leaderboard, show: boolean ): void => {};
 
 export const IsLeaderboardDisplayed = ( lb: leaderboard ): boolean => {};
 
-
 export const LeaderboardGetItemCount = ( lb: leaderboard ): number => {};
-
 
 export const LeaderboardSetSizeByItemCount = ( lb: leaderboard, count: number ): void => {};
 
@@ -4600,13 +4207,11 @@ export const LeaderboardRemovePlayerItem = ( lb: leaderboard, p: player ): void 
 
 export const LeaderboardClear = ( lb: leaderboard ): void => {};
 
-
 export const LeaderboardSortItemsByValue = ( lb: leaderboard, ascending: boolean ): void => {};
 
 export const LeaderboardSortItemsByPlayer = ( lb: leaderboard, ascending: boolean ): void => {};
 
 export const LeaderboardSortItemsByLabel = ( lb: leaderboard, ascending: boolean ): void => {};
-
 
 export const LeaderboardHasPlayerItem = ( lb: leaderboard, p: player ): boolean => {};
 
@@ -4616,18 +4221,15 @@ export const LeaderboardSetLabel = ( lb: leaderboard, label: string ): void => {
 
 export const LeaderboardGetLabelText = ( lb: leaderboard ): string => {};
 
-
 export const PlayerSetLeaderboard = ( toPlayer: player, lb: leaderboard ): void => {};
 
 export const PlayerGetLeaderboard = ( toPlayer: player ): leaderboard => {};
-
 
 export const LeaderboardSetLabelColor = ( lb: leaderboard, red: number, green: number, blue: number, alpha: number ): void => {};
 
 export const LeaderboardSetValueColor = ( lb: leaderboard, red: number, green: number, blue: number, alpha: number ): void => {};
 
 export const LeaderboardSetStyle = ( lb: leaderboard, showLabel: boolean, showNames: boolean, showValues: boolean, showIcons: boolean ): void => {};
-
 
 export const LeaderboardSetItemValue = ( lb: leaderboard, whichItem: number, val: number ): void => {};
 
@@ -4639,7 +4241,6 @@ export const LeaderboardSetItemLabelColor = ( lb: leaderboard, whichItem: number
 
 export const LeaderboardSetItemValueColor = ( lb: leaderboard, whichItem: number, red: number, green: number, blue: number, alpha: number ): void => {};
 
-
 // ============================================================================
 // Multiboard API
 // ============================================================================
@@ -4649,11 +4250,9 @@ export const CreateMultiboard = (): multiboard => {};
 
 export const DestroyMultiboard = ( lb: multiboard ): void => {};
 
-
 export const MultiboardDisplay = ( lb: multiboard, show: boolean ): void => {};
 
 export const IsMultiboardDisplayed = ( lb: multiboard ): boolean => {};
-
 
 export const MultiboardMinimize = ( lb: multiboard, minimize: boolean ): void => {};
 
@@ -4661,23 +4260,19 @@ export const IsMultiboardMinimized = ( lb: multiboard ): boolean => {};
 
 export const MultiboardClear = ( lb: multiboard ): void => {};
 
-
 export const MultiboardSetTitleText = ( lb: multiboard, label: string ): void => {};
 
 export const MultiboardGetTitleText = ( lb: multiboard ): string => {};
 
 export const MultiboardSetTitleTextColor = ( lb: multiboard, red: number, green: number, blue: number, alpha: number ): void => {};
 
-
 export const MultiboardGetRowCount = ( lb: multiboard ): number => {};
 
 export const MultiboardGetColumnCount = ( lb: multiboard ): number => {};
 
-
 export const MultiboardSetColumnCount = ( lb: multiboard, count: number ): void => {};
 
 export const MultiboardSetRowCount = ( lb: multiboard, count: number ): void => {};
-
 
 // broadcast settings to all items
 export const MultiboardSetItemsStyle = ( lb: multiboard, showValues: boolean, showIcons: boolean ): void => {};
@@ -4690,13 +4285,10 @@ export const MultiboardSetItemsWidth = ( lb: multiboard, width: number ): void =
 
 export const MultiboardSetItemsIcon = ( lb: multiboard, iconPath: string ): void => {};
 
-
-
 // funcs for modifying individual items
 export const MultiboardGetItem = ( lb: multiboard, row: number, column: number ): multiboarditem => {};
 
 export const MultiboardReleaseItem = ( mbi: multiboarditem ): void => {};
-
 
 export const MultiboardSetItemStyle = ( mbi: multiboarditem, showValue: boolean, showIcon: boolean ): void => {};
 
@@ -4708,12 +4300,10 @@ export const MultiboardSetItemWidth = ( mbi: multiboarditem, width: number ): vo
 
 export const MultiboardSetItemIcon = ( mbi: multiboarditem, iconFileName: string ): void => {};
 
-
 // meant to unequivocally suspend display of existing and
 // subsequently displayed multiboards
 //
 export const MultiboardSuppressDisplay = ( flag: boolean ): void => {};
-
 
 // ============================================================================
 // Camera API
@@ -4747,7 +4337,6 @@ export const SetCameraTargetController = ( whichUnit: unit, xoffset: number, yof
 
 export const SetCameraOrientController = ( whichUnit: unit, xoffset: number, yoffset: number ): void => {};
 
-
 export const CreateCameraSetup = (): camerasetup => {};
 
 export const CameraSetupSetField = ( whichSetup: camerasetup, whichField: camerafield, value: number, duration: number ): void => {};
@@ -4770,19 +4359,15 @@ export const CameraSetupApplyForceDuration = ( whichSetup: camerasetup, doPan: b
 
 export const CameraSetupApplyForceDurationWithZ = ( whichSetup: camerasetup, zDestOffset: number, forceDuration: number ): void => {};
 
-
 export const CameraSetTargetNoise = ( mag: number, velocity: number ): void => {};
 
 export const CameraSetSourceNoise = ( mag: number, velocity: number ): void => {};
-
 
 export const CameraSetTargetNoiseEx = ( mag: number, velocity: number, vertOnly: boolean ): void => {};
 
 export const CameraSetSourceNoiseEx = ( mag: number, velocity: number, vertOnly: boolean ): void => {};
 
-
 export const CameraSetSmoothingFactor = ( factor: number ): void => {};
-
 
 export const SetCineFilterTexture = ( filename: string ): void => {};
 
@@ -4804,16 +4389,13 @@ export const DisplayCineFilter = ( flag: boolean ): void => {};
 
 export const IsCineFilterDisplayed = (): boolean => {};
 
-
 export const SetCinematicScene = ( portraitUnitId: number, color: playercolor, speakerTitle: string, text: string, sceneDuration: number, voiceoverDuration: number ): void => {};
 
 export const EndCinematicScene = (): void => {};
 
 export const ForceCinematicSubtitles = ( flag: boolean ): void => {};
 
-
 export const GetCameraMargin = ( whichMargin: number ): number => {};
-
 
 // These return values for the local players camera only...
 export const GetCameraBoundMinX = (): number => {};
@@ -4842,12 +4424,10 @@ export const GetCameraEyePositionZ = (): number => {};
 
 export const GetCameraEyePositionLoc = (): location => {};
 
-
 // ============================================================================
 // Sound API
 //
 export const NewSoundEnvironment = ( environmentName: string ): void => {};
-
 
 export const CreateSound = ( fileName: string, looping: boolean, is3D: boolean, stopwhenoutofrange: boolean, fadeInRate: number, fadeOutRate: number, eaxSetting: string ): sound => {};
 
@@ -4856,7 +4436,6 @@ export const CreateSoundFilenameWithLabel = ( fileName: string, looping: boolean
 export const CreateSoundFromLabel = ( soundLabel: string, looping: boolean, is3D: boolean, stopwhenoutofrange: boolean, fadeInRate: number, fadeOutRate: number ): sound => {};
 
 export const CreateMIDISound = ( soundLabel: string, fadeInRate: number, fadeOutRate: number ): sound => {};
-
 
 export const SetSoundParamsFromLabel = ( soundHandle: sound, soundLabel: string ): void => {};
 
@@ -4868,10 +4447,8 @@ export const SetSoundVolume = ( soundHandle: sound, volume: number ): void => {}
 
 export const SetSoundPitch = ( soundHandle: sound, pitch: number ): void => {};
 
-
-// the following method must be called immediately after calling "StartSound" 
+// the following method must be called immediately after calling "StartSound"
 export const SetSoundPlayPosition = ( soundHandle: sound, millisecs: number ): void => {};
-
 
 // these calls are only valid if the sound was created with 3d enabled
 export const SetSoundDistances = ( soundHandle: sound, minDist: number, maxDist: number ): void => {};
@@ -4886,19 +4463,16 @@ export const SetSoundVelocity = ( soundHandle: sound, x: number, y: number, z: n
 
 export const AttachSoundToUnit = ( soundHandle: sound, whichUnit: unit ): void => {};
 
-
 export const StartSound = ( soundHandle: sound ): void => {};
 
 export const StopSound = ( soundHandle: sound, killWhenDone: boolean, fadeOut: boolean ): void => {};
 
 export const KillSoundWhenDone = ( soundHandle: sound ): void => {};
 
-
 // Music Interface. Note that if music is disabled, these calls do nothing
 export const SetMapMusic = ( musicName: string, random: boolean, index: number ): void => {};
 
 export const ClearMapMusic = (): void => {};
-
 
 export const PlayMusic = ( musicName: string ): void => {};
 
@@ -4908,20 +4482,17 @@ export const StopMusic = ( fadeOut: boolean ): void => {};
 
 export const ResumeMusic = (): void => {};
 
-
 export const PlayThematicMusic = ( musicFileName: string ): void => {};
 
 export const PlayThematicMusicEx = ( musicFileName: string, frommsecs: number ): void => {};
 
 export const EndThematicMusic = (): void => {};
 
-
 export const SetMusicVolume = ( volume: number ): void => {};
 
 export const SetMusicPlayPosition = ( millisecs: number ): void => {};
 
 export const SetThematicMusicPlayPosition = ( millisecs: number ): void => {};
-
 
 // other music and sound calls
 export const SetSoundDuration = ( soundHandle: sound, duration: number ): void => {};
@@ -4930,21 +4501,17 @@ export const GetSoundDuration = ( soundHandle: sound ): number => {};
 
 export const GetSoundFileDuration = ( musicFileName: string ): number => {};
 
-
 export const VolumeGroupSetVolume = ( vgroup: volumegroup, scale: number ): void => {};
 
 export const VolumeGroupReset = (): void => {};
-
 
 export const GetSoundIsPlaying = ( soundHandle: sound ): boolean => {};
 
 export const GetSoundIsLoading = ( soundHandle: sound ): boolean => {};
 
-
 export const RegisterStackedSound = ( soundHandle: sound, byPosition: boolean, rectwidth: number, rectheight: number ): void => {};
 
 export const UnregisterStackedSound = ( soundHandle: sound, byPosition: boolean, rectwidth: number, rectheight: number ): void => {};
-
 
 // ============================================================================
 // Effects API
@@ -4954,7 +4521,6 @@ export const AddWeatherEffect = ( where: rect, effectID: number ): weathereffect
 export const RemoveWeatherEffect = ( whichEffect: weathereffect ): void => {};
 
 export const EnableWeatherEffect = ( whichEffect: weathereffect, enable: boolean ): void => {};
-
 
 export const TerrainDeformCrater = ( x: number, y: number, radius: number, depth: number, duration: number, permanent: boolean ): terraindeformation => {};
 
@@ -4968,7 +4534,6 @@ export const TerrainDeformStop = ( deformation: terraindeformation, duration: nu
 
 export const TerrainDeformStopAll = (): void => {};
 
-
 export const AddSpecialEffect = ( modelName: string, x: number, y: number ): effect => {};
 
 export const AddSpecialEffectLoc = ( modelName: string, where: location ): effect => {};
@@ -4976,7 +4541,6 @@ export const AddSpecialEffectLoc = ( modelName: string, where: location ): effec
 export const AddSpecialEffectTarget = ( modelName: string, targetWidget: widget, attachPointName: string ): effect => {};
 
 export const DestroyEffect = ( whichEffect: effect ): void => {};
-
 
 export const AddSpellEffect = ( abilityString: string, t: effecttype, x: number, y: number ): effect => {};
 
@@ -4989,7 +4553,6 @@ export const AddSpellEffectByIdLoc = ( abilityId: number, t: effecttype, where: 
 export const AddSpellEffectTarget = ( modelName: string, t: effecttype, targetWidget: widget, attachPoint: string ): effect => {};
 
 export const AddSpellEffectTargetById = ( abilityId: number, t: effecttype, targetWidget: widget, attachPoint: string ): effect => {};
-
 
 export const AddLightning = ( codeName: string, checkVisibility: boolean, x1: number, y1: number, x2: number, y2: number ): lightning => {};
 
@@ -5011,7 +4574,6 @@ export const GetLightningColorB = ( whichBolt: lightning ): number => {};
 
 export const SetLightningColor = ( whichBolt: lightning, r: number, g: number, b: number, a: number ): boolean => {};
 
-
 export const GetAbilityEffect = ( abilityString: string, t: effecttype, index: number ): string => {};
 
 export const GetAbilityEffectById = ( abilityId: number, t: effecttype, index: number ): string => {};
@@ -5019,7 +4581,6 @@ export const GetAbilityEffectById = ( abilityId: number, t: effecttype, index: n
 export const GetAbilitySound = ( abilityString: string, t: soundtype ): string => {};
 
 export const GetAbilitySoundById = ( abilityId: number, t: soundtype ): string => {};
-
 
 // ============================================================================
 // Terrain API
@@ -5039,7 +4600,6 @@ export const SetTerrainType = ( x: number, y: number, terrainType: number, varia
 export const IsTerrainPathable = ( x: number, y: number, t: pathingtype ): boolean => {};
 
 export const SetTerrainPathable = ( x: number, y: number, t: pathingtype, flag: boolean ): void => {};
-
 
 // ============================================================================
 // Image API
@@ -5064,7 +4624,6 @@ export const SetImageAboveWater = ( whichImage: image, flag: boolean, useWaterAl
 
 export const SetImageType = ( whichImage: image, imageType: number ): void => {};
 
-
 // ============================================================================
 // Ubersplat API
 //
@@ -5082,7 +4641,6 @@ export const SetUbersplatRender = ( whichSplat: ubersplat, flag: boolean ): void
 
 export const SetUbersplatRenderAlways = ( whichSplat: ubersplat, flag: boolean ): void => {};
 
-
 // ============================================================================
 // Blight API
 //
@@ -5098,14 +4656,12 @@ export const CreateBlightedGoldmine = ( id: player, x: number, y: number, face: 
 
 export const IsPointBlighted = ( x: number, y: number ): boolean => {};
 
-
 // ============================================================================
 // Doodad API
 //
 export const SetDoodadAnimation = ( x: number, y: number, radius: number, doodadID: number, nearestOnly: boolean, animName: string, animRandom: boolean ): void => {};
 
 export const SetDoodadAnimationRect = ( r: rect, doodadID: number, animName: string, animRandom: boolean ): void => {};
-
 
 // ============================================================================
 // Computer AI interface
@@ -5120,13 +4676,11 @@ export const PauseCompAI = ( p: player, pause: boolean ): void => {};
 
 export const GetAIDifficulty = ( num: player ): aidifficulty => {};
 
-
 export const RemoveGuardPosition = ( hUnit: unit ): void => {};
 
 export const RecycleGuardPosition = ( hUnit: unit ): void => {};
 
 export const RemoveAllGuardPositions = ( num: player ): void => {};
-
 
 // ============================================================================
 export const Cheat = ( cheatStr: string ): void => {};
@@ -5135,18 +4689,15 @@ export const IsNoVictoryCheat = (): boolean => {};
 
 export const IsNoDefeatCheat = (): boolean => {};
 
-
 export const Preload = ( filename: string ): void => {};
 
 export const PreloadEnd = ( timeout: number ): void => {};
-
 
 export const PreloadStart = (): void => {};
 
 export const PreloadRefresh = (): void => {};
 
 export const PreloadEndEx = (): void => {};
-
 
 export const PreloadGenClear = (): void => {};
 
@@ -5156,7 +4707,6 @@ export const PreloadGenEnd = ( filename: string ): void => {};
 
 export const Preloader = ( filename: string ): void => {};
 
-
 // Automation Test
 export const AutomationSetTestType = ( testType: string ): void => {};
 
@@ -5165,7 +4715,6 @@ export const AutomationTestStart = ( testName: string ): void => {};
 export const AutomationTestEnd = (): void => {};
 
 export const AutomationTestingFinished = (): void => {};
-
 
 // JAPI Functions
 export const BlzGetTriggerPlayerMouseX = (): number => {};
@@ -5397,7 +4946,6 @@ export const BlzEnableTargetIndicator = ( enable: boolean ): void => {};
 
 export const BlzIsTargetIndicatorEnabled = (): boolean => {};
 
-
 export const BlzGetOriginFrame = ( frameType: originframetype, index: number ): framehandle => {};
 
 export const BlzEnableUIAutoPosition = ( enable: boolean ): void => {};
@@ -5560,7 +5108,6 @@ export const BlzBitAnd = ( x: number, y: number ): number => {};
 
 export const BlzBitXor = ( x: number, y: number ): number => {};
 
-
 // Intanced Object Operations
 // Ability
 export const BlzGetAbilityBooleanField = ( whichAbility: ability, whichField: abilitybooleanfield ): boolean => {};
@@ -5627,8 +5174,7 @@ export const BlzRemoveAbilityRealLevelArrayField = ( whichAbility: ability, whic
 
 export const BlzRemoveAbilityStringLevelArrayField = ( whichAbility: ability, whichField: abilitystringlevelarrayfield, level: number, value: string ): boolean => {};
 
-
-// Item 
+// Item
 export const BlzGetItemAbilityByIndex = ( whichItem: item, index: number ): ability => {};
 
 export const BlzGetItemAbility = ( whichItem: item, abilCode: number ): ability => {};
@@ -5653,8 +5199,7 @@ export const BlzSetItemStringField = ( whichItem: item, whichField: itemstringfi
 
 export const BlzItemRemoveAbility = ( whichItem: item, abilCode: number ): boolean => {};
 
-
-// Unit 
+// Unit
 export const BlzGetUnitBooleanField = ( whichUnit: unit, whichField: unitbooleanfield ): boolean => {};
 
 export const BlzGetUnitIntegerField = ( whichUnit: unit, whichField: unitnumberfield ): number => {};
@@ -5670,7 +5215,6 @@ export const BlzSetUnitIntegerField = ( whichUnit: unit, whichField: unitnumberf
 export const BlzSetUnitRealField = ( whichUnit: unit, whichField: unitnumberfield, value: number ): boolean => {};
 
 export const BlzSetUnitStringField = ( whichUnit: unit, whichField: unitstringfield, value: string ): boolean => {};
-
 
 // Unit Weapon
 export const BlzGetUnitWeaponBooleanField = ( whichUnit: unit, whichField: unitweaponbooleanfield, index: number ): boolean => {};
