@@ -1,5 +1,5 @@
 {
-  "name": "w3api",
+  "name": "@voces/w3api",
   "version": "1.0.0",
   "description": "TypeScript API for Warcraft III natives",
   "author": "verit",
@@ -28,9 +28,23 @@
   },
   "watch": {
     "build": {
-		"patterns": ["src"],
-		"extensions": "ts",
-		"legacyWatch": true
-	}
-  }
+      "patterns": [
+        "src"
+      ],
+      "extensions": "ts",
+      "legacyWatch": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/voces/w3api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/voces/w3api/issues"
+  },
+  "homepage": "https://github.com/voces/w3api#readme",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.ts"
 }
