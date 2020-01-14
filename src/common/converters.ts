@@ -1,11 +1,24 @@
 
-// import "./types";
+import { Context, getContext } from "context";
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const contextMap: WeakMap<Context, Array<any>> = new WeakMap();
 
 const memoizedIndexedObject = <T>( fn: ( id: number ) => T ): ( id?: number ) => T => {
 
 	let index = 0;
-	const map: Array<T> = [];
-	return ( id = index ++ ): T => map[ id ] || ( map[ id ] = fn( id ) );
+	return ( id = index ++ ): T => {
+
+		const context = getContext();
+		if ( ! contextMap.has( context ) )
+			contextMap.set( context, [] as Array<T> );
+		const map = contextMap.get( context ) as Array<T>;
+
+		if ( map[ id ] ) return map[ id ];
+
+		return map[ id ] || ( map[ id ] = fn( id ) );
+
+	};
 
 };
 
