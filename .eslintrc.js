@@ -10,6 +10,7 @@ module.exports = {
 	rules: {
 		"no-undef": 0,
 		"@typescript-eslint/camelcase": 0,
+		"padded-blocks": ["error", "always", {allowSingleLineBlocks: true}]
 		// "@typescript-eslint/strict-boolean-expressions": 2
 	},
 	// overrides: [{
