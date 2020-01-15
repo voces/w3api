@@ -1,4 +1,6 @@
 
+import { contextDataWrapper } from "context";
+
 // ============================================================================
 // Map Setup API
 //
@@ -7,13 +9,19 @@
 //  a map script. The functions should also be called in this order
 //  ( i.e. call SetPlayers before SetPlayerColor...
 //
-const map = {
-	name: "",
-	description: "",
-	teams: [] as Array<Array<player>>,
-	players: [] as Array<player>,
-};
-export const SetMapName = ( name: string ): void => { map.name = name };
+
+type Map = {
+	name: string;
+	description: string;
+	teams: Array<Array<player>>;
+	players: Array<player>;
+}
+
+const wrapMap = contextDataWrapper(
+	() => ( { name: "", description: "", teams: [], players: [] } as Map ),
+);
+
+export const SetMapName = wrapMap( ( map: Map, name: string ): void => { map.name = name } );
 export const SetMapDescription = ( description: string ): void => { map.description = description };
 export const SetTeams = ( teamCount: number ): void => { map.teams.length = teamCount };
 export const SetPlayers = ( playerCount: number ): void => { map.players.length = playerCount };

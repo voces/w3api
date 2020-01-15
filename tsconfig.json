@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "outDir": ".",
-    "baseUrl": "./src",
+    "outDir": "dist",
+    "baseUrl": "src",
     "allowJs": false,
     "target": "es6",
     "lib": ["es2020", "dom"],
@@ -11,16 +11,16 @@
     "noImplicitThis": true,
     "alwaysStrict": true,
     "strictNullChecks": true,
-    "paths": {"*": [
-      "../node_modules/*/src/index",
-      "../node_modules/*/lib/index",
-      "../node_modules/*/index",
-      "../node_modules/*/dist/index"
-    ]},
-    "plugins": [{"transform": "@zerollup/ts-transform-paths"}],
-    "types": [
-      "@types/jest"
-    ]
+    "paths": {
+      "*": [
+        "../node_modules/*/src/index",
+        "../node_modules/*/lib/index",
+        "../node_modules/*/index",
+        "../node_modules/*/dist/index"
+      ]
+    },
+    "types": ["@types/jest"],
+    "esModuleInterop": true
   },
   "include": ["src"],
   "exclude": []

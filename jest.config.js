@@ -9,4 +9,5 @@ module.exports = {
 	},
 	testRegex: "(/src/.*\\.test)\\.[tj]s$",
 	testEnvironment: "node",
+	modulePaths: [ "src" ],
 };

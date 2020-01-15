@@ -1,28 +1,25 @@
 
-import { Context, getContext } from "context";
+import { withContextDataWrapper } from "context";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const contextMap: WeakMap<Context, Array<any>> = new WeakMap();
+// type ObjectGenerator<T> = ( id: number ) => T
 
-const memoizedIndexedObject = <T>( fn: ( id: number ) => T ): ( id?: number ) => T => {
+const memoizedIndexedObjectGenerator = <T>( fn: ( id: number ) => T ): ( id: number ) => T => {
 
 	let index = 0;
+	const objects: Array<T> = [];
 	return ( id = index ++ ): T => {
 
-		const context = getContext();
-		if ( ! contextMap.has( context ) )
-			contextMap.set( context, [] as Array<T> );
-		const map = contextMap.get( context ) as Array<T>;
-
-		if ( map[ id ] ) return map[ id ];
-
-		return map[ id ] || ( map[ id ] = fn( id ) );
+		if ( objects[ id ] ) return objects[ id ];
+		return objects[ id ] || ( objects[ id ] = fn( id ) );
 
 	};
 
 };
 
-const initHandle = memoizedIndexedObject( ( id ): handle => ( { handleId: id } ) );
+const memoizedIndexedObject = withContextDataWrapper( memoizedIndexedObjectGenerator );
+
+const initHandle2 = memoizedIndexedObject( ( id ): handle => ( { handleId: id } ) );
+const initHandle = memoizedIndexedObject( cb => cb( ( id ): handle => ( { handleId: id } ) ) );
 const initAgent = memoizedIndexedObject( ( id ): agent => ( { ...initHandle(), agentId: id } ) );
 export const initPlayer = memoizedIndexedObject( ( id ): player => ( { ...initAgent(), playerId: id, startLocation: { x: 0, y: 0 } } ) );
 const initGamestate = memoizedIndexedObject( ( id ): gamestate => ( { ...initAgent(), gamestateId: id } ) );
