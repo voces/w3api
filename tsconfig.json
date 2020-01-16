@@ -7,7 +7,7 @@
     "lib": ["es2020", "dom"],
     "moduleResolution": "classic",
     "strict": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "noImplicitThis": true,
     "alwaysStrict": true,
     "strictNullChecks": true,

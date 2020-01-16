@@ -7,7 +7,7 @@
 declare interface handle { handleId: number }
 declare interface agent extends handle { agentId: number }
 declare interface event extends agent { eventId: number }
-declare interface player extends agent { playerId: number; startLocation: {x: number; y: number} }
+declare interface player extends agent { playerId: number; startLocation: {x: number; y: number; priority: number} }
 declare interface widget extends agent { widgetId: number }
 declare interface unit extends widget { unitId: number }
 declare interface destructable extends widget { destructableId: number }
