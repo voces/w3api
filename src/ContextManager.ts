@@ -127,4 +127,23 @@ export class ContextManager {
 
 	}
 
+	complexFunctionWrapper <A>( generator: ( () => () => A ) ) {
+
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		return <B extends Array<any>, C>( fn: ( generatorValues: A, ...otherValues: B ) => C ): ( ( ...args: B ) => C ) => {
+
+			const contextMap = this.data( generator );
+
+			return ( ...args: B ): C => {
+
+				const counter = contextMap();
+				const value = counter();
+				return fn( value, ...args );
+
+			};
+
+		};
+
+	}
+
 }

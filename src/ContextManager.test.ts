@@ -148,63 +148,96 @@ describe( "ContextManager", () => {
 
 	} );
 
-	it( "function wrapper", () => {
+	describe( "simpleFunctionWrapper", () => {
 
-		const cm = new ContextManager();
-		const context2 = newContext();
+		it( "function wrapper", () => {
 
-		const contextIndexer = cm.simpleFunctionWrapper( indexer );
-		const indexer1 = contextIndexer( i => i );
-		const indexer2 = contextIndexer( i => i );
+			const cm = new ContextManager();
+			const context2 = newContext();
 
-		expect( [
-			indexer1(),
-			indexer1(),
-			cm.with( context2, () => indexer1() ),
-			indexer2( 7 ),
-			cm.with( context2, () => indexer2( 11 ) ),
-			cm.with( context2, () => indexer1() ),
-			indexer1(),
-			indexer2(),
-			cm.with( context2, () => indexer2() ),
-		] ).toEqual( [ 0, 1, 0, 7, 11, 1, 2, 8, 12 ] );
+			const contextIndexer = cm.simpleFunctionWrapper( indexer );
+			const indexer1 = contextIndexer( i => i );
+			const indexer2 = contextIndexer( i => i );
 
-	} );
+			expect( [
+				indexer1(),
+				indexer1(),
+				cm.with( context2, () => indexer1() ),
+				indexer2( 7 ),
+				cm.with( context2, () => indexer2( 11 ) ),
+				cm.with( context2, () => indexer1() ),
+				indexer1(),
+				indexer2(),
+				cm.with( context2, () => indexer2() ),
+			] ).toEqual( [ 0, 1, 0, 7, 11, 1, 2, 8, 12 ] );
 
-	it( "handles", () => {
+		} );
 
-		const cm = new ContextManager();
-		const context2 = newContext();
+		it( "handles", () => {
 
-		type Handle = {handleId: number}
-		type Widget = {handleId: number; widgetId: number}
-		type Event = {handleId: number; eventId: number}
+			const cm = new ContextManager();
+			const context2 = newContext();
 
-		const contextIndexer = cm.simpleFunctionWrapper( indexer );
+			type Handle = {handleId: number}
+			type Widget = {handleId: number; widgetId: number}
+			type Event = {handleId: number; eventId: number}
 
-		const getHandle = contextIndexer( ( id: number ): Handle => ( { handleId: id } ) );
-		const getWidget = contextIndexer( ( id: number ): Widget => ( { ...getHandle(), widgetId: id } ) );
-		const getEvent = contextIndexer( ( id: number ): Event => ( { ...getHandle(), eventId: id } ) );
+			const contextIndexer = cm.simpleFunctionWrapper( indexer );
 
-		const handle1 = getHandle();
-		const widget1 = getWidget( 2 );
-		const event1 = getEvent( 1 );
-		const widget2 = cm.with( context2, getWidget );
-		const event2 = getEvent( 2 );
-		const widget3 = getWidget();
-		const handle2 = getHandle();
-		const widget4 = cm.with( context2, getWidget );
-		const event3 = cm.with( context2, getEvent );
+			const getHandle = contextIndexer( ( id: number ): Handle => ( { handleId: id } ) );
+			const getWidget = contextIndexer( ( id: number ): Widget => ( { ...getHandle(), widgetId: id } ) );
+			const getEvent = contextIndexer( ( id: number ): Event => ( { ...getHandle(), eventId: id } ) );
 
-		expect( handle1 ).toEqual( { handleId: 0 } );
-		expect( widget1 ).toEqual( { handleId: 1, widgetId: 2 } );
-		expect( event1 ).toEqual( { handleId: 2, eventId: 1 } );
-		expect( widget2 ).toEqual( { handleId: 0, widgetId: 0 } );
-		expect( event2 ).toEqual( { handleId: 3, eventId: 2 } );
-		expect( widget3 ).toEqual( { handleId: 4, widgetId: 3 } );
-		expect( handle2 ).toEqual( { handleId: 5 } );
-		expect( widget4 ).toEqual( { handleId: 1, widgetId: 1 } );
-		expect( event3 ).toEqual( { handleId: 2, eventId: 0 } );
+			const handle1 = getHandle();
+			const widget1 = getWidget( 2 );
+			const event1 = getEvent( 1 );
+			const widget2 = cm.with( context2, getWidget );
+			const event2 = getEvent( 2 );
+			const widget3 = getWidget();
+			const handle2 = getHandle();
+			const widget4 = cm.with( context2, getWidget );
+			const event3 = cm.with( context2, getEvent );
+
+			expect( handle1 ).toEqual( { handleId: 0 } );
+			expect( widget1 ).toEqual( { handleId: 1, widgetId: 2 } );
+			expect( event1 ).toEqual( { handleId: 2, eventId: 1 } );
+			expect( widget2 ).toEqual( { handleId: 0, widgetId: 0 } );
+			expect( event2 ).toEqual( { handleId: 3, eventId: 2 } );
+			expect( widget3 ).toEqual( { handleId: 4, widgetId: 3 } );
+			expect( handle2 ).toEqual( { handleId: 5 } );
+			expect( widget4 ).toEqual( { handleId: 1, widgetId: 1 } );
+			expect( event3 ).toEqual( { handleId: 2, eventId: 0 } );
+
+		} );
+
+		it( "range", () => {
+
+			const cm = new ContextManager();
+			const context2 = newContext();
+
+			type range = {id: number; min: number; max: number}
+			const Range = ( id: number, min: number, max: number ): range => ( { id, min, max } );
+
+			const contextIndexer = cm.complexFunctionWrapper( indexer );
+
+			const SimpleRange1 = contextIndexer( Range );
+			const SimpleRange2 = contextIndexer( Range );
+
+			const range1c1a = SimpleRange1( 0, 1 );
+			const range2c1a = SimpleRange2( 0, 1 );
+			const range1c2a = cm.with( context2, () => SimpleRange1( 0, 1 ) );
+			const range1c1b = SimpleRange1( 0, 1 );
+			const range1c1c = SimpleRange1( 1, 2 );
+			const range2c1b = SimpleRange2( 1, 2 );
+
+			expect( range1c1a ).toEqual( { min: 0, max: 1, id: 0 } );
+			expect( range2c1a ).toEqual( { min: 0, max: 1, id: 0 } );
+			expect( range1c2a ).toEqual( { min: 0, max: 1, id: 0 } );
+			expect( range1c1b ).toEqual( { min: 0, max: 1, id: 1 } );
+			expect( range1c1c ).toEqual( { min: 1, max: 2, id: 2 } );
+			expect( range2c1b ).toEqual( { min: 1, max: 2, id: 1 } );
+
+		} );
 
 	} );
 

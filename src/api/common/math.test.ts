@@ -1,5 +1,5 @@
 
-import { Deg2Rad, Rad2Deg } from "./math";
+import { Deg2Rad, Rad2Deg, Pow, SquareRoot, Atan2 } from "./math";
 
 it( "Deg2Rad", () => expect( [
 	0, 30, 45, 90, 180, 270, - 180, 360,
@@ -12,3 +12,9 @@ it( "Rad2Deg", () => expect( [
 ].map( Rad2Deg ) ).toEqual( [
 	0, 45, 90, 180, 270, - 180, 360,
 ] ) );
+
+it( "Atan2", () => expect( Atan2( 1, 0 ) ).toBe( Math.PI / 2 ) );
+
+it( "SquareRoot", () => expect( SquareRoot( 81 ) ).toBe( 9 ) );
+
+it( "Pow", () => expect( Pow( 3, 4 ) ).toBe( 81 ) );

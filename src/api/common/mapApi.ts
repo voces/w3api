@@ -8,6 +8,7 @@ import {
 	MAP_SPEED_FASTEST,
 } from "./constants/mapSetup";
 import { initStartLocation } from "./converters";
+import { Location } from "./geometry";
 
 // ============================================================================
 // Map Setup API
@@ -116,7 +117,7 @@ export const GetResourceDensity = wrapGame( ( game: Game ): mapdensity => game.r
 export const GetCreatureDensity = wrapGame( ( game: Game ): mapdensity => game.creatureDensity );
 export const GetStartLocationX = wrapGame( ( game: Game, whichStartLocation: number ): number => game.startLocations[ whichStartLocation ].x );
 export const GetStartLocationY = wrapGame( ( game: Game, whichStartLocation: number ): number => game.startLocations[ whichStartLocation ].y );
-export const GetStartLocationLoc = wrapGame( ( game: Game, whichStartLocation: number ): location => {} );
+export const GetStartLocationLoc = wrapGame( ( game: Game, whichStartLocation: number ): location => Location( 0, 0 ) );
 export const SetPlayerTeam = ( whichPlayer: player, whichTeam: number ): void => { whichPlayer.team = whichTeam };
 export const SetPlayerStartLocation = ( whichPlayer: player, startLocIndex: number ): void => { whichPlayer.startLocation = startLocIndex };
 /* eslint-enable padded-blocks */

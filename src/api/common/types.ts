@@ -10,7 +10,7 @@ type StartLocation = {
 // possible to help prevent passing bad values to native functions
 //
 /* eslint-disable @typescript-eslint/class-name-casing */
-declare interface handle { handleId: number }
+declare interface handle { handleId: number; onRemove: ( callback: ( handle: handle ) => void ) => void; remove: () => void }
 declare interface agent extends handle { agentId: number }
 declare interface event extends agent { eventId: number }
 declare interface player extends agent {
@@ -39,9 +39,15 @@ declare interface trigger extends agent { triggerId: number }
 declare interface triggercondition extends agent { triggerconditionId: number }
 declare interface triggeraction extends handle { triggeractionId: number }
 declare interface timer extends agent { timerId: number }
-declare interface location extends agent { locationId: boolean; x: number; y: number }
-declare interface region extends agent { regionId: number }
-declare interface rect extends agent { rectId: number }
+declare interface location extends agent { locationId: number; x: number; y: number }
+declare interface region extends agent { regionId: number; rects: Array<rect> }
+declare interface rect extends agent {
+    rectId: number;
+    minX: number;
+    minY: number;
+    maxX: number;
+    maxY: number;
+}
 declare interface boolexpr extends agent { boolexprId: number }
 declare interface sound extends agent { soundId: number }
 declare interface conditionfunc extends boolexpr { conditionfuncId: number }
