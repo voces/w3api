@@ -1,5 +1,5 @@
 
-import { ConvertLimitOp } from "common/converters";
+import { ConvertLimitOp } from "../converters";
 
 // ===================================================
 // Limit Event API constants

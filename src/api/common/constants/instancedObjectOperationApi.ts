@@ -28,8 +28,8 @@ import {
 	ConvertRegenType,
 	ConvertUnitCategory,
 	ConvertPathingFlag,
-} from "common/converters";
-import { FourCC } from "common/string";
+} from "../converters";
+import { FourCC } from "../string";
 
 // ===================================================
 // Instanced Object Operation API constants

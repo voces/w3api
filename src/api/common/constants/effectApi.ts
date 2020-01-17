@@ -1,5 +1,5 @@
 
-import { ConvertEffectType, ConvertSoundType } from "common/converters";
+import { ConvertEffectType, ConvertSoundType } from "../converters";
 
 // ===================================================
 // Effect API constants

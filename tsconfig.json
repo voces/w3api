@@ -4,8 +4,8 @@
     "baseUrl": "src",
     "allowJs": false,
     "target": "es6",
-    "lib": ["es2020", "dom"],
-    "moduleResolution": "classic",
+    "lib": ["es2020", "dom" ],
+    "moduleResolution": "node",
     "strict": true,
     "noImplicitAny": false,
     "noImplicitThis": true,
@@ -22,6 +22,6 @@
     "types": ["@types/jest"],
     "esModuleInterop": true
   },
-  "include": ["src"],
+  "include": ["src", "bin"],
   "exclude": []
 }

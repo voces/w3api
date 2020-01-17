@@ -13,7 +13,7 @@ import {
 	ConvertMouseButtonType,
 	ConvertAnimType,
 	ConvertSubAnimType,
-} from "common/converters";
+} from "../converters";
 
 // ===================================================
 // Game Constants

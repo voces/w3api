@@ -1,5 +1,5 @@
 
-import { ConvertUnitType } from "common/converters";
+import { ConvertUnitType } from "../converters";
 
 // ===================================================
 // Unit Type Constants for use with IsUnitType()

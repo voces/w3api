@@ -1,5 +1,5 @@
 
-import { ConvertOsKeyType } from "common/converters";
+import { ConvertOsKeyType } from "../converters";
 
 // ===================================================
 // OS Key constants

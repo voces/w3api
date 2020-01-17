@@ -1,7 +1,6 @@
 
-import { mapContext } from "./contexts/map";
-
-// type ObjectGenerator<T> = ( id: number ) => T
+import { gameContext } from "../../contexts";
+import { MAP_CONTROL_USER, PLAYER_SLOT_STATE_EMPTY, RACE_PREF_USER_SELECTABLE } from "./constants/mapSetup";
 
 const indexer = (): ( ( index?: number ) => number ) => {
 
@@ -17,11 +16,10 @@ const indexer = (): ( ( index?: number ) => number ) => {
 
 };
 
-const contextIndexer = mapContext.simpleFunctionWrapper( indexer );
+const contextIndexer = gameContext.simpleFunctionWrapper( indexer );
 
 const getHandle = contextIndexer( ( id ): handle => ( { handleId: id } ) );
 const getAgent = contextIndexer( ( id ): agent => ( { ...getHandle(), agentId: id } ) );
-export const getPlayer = contextIndexer( ( id ): player => ( { ...getAgent(), playerId: id, startLocation: { x: 0, y: 0, priority: 0 } } ) );
 const getGamestate = contextIndexer( ( id ): gamestate => ( { ...getAgent(), gamestateId: id } ) );
 const getEvent = contextIndexer( ( id ): eventid => ( { ...getHandle(), eventidId: id } ) );
 
@@ -109,6 +107,23 @@ export const ConvertDefenseType = contextIndexer( ( id ): defensetype => ( { ...
 export const ConvertRegenType = contextIndexer( ( id ): regentype => ( { ...getHandle(), regentypeId: id } ) );
 export const ConvertUnitCategory = contextIndexer( ( id ): unitcategory => ( { ...getHandle(), unitcategoryId: id } ) );
 export const ConvertPathingFlag = contextIndexer( ( id ): pathingflag => ( { ...getHandle(), pathingflagId: id } ) );
+
+export const initStartLocation = (): StartLocation => ( { x: 0, y: 0, priorities: [] } );
+export const getPlayer = contextIndexer( ( id ): player => ( {
+	...getAgent(),
+	playerId: id,
+	startLocation: 0,
+	color: ConvertPlayerColor( Math.min( id, 23 ) ),
+	alliances: new Map(),
+	racePreference: RACE_PREF_USER_SELECTABLE,
+	raceSelectable: true,
+	controller: MAP_CONTROL_USER,
+	name: `Player ${id}`,
+	onScoreScreen: false,
+	team: 0,
+	slotState: PLAYER_SLOT_STATE_EMPTY,
+	taxRates: new Map(),
+} ) );
 
 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 export const OrderId = ( orderIdString: string ): number => {

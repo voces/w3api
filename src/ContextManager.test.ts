@@ -3,7 +3,7 @@ import {
 	newContext,
 	injectContextData,
 	ContextManager,
-} from "ContextManager";
+} from "./ContextManager";
 
 it( "newContext", () => {
 

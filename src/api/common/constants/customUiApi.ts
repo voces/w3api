@@ -4,7 +4,7 @@ import {
 	ConvertFramePointType,
 	ConvertTextAlignType,
 	ConvertFrameEventType,
-} from "common/converters";
+} from "../converters";
 
 // ===================================================
 // Custom UI API constants

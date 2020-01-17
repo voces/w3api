@@ -1,36 +1,32 @@
 
-import { mapContext } from "./contexts/map";
-import { ES6Map as ES6MapType } from "../../types";
-import { MAP_PLACEMENT_RANDOM, MAP_SPEED_FASTEST, MAP_DIFFICULTY_NORMAL, MAP_DENSITY_MEDIUM } from "./constants/mapSetup";
+import { gameContext } from "../../contexts";
+import {
+	GAME_TYPE_USE_MAP_SETTINGS,
+	MAP_DENSITY_MEDIUM,
+	MAP_DIFFICULTY_NORMAL,
+	MAP_PLACEMENT_RANDOM,
+	MAP_SPEED_FASTEST,
+} from "./constants/mapSetup";
+import { initStartLocation } from "./converters";
 
 // ============================================================================
 // Map Setup API
 //
-//  These are native functions for describing the map configuration
+//  These are native functions for describing the game configuration
 //  these funcs should only be used in the "config" function of
-//  a map script. The functions should also be called in this order
+//  a game script. The functions should also be called in this order
 //  ( i.e. call SetPlayers before SetPlayerColor...
 //
 
-type StartLocation = {
-	x: number;
-	y: number;
-	priorities: Array<startlocprio>;
-}
-
-const initStartLocation = (): StartLocation => ( { x: 0, y: 0, priorities: [] } );
-
-const ES6Map = Map;
-
-export type Map = {
+export type Game = {
 	name: string;
 	description: string;
-	teams: Array<Array<player>>;
+	teams: number;
 	players: Array<player>;
 	startLocations: Array<StartLocation>;
 	startLocationPriorites: Array<startlocprio>;
-	supportedGameTypes: ES6MapType<gametype, boolean>;
-	mapFlags: ES6MapType<mapflag, boolean>;
+	supportedGameTypes: Map<gametype, boolean>;
+	mapFlags: Map<mapflag, boolean>;
 	placement: placement;
 	gameSpeed: gamespeed;
 	gameDifficulty: gamedifficulty;
@@ -38,125 +34,139 @@ export type Map = {
 	creatureDensity: mapdensity;
 }
 
-const wrapMap = mapContext.dataWrapper(
+const wrapGame = gameContext.dataWrapper(
 	() => ( {
 		name: "",
 		description: "",
-		teams: [],
+		teams: 1,
 		players: [],
 		startLocations: [],
 		startLocationPriorites: [],
-		supportedGameTypes: new ES6Map(),
-		mapFlags: new ES6Map(),
+		supportedGameTypes: new Map(),
+		mapFlags: new Map(),
 		placement: MAP_PLACEMENT_RANDOM,
 		gameSpeed: MAP_SPEED_FASTEST,
 		gameDifficulty: MAP_DIFFICULTY_NORMAL,
 		resourceDensity: MAP_DENSITY_MEDIUM,
 		creatureDensity: MAP_DENSITY_MEDIUM,
-	} as Map ),
+	} as Game ),
 );
 
-export const SetMapName = wrapMap( ( map: Map, name: string ): void => { map.name = name } );
-export const SetMapDescription = wrapMap( ( map: Map, description: string ): void => { map.description = description } );
-export const SetTeams = wrapMap( ( map: Map, teamCount: number ): void => { map.teams.length = teamCount } );
-export const SetPlayers = wrapMap( ( map: Map, playerCount: number ): void => { map.players.length = playerCount } );
-export const DefineStartLocation = wrapMap( ( map: Map, whichStartLoc: number, x: number, y: number ): void => {
+export const SetMapName = wrapGame( ( game: Game, name: string ): void => { game.name = name } );
+export const SetMapDescription = wrapGame( ( game: Game, description: string ): void => { game.description = description } );
+export const SetTeams = wrapGame( ( game: Game, teamCount: number ): void => { game.teams = teamCount } );
+export const SetPlayers = wrapGame( ( game: Game, playerCount: number ): void => { game.players.length = playerCount } );
+export const DefineStartLocation = wrapGame( ( game: Game, whichStartLoc: number, x: number, y: number ): void => {
 
-	map.startLocations[ whichStartLoc ] = {
+	game.startLocations[ whichStartLoc ] = {
 		...initStartLocation(),
-		...map.startLocations[ whichStartLoc ],
+		...game.startLocations[ whichStartLoc ],
 		x, y,
 	};
 
 } );
-export const DefineStartLocationLoc = wrapMap( ( map: Map, whichStartLoc: number, whichLocation: location ): void => {
+export const DefineStartLocationLoc = wrapGame( ( game: Game, whichStartLoc: number, whichLocation: location ): void => {
 
-	map.startLocations[ whichStartLoc ] = {
+	game.startLocations[ whichStartLoc ] = {
 		...initStartLocation(),
-		...map.startLocations[ whichStartLoc ],
+		...game.startLocations[ whichStartLoc ],
 		x: whichLocation.x, y: whichLocation.y,
 	};
 
 } );
-export const SetStartLocPrioCount = wrapMap( ( map: Map, whichStartLoc: number, prioSlotCount: number ): void => {
+export const SetStartLocPrioCount = wrapGame( ( game: Game, whichStartLoc: number, prioSlotCount: number ): void => {
 
-	const startLocation = map.startLocations[ whichStartLoc ] ||
-		( map.startLocations[ whichStartLoc ] = initStartLocation() );
+	const startLocation = game.startLocations[ whichStartLoc ] ||
+		( game.startLocations[ whichStartLoc ] = initStartLocation() );
 
 	startLocation.priorities.length = prioSlotCount;
 
 } );
-export const SetStartLocPrio = wrapMap( ( map: Map, whichStartLoc: number, prioSlotIndex: number, otherStartLocIndex: number, priority: startlocprio ): void => {} );
-export const GetStartLocPrioSlot = wrapMap( ( map: Map, whichStartLoc: number, prioSlotIndex: number ): number => 0 );
-export const GetStartLocPrio = wrapMap( ( map: Map, whichStartLoc: number, prioSlotIndex: number ): startlocprio => {
+export const SetStartLocPrio = wrapGame( ( game: Game, whichStartLoc: number, prioSlotIndex: number, otherStartLocIndex: number, priority: startlocprio ): void => {} );
+export const GetStartLocPrioSlot = wrapGame( ( game: Game, whichStartLoc: number, prioSlotIndex: number ): number => 0 );
+export const GetStartLocPrio = wrapGame( ( game: Game, whichStartLoc: number, prioSlotIndex: number ): startlocprio => {
 
-	const startLocation = map.startLocations[ whichStartLoc ] ||
-		( map.startLocations[ whichStartLoc ] = initStartLocation() );
+	const startLocation = game.startLocations[ whichStartLoc ] ||
+		( game.startLocations[ whichStartLoc ] = initStartLocation() );
 
 	return startLocation.priorities[ prioSlotIndex ];
 
 } );
-export const SetGameTypeSupported = wrapMap( ( map: Map, whichGameType: gametype, value: boolean ): void => { map.supportedGameTypes.set( whichGameType, value ) } );
-export const SetMapFlag = wrapMap( ( map: Map, whichMapFlag: mapflag, value: boolean ): void => { map.mapFlags.set( whichMapFlag, value ) } );
-export const SetGamePlacement = wrapMap( ( map: Map, whichPlacementType: placement ): void => { map.placement = whichPlacementType } );
-export const SetGameSpeed = wrapMap( ( map: Map, whichspeed: gamespeed ): void => { map.gameSpeed = whichspeed } );
-export const SetGameDifficulty = wrapMap( ( map: Map, whichdifficulty: gamedifficulty ): void => { map.gameDifficulty = whichdifficulty } );
-export const SetResourceDensity = wrapMap( ( map: Map, whichdensity: mapdensity ): void => { map.resourceDensity = whichdensity } );
-export const SetCreatureDensity = wrapMap( ( map: Map, whichdensity: mapdensity ): void => { map.creatureDensity = whichdensity } );
-export const GetTeams = wrapMap( ( map: Map ): number => map.teams.length );
-export const GetPlayers = wrapMap( ( map: Map ): number => map.players.length );
-export const IsGameTypeSupported = wrapMap( ( map: Map, whichGameType: gametype ): boolean => map.supportedGameTypes.get( whichGameType ) || false );
-export const GetGameTypeSelected = wrapMap( ( map: Map ): gametype => {} );
-export const IsMapFlagSet = wrapMap( ( map: Map, whichMapFlag: mapflag ): boolean =>map.mapFlags.get( whichMapFlag ) || false );
-export const GetGamePlacement = wrapMap( ( map: Map ): placement => map.placement );
-export const GetGameSpeed = wrapMap( ( map: Map ): gamespeed => map.gameSpeed );
-export const GetGameDifficulty = wrapMap( ( map: Map ): gamedifficulty => map.gameDifficulty );
-export const GetResourceDensity = wrapMap( ( map: Map ): mapdensity => map.resourceDensity );
-export const GetCreatureDensity = wrapMap( ( map: Map ): mapdensity => map.creatureDensity );
-export const GetStartLocationX = wrapMap( ( map: Map, whichStartLocation: number ): number => map.startLocations[ whichStartLocation ].x );
-export const GetStartLocationY = wrapMap( ( map: Map, whichStartLocation: number ): number => map.startLocations[ whichStartLocation ].y );
-export const GetStartLocationLoc = wrapMap( ( map: Map, whichStartLocation: number ): location => {} );
-export const SetPlayerTeam = wrapMap( ( map: Map, whichPlayer: player, whichTeam: number ): void => {} );
+export const SetGameTypeSupported = wrapGame( ( game: Game, whichGameType: gametype, value: boolean ): void => { game.supportedGameTypes.set( whichGameType, value ) } );
+export const SetMapFlag = wrapGame( ( game: Game, whichMapFlag: mapflag, value: boolean ): void => { game.mapFlags.set( whichMapFlag, value ) } );
+export const SetGamePlacement = wrapGame( ( game: Game, whichPlacementType: placement ): void => { game.placement = whichPlacementType } );
+export const SetGameSpeed = wrapGame( ( game: Game, whichspeed: gamespeed ): void => { game.gameSpeed = whichspeed } );
+export const SetGameDifficulty = wrapGame( ( game: Game, whichdifficulty: gamedifficulty ): void => { game.gameDifficulty = whichdifficulty } );
+export const SetResourceDensity = wrapGame( ( game: Game, whichdensity: mapdensity ): void => { game.resourceDensity = whichdensity } );
+export const SetCreatureDensity = wrapGame( ( game: Game, whichdensity: mapdensity ): void => { game.creatureDensity = whichdensity } );
+export const GetTeams = wrapGame( ( game: Game ): number => game.teams );
+export const GetPlayers = wrapGame( ( game: Game ): number => game.players.length );
+export const IsGameTypeSupported = wrapGame( ( game: Game, whichGameType: gametype ): boolean => game.supportedGameTypes.get( whichGameType ) || false );
+export const GetGameTypeSelected = wrapGame( (): gametype => {
 
-export const SetPlayerStartLocation = wrapMap( ( map: Map, whichPlayer: player, startLocIndex: number ): void => {} );
+	console.warn( "GetGameTypeSelected is not implemented" );
+	return GAME_TYPE_USE_MAP_SETTINGS;
+
+} );
+export const IsMapFlagSet = wrapGame( ( game: Game, whichMapFlag: mapflag ): boolean =>game.mapFlags.get( whichMapFlag ) || false );
+export const GetGamePlacement = wrapGame( ( game: Game ): placement => game.placement );
+export const GetGameSpeed = wrapGame( ( game: Game ): gamespeed => game.gameSpeed );
+export const GetGameDifficulty = wrapGame( ( game: Game ): gamedifficulty => game.gameDifficulty );
+export const GetResourceDensity = wrapGame( ( game: Game ): mapdensity => game.resourceDensity );
+export const GetCreatureDensity = wrapGame( ( game: Game ): mapdensity => game.creatureDensity );
+export const GetStartLocationX = wrapGame( ( game: Game, whichStartLocation: number ): number => game.startLocations[ whichStartLocation ].x );
+export const GetStartLocationY = wrapGame( ( game: Game, whichStartLocation: number ): number => game.startLocations[ whichStartLocation ].y );
+export const GetStartLocationLoc = wrapGame( ( game: Game, whichStartLocation: number ): location => {} );
+export const SetPlayerTeam = ( whichPlayer: player, whichTeam: number ): void => { whichPlayer.team = whichTeam };
+export const SetPlayerStartLocation = ( whichPlayer: player, startLocIndex: number ): void => { whichPlayer.startLocation = startLocIndex };
 /* eslint-enable padded-blocks */
 
 // forces player to have the specified start loc and marks the start loc as occupied
 // which removes it from consideration for subsequently placed players
 // ( i.e. you can use this to put people in a fixed loc and then
 //   use random placement for any unplaced players etc )
-export const ForcePlayerStartLocation = wrapMap( ( map: Map, whichPlayer: player, startLocIndex: number ): void => {} );
+export const ForcePlayerStartLocation = ( whichPlayer: player, startLocIndex: number ): void => { whichPlayer.startLocation = startLocIndex };
+export const SetPlayerColor = ( whichPlayer: player, color: playercolor ): void => { whichPlayer.color = color };
+export const SetPlayerAlliance = ( sourcePlayer: player, otherPlayer: player, whichAllianceSetting: alliancetype, value: boolean ): void => {
 
-export const SetPlayerColor = wrapMap( ( map: Map, whichPlayer: player, color: playercolor ): void => {} );
+	if ( ! sourcePlayer.alliances.has( otherPlayer ) ) sourcePlayer.alliances.set( otherPlayer, new Map() );
 
-export const SetPlayerAlliance = wrapMap( ( map: Map, sourcePlayer: player, otherPlayer: player, whichAllianceSetting: alliancetype, value: boolean ): void => {} );
+	const alliances = sourcePlayer.alliances.get( otherPlayer );
+	if ( ! alliances ) throw new Error( "This can't happen" );
 
-export const SetPlayerTaxRate = wrapMap( ( map: Map, sourcePlayer: player, otherPlayer: player, whichResource: playerstate, rate: number ): void => {} );
+	alliances.set( whichAllianceSetting, value );
 
-export const SetPlayerRacePreference = wrapMap( ( map: Map, whichPlayer: player, whichRacePreference: racepreference ): void => {} );
+};
+export const SetPlayerTaxRate = ( sourcePlayer: player, otherPlayer: player, whichResource: playerstate, rate: number ): void => {
 
-export const SetPlayerRaceSelectable = wrapMap( ( map: Map, whichPlayer: player, value: boolean ): void => {} );
+	if ( ! sourcePlayer.taxRates.has( otherPlayer ) ) sourcePlayer.taxRates.set( otherPlayer, new Map() );
 
-export const SetPlayerController = wrapMap( ( map: Map, whichPlayer: player, controlType: mapcontrol ): void => {} );
+	const taxRates = sourcePlayer.taxRates.get( otherPlayer );
+	if ( ! taxRates ) throw new Error( "This can't happen" );
 
-export const SetPlayerName = wrapMap( ( map: Map, whichPlayer: player, name: string ): void => {} );
+	taxRates.set( whichResource, rate );
 
-export const SetPlayerOnScoreScreen = wrapMap( ( map: Map, whichPlayer: player, flag: boolean ): void => {} );
+};
+export const SetPlayerRacePreference = ( whichPlayer: player, whichRacePreference: racepreference ): void => { whichPlayer.racePreference = whichRacePreference };
+export const SetPlayerRaceSelectable = ( whichPlayer: player, value: boolean ): void => { whichPlayer.raceSelectable = value };
+export const SetPlayerController = ( whichPlayer: player, controlType: mapcontrol ): void => { whichPlayer.controller = controlType };
+export const SetPlayerName = ( whichPlayer: player, name: string ): void => { whichPlayer.name = name };
+export const SetPlayerOnScoreScreen = ( whichPlayer: player, flag: boolean ): void => { whichPlayer.onScoreScreen = flag };
+export const GetPlayerTeam = ( whichPlayer: player ): number => whichPlayer.team;
+export const GetPlayerStartLocation = ( whichPlayer: player ): number => whichPlayer.startLocation;
+export const GetPlayerColor = ( whichPlayer: player ): playercolor => whichPlayer.color;
+export const GetPlayerSelectable = ( whichPlayer: player ): boolean => whichPlayer.raceSelectable;
+export const GetPlayerController = ( whichPlayer: player ): mapcontrol => whichPlayer.controller;
+export const GetPlayerSlotState = ( whichPlayer: player ): playerslotstate => whichPlayer.slotState;
+export const GetPlayerTaxRate = ( sourcePlayer: player, otherPlayer: player, whichResource: playerstate ): number => {
 
-export const GetPlayerTeam = wrapMap( ( map: Map, whichPlayer: player ): number => {} );
+	if ( ! sourcePlayer.taxRates.has( otherPlayer ) ) sourcePlayer.taxRates.set( otherPlayer, new Map() );
 
-export const GetPlayerStartLocation = wrapMap( ( map: Map, whichPlayer: player ): number => {} );
+	const taxRates = sourcePlayer.taxRates.get( otherPlayer );
+	if ( ! taxRates ) throw new Error( "This can't happen" );
 
-export const GetPlayerColor = wrapMap( ( map: Map, whichPlayer: player ): playercolor => {} );
+	return taxRates.get( whichResource ) || 0;
 
-export const GetPlayerSelectable = wrapMap( ( map: Map, whichPlayer: player ): boolean => {} );
-
-export const GetPlayerController = wrapMap( ( map: Map, whichPlayer: player ): mapcontrol => {} );
-
-export const GetPlayerSlotState = wrapMap( ( map: Map, whichPlayer: player ): playerslotstate => {} );
-
-export const GetPlayerTaxRate = wrapMap( ( map: Map, sourcePlayer: player, otherPlayer: player, whichResource: playerstate ): number => {} );
-
-export const IsPlayerRacePrefSet = wrapMap( ( map: Map, whichPlayer: player, pref: racepreference ): boolean => {} );
-
-export const GetPlayerName = wrapMap( ( map: Map, whichPlayer: player ): string => {} );
+};
+export const IsPlayerRacePrefSet = ( whichPlayer: player, pref: racepreference ): boolean => whichPlayer.racePreference === pref;
+export const GetPlayerName = ( whichPlayer: player ): string => whichPlayer.name;

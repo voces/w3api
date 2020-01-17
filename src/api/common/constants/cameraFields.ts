@@ -5,7 +5,7 @@ import {
 	ConvertRarityControl,
 	ConvertTexMapFlags,
 	ConvertFogState,
-} from "common/converters";
+} from "../converters";
 
 // ===================================================
 // Animatable Camera Fields

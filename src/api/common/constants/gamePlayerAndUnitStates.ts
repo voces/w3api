@@ -6,7 +6,7 @@ import {
 	ConvertUnitState,
 	ConvertAIDifficulty,
 	ConvertPlayerScore,
-} from "common/converters";
+} from "../converters";
 
 // ===================================================
 // Game, Player, and Unit States

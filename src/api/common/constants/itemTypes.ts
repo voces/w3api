@@ -1,5 +1,5 @@
 
-import { ConvertItemType } from "common/converters";
+import { ConvertItemType } from "../converters";
 
 // ===================================================
 // Unit Type Constants for use with ChooseRandomItemEx()

@@ -10,7 +10,7 @@ import {
 	ConvertGameDifficulty,
 	ConvertGameSpeed,
 	ConvertPlayerSlotState,
-} from "common/converters";
+} from "../converters";
 
 // ===================================================
 // Map Setup Constants

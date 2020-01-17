@@ -6,7 +6,7 @@ import {
 	ConvertUnitEvent,
 	ConvertWidgetEvent,
 	ConvertDialogEvent,
-} from "common/converters";
+} from "../converters";
 
 // ===================================================
 // Game, Player and Unit Events
