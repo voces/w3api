@@ -1,14 +1,12 @@
 
-// import { GetTeams } from "./mapApi";
+import { GetTeams } from "./mapApi";
 
-// describe( "Set/GetTeams", () => {
+describe( "Set/GetTeams", () => {
 
-// 	it( "run one", () => {
+	it( "run one", () => {
 
-// 		expect( GetTeams() ).toEqual( 1 );
+		expect( GetTeams() ).toEqual( 1 );
 
-// 	} );
+	} );
 
-// } );
-
-it( "empty", () => { /* do nothing */ } );
+} );

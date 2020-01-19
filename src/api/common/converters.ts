@@ -1,6 +1,5 @@
 
 import { gameContext } from "../../contexts";
-import { MAP_CONTROL_USER, PLAYER_SLOT_STATE_EMPTY, RACE_PREF_USER_SELECTABLE } from "./constants/mapSetup";
 
 const converter = (): ( ( index?: number ) => number ) => {
 
@@ -19,14 +18,39 @@ const converter = (): ( ( index?: number ) => number ) => {
 const contextConverter = gameContext.simpleFunctionWrapper( converter );
 export const contextIndexer = gameContext.complexFunctionWrapper( converter );
 
+type HandleCallback = ( handle: handle ) => void;
+
 const getHandle = contextIndexer( ( id ): handle => {
 
-	const onRemoveListeners: Array<( handle: handle ) => void> = [];
+	const onRemoveListeners: Set<HandleCallback> = new Set();
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const referenceMap: WeakMap<any, HandleCallback> = new WeakMap();
 	return {
 		handleId: id,
-		onRemove: ( cb: ( handle: handle ) => void ): void => {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		onRemove: ( cb: HandleCallback, reference?: any ): void => {
 
-			onRemoveListeners.push( cb );
+			onRemoveListeners.add( cb );
+			if ( reference ) referenceMap.set( reference, cb );
+
+		},
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		clearRemoveHook( cb: HandleCallback, reference?: any ): void {
+
+			onRemoveListeners.delete( cb );
+			if ( reference ) referenceMap.delete( reference );
+
+		},
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		clearRemoveHookByReference( reference: any ): void {
+
+			const cb = referenceMap.get( reference );
+			if ( cb ) {
+
+				onRemoveListeners.delete( cb );
+				if ( reference ) referenceMap.delete( reference );
+
+			}
 
 		},
 		remove(): void {
@@ -133,13 +157,16 @@ export const getPlayer = contextConverter( ( id ): player => ( {
 	startLocation: 0,
 	color: ConvertPlayerColor( Math.min( id, 23 ) ),
 	alliances: new Map(),
-	racePreference: RACE_PREF_USER_SELECTABLE,
+	get racePreference(): racepreference { throw new Error( "Accesing player.racePreference before setting" ) },
+	set racePreference( racePreference: racepreference ) { Object.defineProperty( this, "racePreference", { value: racePreference } ) },
 	raceSelectable: true,
-	controller: MAP_CONTROL_USER,
+	get controller(): mapcontrol { throw new Error( "Accesing player.controller before setting" ) },
+	set controller( controller: mapcontrol ) { Object.defineProperty( this, "controller", { value: controller } ) },
 	name: `Player ${id}`,
 	onScoreScreen: false,
 	team: 0,
-	slotState: PLAYER_SLOT_STATE_EMPTY,
+	get slotState(): playerslotstate { throw new Error( "Accesing player.slotState before setting" ) },
+	set slotState( slotState: playerslotstate ) { Object.defineProperty( this, "slotState", { value: slotState } ) },
 	taxRates: new Map(),
 } ) );
 

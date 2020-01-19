@@ -1,14 +1,10 @@
 
-import { gameContext } from "../../contexts";
 import {
 	GAME_TYPE_USE_MAP_SETTINGS,
-	MAP_DENSITY_MEDIUM,
-	MAP_DIFFICULTY_NORMAL,
-	MAP_PLACEMENT_RANDOM,
-	MAP_SPEED_FASTEST,
 } from "./constants/mapSetup";
 import { initStartLocation } from "./converters";
 import { Location } from "./geometry";
+import { wrapGame, Game } from "../../Game";
 
 // ============================================================================
 // Map Setup API
@@ -18,40 +14,6 @@ import { Location } from "./geometry";
 //  a game script. The functions should also be called in this order
 //  ( i.e. call SetPlayers before SetPlayerColor...
 //
-
-export type Game = {
-	name: string;
-	description: string;
-	teams: number;
-	players: Array<player>;
-	startLocations: Array<StartLocation>;
-	startLocationPriorites: Array<startlocprio>;
-	supportedGameTypes: Map<gametype, boolean>;
-	mapFlags: Map<mapflag, boolean>;
-	placement: placement;
-	gameSpeed: gamespeed;
-	gameDifficulty: gamedifficulty;
-	resourceDensity: mapdensity;
-	creatureDensity: mapdensity;
-}
-
-const wrapGame = gameContext.dataWrapper(
-	() => ( {
-		name: "",
-		description: "",
-		teams: 1,
-		players: [],
-		startLocations: [],
-		startLocationPriorites: [],
-		supportedGameTypes: new Map(),
-		mapFlags: new Map(),
-		placement: MAP_PLACEMENT_RANDOM,
-		gameSpeed: MAP_SPEED_FASTEST,
-		gameDifficulty: MAP_DIFFICULTY_NORMAL,
-		resourceDensity: MAP_DENSITY_MEDIUM,
-		creatureDensity: MAP_DENSITY_MEDIUM,
-	} as Game ),
-);
 
 export const SetMapName = wrapGame( ( game: Game, name: string ): void => { game.name = name } );
 export const SetMapDescription = wrapGame( ( game: Game, description: string ): void => { game.description = description } );

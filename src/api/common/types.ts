@@ -10,22 +10,31 @@ type StartLocation = {
 // possible to help prevent passing bad values to native functions
 //
 /* eslint-disable @typescript-eslint/class-name-casing */
-declare interface handle { handleId: number; onRemove: ( callback: ( handle: handle ) => void ) => void; remove: () => void }
+declare interface handle {
+    handleId: number;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onRemove: ( callback: ( handle: handle ) => void, reference?: any ) => void;
+    remove: () => void;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    clearRemoveHook: ( callback: ( handle: handle ) => void, reference?: any ) => void;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    clearRemoveHookByReference: ( reference: any ) => void;
+}
 declare interface agent extends handle { agentId: number }
 declare interface event extends agent { eventId: number }
 declare interface player extends agent {
-    playerId: number;
-    startLocation: number;
-    color: playercolor;
     alliances: Map<player, Map<alliancetype, boolean>>;
-    racePreference: racepreference;
-    raceSelectable: boolean;
+    color: playercolor;
     controller: mapcontrol;
     name: string;
     onScoreScreen: boolean;
-    team: number;
+    playerId: number;
+    racePreference: racepreference;
+    raceSelectable: boolean;
     slotState: playerslotstate;
+    startLocation: number;
     taxRates: Map<player, Map<playerstate, number>>;
+    team: number;
 }
 declare interface widget extends agent { widgetId: number }
 declare interface unit extends widget { unitId: number }
@@ -33,20 +42,35 @@ declare interface destructable extends widget { destructableId: number }
 declare interface item extends widget { itemId: number }
 declare interface ability extends agent { abilityId: number }
 declare interface buff extends ability { buffId: number }
-declare interface force extends agent { forceId: number }
-declare interface group extends agent { groupId: number }
-declare interface trigger extends agent { triggerId: number }
+declare interface force extends agent { forceId: number; players: Set<player>; _array?: Array<player> }
+declare interface group extends agent { groupId: number; units: Set<unit>; _array?: Array<unit> }
+declare interface trigger extends agent {
+    enabled: boolean;
+    evaluations: number;
+    executions: number;
+    triggerId: number;
+    waitOnSleeps: boolean;
+}
 declare interface triggercondition extends agent { triggerconditionId: number }
 declare interface triggeraction extends handle { triggeractionId: number }
-declare interface timer extends agent { timerId: number }
+declare interface timer extends agent {
+    active: boolean;
+    callback?: () => void;
+    interval: number;
+    lastTick: number;
+    nextTick: number;
+    periodic: boolean;
+    start: number;
+    timerId: number;
+}
 declare interface location extends agent { locationId: number; x: number; y: number }
-declare interface region extends agent { regionId: number; rects: Array<rect> }
+declare interface region extends agent { regionId: number }
 declare interface rect extends agent {
-    rectId: number;
-    minX: number;
-    minY: number;
     maxX: number;
     maxY: number;
+    minX: number;
+    minY: number;
+    rectId: number;
 }
 declare interface boolexpr extends agent { boolexprId: number }
 declare interface sound extends agent { soundId: number }

@@ -8,7 +8,7 @@ export const Rect = contextIndexer( ( id, minx: number, miny: number, maxx: numb
 	...getAgent(),
 	rectId: id,
 	minX: minx,
-	minY: minx,
+	minY: miny,
 	maxX: maxx,
 	maxY: maxy,
 } ) );
@@ -41,21 +41,36 @@ export const GetLocationY = ( whichLocation: location ): number => whichLocation
 //  If you attempt to use it in a synchronous manner, it may cause a desync.
 export const GetLocationZ = ( whichLocation: location ): number => {
 
-	console.warn( "GetLocationZ not yet implemented" );
+	console.warn( "GetLocationZ is not implemented" );
 	return 0;
 
 };
 
 // todo: test how regions work: if I add a global rect, clear a subrect, is that a hole?
-export const CreateRegion = contextIndexer( ( id ): region => ( { ...getAgent(), regionId: id, rects: [] } ) );
+export const CreateRegion = contextIndexer( ( id ): region => ( { ...getAgent(), regionId: id } ) );
 export const RemoveRegion = ( whichRegion: region ): void => whichRegion.remove();
-export const RegionAddRect = ( whichRegion: region, r: rect ): void => { whichRegion.rects.push( r ) };
+export const RegionAddRect = ( whichRegion: region, r: rect ): void => {};
 export const RegionClearRect = ( whichRegion: region, r: rect ): void => {};
 export const RegionAddCell = ( whichRegion: region, x: number, y: number ): void => {};
 export const RegionAddCellAtLoc = ( whichRegion: region, whichLocation: location ): void => {};
 export const RegionClearCell = ( whichRegion: region, x: number, y: number ): void => {};
 export const RegionClearCellAtLoc = ( whichRegion: region, whichLocation: location ): void => {};
 
-export const IsLocationInRegion = ( whichRegion: region, whichLocation: location ): boolean => {};
-export const IsUnitInRegion = ( whichRegion: region, whichUnit: unit ): boolean => {};
-export const IsPointInRegion = ( whichRegion: region, x: number, y: number ): boolean => {};
+export const IsLocationInRegion = ( whichRegion: region, whichLocation: location ): boolean => {
+
+	console.warn( "IsLocationInRegion is not implemented" );
+	return false;
+
+};
+export const IsUnitInRegion = ( whichRegion: region, whichUnit: unit ): boolean => {
+
+	console.warn( "IsUnitInRegion is not implemented" );
+	return false;
+
+};
+export const IsPointInRegion = ( whichRegion: region, x: number, y: number ): boolean => {
+
+	console.warn( "IsPointInRegion is not implemented" );
+	return false;
+
+};
