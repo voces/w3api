@@ -21,24 +21,11 @@ glob( [ "src/**/*.ts" ], { dot: true } ).then( async ( files: Array<string> ) =>
 			// { parser: typescriptParser },
 		);
 
+		let scopeInjected = false;
+
 		// console.log( file );
 		if ( file.startsWith( "src/api" ) )
 			visit( ast, {
-				visitProgram( path ) {
-
-					// insert the scope alias at the top
-					const scopeIdentifier = b.identifier( scopeVariableAlias );
-					scopeIdentifier.typeAnnotation = b.tsTypeAnnotation( b.tsAnyKeyword() );
-					const globalAlias = b.variableDeclaration( "const", [
-						b.variableDeclarator(
-							scopeIdentifier,
-							b.identifier( "globalThis" ),
-						),
-					] );
-					path.get( "body" ).unshift( globalAlias );
-					this.traverse( path );
-
-				},
 				visitExportNamedDeclaration( path ) {
 
 					const identifier = path.get( "declaration", "declarations", 0, "id", "name" );
@@ -54,9 +41,24 @@ glob( [ "src/**/*.ts" ], { dot: true } ).then( async ( files: Array<string> ) =>
 
 					}
 
-					// if ( ! implementation.declarations )
 					implementation.declarations[ 0 ].id.name = "_" + name;
 					path.replace( implementation );
+
+					// inject scope if not yet injected
+					if ( ! scopeInjected ) {
+
+						scopeInjected = true;
+						const scopeIdentifier = b.identifier( scopeVariableAlias );
+						scopeIdentifier.typeAnnotation = b.tsTypeAnnotation( b.tsAnyKeyword() );
+						const globalAlias = b.variableDeclaration( "const", [
+							b.variableDeclarator(
+								scopeIdentifier,
+								b.identifier( "globalThis" ),
+							),
+						] );
+						path.insertBefore( globalAlias );
+
+					}
 
 					// global scope augmentation
 					path.insertAfter( b.expressionStatement( b.assignmentExpression(
@@ -70,7 +72,7 @@ glob( [ "src/**/*.ts" ], { dot: true } ).then( async ( files: Array<string> ) =>
 					declarationIdentifier.typeAnnotation = b.tsTypeAnnotation( b.tsTypeQuery(
 						b.identifier( "_" + name ),
 					) );
-					const declaration = b.variableDeclaration( "const", [
+					const declaration = b.variableDeclaration( path.value.kind, [
 						b.variableDeclarator(
 							declarationIdentifier,
 						),

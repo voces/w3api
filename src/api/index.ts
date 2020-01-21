@@ -1,4 +1,4 @@
 
 import "./base";
-import "./blizzard.ts";
-import "./common.ts";
+import "./blizzard";
+import "./common";

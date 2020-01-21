@@ -55,7 +55,7 @@ declare interface triggercondition extends agent { triggerconditionId: number }
 declare interface triggeraction extends handle { triggeractionId: number }
 declare interface timer extends agent {
     active: boolean;
-    callback?: () => void;
+    callback: ( () => void ) | null;
     interval: number;
     lastTick: number;
     nextTick: number;

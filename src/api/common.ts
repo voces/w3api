@@ -59,7 +59,7 @@ export const TriggerRegisterGameEvent = ( whichTrigger: trigger, whichGameEvent:
 // EVENT_GAME_VICTORY
 export const GetWinningPlayer = (): player => {};
 
-export const TriggerRegisterEnterRegion = ( whichTrigger: trigger, whichRegion: region, filter: boolexpr ): event => {};
+export const TriggerRegisterEnterRegion = ( whichTrigger: trigger, whichRegion: region, filter: boolexpr | null ): event => {};
 
 // EVENT_GAME_ENTER_REGION
 export const GetTriggeringRegion = (): region => {};
@@ -68,7 +68,7 @@ export const GetEnteringUnit = (): unit => {};
 
 // EVENT_GAME_LEAVE_REGION
 
-export const TriggerRegisterLeaveRegion = ( whichTrigger: trigger, whichRegion: region, filter: boolexpr ): event => {};
+export const TriggerRegisterLeaveRegion = ( whichTrigger: trigger, whichRegion: region, filter: boolexpr | null ): event => {};
 
 export const GetLeavingUnit = (): unit => {};
 
@@ -107,7 +107,7 @@ export const TriggerRegisterPlayerEvent = ( whichTrigger: trigger, whichPlayer: 
 // EVENT_PLAYER_VICTORY
 export const GetTriggerPlayer = (): player => {};
 
-export const TriggerRegisterPlayerUnitEvent = ( whichTrigger: trigger, whichPlayer: player, whichPlayerUnitEvent: playerunitevent, filter: boolexpr ): event => {};
+export const TriggerRegisterPlayerUnitEvent = ( whichTrigger: trigger, whichPlayer: player, whichPlayerUnitEvent: playerunitevent, filter: boolexpr | null ): event => {};
 
 // EVENT_PLAYER_HERO_LEVEL
 // EVENT_UNIT_HERO_LEVEL
@@ -342,7 +342,7 @@ export const GetEventTargetUnit = (): unit => {};
 
 // See the Player Unit Order Event API above for event info funcs
 
-export const TriggerRegisterUnitInRange = ( whichTrigger: trigger, whichUnit: unit, range: number, filter: boolexpr ): event => {};
+export const TriggerRegisterUnitInRange = ( whichTrigger: trigger, whichUnit: unit, range: number, filter: boolexpr | null ): event => {};
 
 export const TriggerAddCondition = ( whichTrigger: trigger, condition: boolexpr ): triggercondition => {};
 
@@ -360,9 +360,9 @@ export const TriggerSleepAction = ( timeout: number ): void => {};
 
 export const TriggerWaitForSound = ( s: sound, offset: number ): void => {};
 
-export const TriggerEvaluate = ( whichTrigger: trigger ): boolean => {};
+export const TriggerEvaluate = ( whichTrigger: trigger | null ): boolean => {};
 
-export const TriggerExecute = ( whichTrigger: trigger ): void => {};
+export const TriggerExecute = ( whichTrigger: trigger | null ): void => {};
 
 export const TriggerExecuteWait = ( whichTrigger: trigger ): void => {};
 
@@ -401,7 +401,7 @@ export const SetDestructableInvulnerable = ( d: destructable, flag: boolean ): v
 
 export const IsDestructableInvulnerable = ( d: destructable ): boolean => {};
 
-export const EnumDestructablesInRect = ( r: rect, filter: boolexpr, actionFunc: code ): void => {};
+export const EnumDestructablesInRect = ( r: rect, filter: boolexpr | null, actionFunc: code ): void => {};
 
 export const GetDestructableTypeId = ( d: destructable ): number => {};
 
@@ -481,7 +481,7 @@ export const IsItemIdSellable = ( itemId: number ): boolean => {};
 
 export const IsItemIdPawnable = ( itemId: number ): boolean => {};
 
-export const EnumItemsInRect = ( r: rect, filter: boolexpr, actionFunc: code ): void => {};
+export const EnumItemsInRect = ( r: rect, filter: boolexpr | null, actionFunc: code ): void => {};
 
 export const GetItemLevel = ( whichItem: item ): number => {};
 
@@ -1569,7 +1569,7 @@ export const ForceQuestDialogUpdate = (): void => {};
 
 // ============================================================================
 // Timer Dialog API
-export const CreateTimerDialog = ( t: timer ): timerdialog => {};
+export const CreateTimerDialog = ( t: timer | null ): timerdialog => {};
 
 export const DestroyTimerDialog = ( whichDialog: timerdialog ): void => {};
 
@@ -2070,7 +2070,7 @@ export const SetDoodadAnimationRect = ( r: rect, doodadID: number, animName: str
 // ============================================================================
 // Computer AI interface
 //
-export const StartMeleeAI = ( num: player, script: string ): void => {};
+export const StartMeleeAI = ( num: player, script: string | null ): void => {};
 
 export const StartCampaignAI = ( num: player, script: string ): void => {};
 
@@ -2532,9 +2532,9 @@ export const BlzGetAbilityStringLevelField = ( whichAbility: ability, whichField
 
 export const BlzGetAbilityBooleanLevelArrayField = ( whichAbility: ability, whichField: abilitybooleanlevelarrayfield, level: number, index: number ): boolean => {};
 
-export const BlzGetAbilityIntegerLevelArrayField = ( whichAbility: ability, whichField: abilitynumberlevelarrayfield, level: number, index: number ): number => {};
+export const BlzGetAbilityIntegerLevelArrayField = ( whichAbility: ability, whichField: abilityintegerlevelarrayfield, level: number, index: number ): number => {};
 
-export const BlzGetAbilityRealLevelArrayField = ( whichAbility: ability, whichField: abilitynumberlevelarrayfield, level: number, index: number ): number => {};
+export const BlzGetAbilityRealLevelArrayField = ( whichAbility: ability, whichField: abilityreallevelarrayfield, level: number, index: number ): number => {};
 
 export const BlzGetAbilityStringLevelArrayField = ( whichAbility: ability, whichField: abilitystringlevelarrayfield, level: number, index: number ): string => {};
 
@@ -2542,7 +2542,7 @@ export const BlzSetAbilityBooleanField = ( whichAbility: ability, whichField: ab
 
 export const BlzSetAbilityIntegerField = ( whichAbility: ability, whichField: abilityintegerfield, value: number ): boolean => {};
 
-export const BlzSetAbilityRealField = ( whichAbility: ability, whichField: abilityintegerfield, value: number ): boolean => {};
+export const BlzSetAbilityRealField = ( whichAbility: ability, whichField: abilityrealfield, value: number ): boolean => {};
 
 export const BlzSetAbilityStringField = ( whichAbility: ability, whichField: abilitystringfield, value: string ): boolean => {};
 
@@ -2556,25 +2556,25 @@ export const BlzSetAbilityStringLevelField = ( whichAbility: ability, whichField
 
 export const BlzSetAbilityBooleanLevelArrayField = ( whichAbility: ability, whichField: abilitybooleanlevelarrayfield, level: number, index: number, value: boolean ): boolean => {};
 
-export const BlzSetAbilityIntegerLevelArrayField = ( whichAbility: ability, whichField: abilitynumberlevelarrayfield, level: number, index: number, value: number ): boolean => {};
+export const BlzSetAbilityIntegerLevelArrayField = ( whichAbility: ability, whichField: abilityintegerlevelarrayfield, level: number, index: number, value: number ): boolean => {};
 
-export const BlzSetAbilityRealLevelArrayField = ( whichAbility: ability, whichField: abilitynumberlevelarrayfield, level: number, index: number, value: number ): boolean => {};
+export const BlzSetAbilityRealLevelArrayField = ( whichAbility: ability, whichField: abilityreallevelarrayfield, level: number, index: number, value: number ): boolean => {};
 
 export const BlzSetAbilityStringLevelArrayField = ( whichAbility: ability, whichField: abilitystringlevelarrayfield, level: number, index: number, value: string ): boolean => {};
 
 export const BlzAddAbilityBooleanLevelArrayField = ( whichAbility: ability, whichField: abilitybooleanlevelarrayfield, level: number, value: boolean ): boolean => {};
 
-export const BlzAddAbilityIntegerLevelArrayField = ( whichAbility: ability, whichField: abilitynumberlevelarrayfield, level: number, value: number ): boolean => {};
+export const BlzAddAbilityIntegerLevelArrayField = ( whichAbility: ability, whichField: abilityintegerlevelarrayfield, level: number, value: number ): boolean => {};
 
-export const BlzAddAbilityRealLevelArrayField = ( whichAbility: ability, whichField: abilitynumberlevelarrayfield, level: number, value: number ): boolean => {};
+export const BlzAddAbilityRealLevelArrayField = ( whichAbility: ability, whichField: abilityreallevelarrayfield, level: number, value: number ): boolean => {};
 
 export const BlzAddAbilityStringLevelArrayField = ( whichAbility: ability, whichField: abilitystringlevelarrayfield, level: number, value: string ): boolean => {};
 
 export const BlzRemoveAbilityBooleanLevelArrayField = ( whichAbility: ability, whichField: abilitybooleanlevelarrayfield, level: number, value: boolean ): boolean => {};
 
-export const BlzRemoveAbilityIntegerLevelArrayField = ( whichAbility: ability, whichField: abilitynumberlevelarrayfield, level: number, value: number ): boolean => {};
+export const BlzRemoveAbilityIntegerLevelArrayField = ( whichAbility: ability, whichField: abilityintegerlevelarrayfield, level: number, value: number ): boolean => {};
 
-export const BlzRemoveAbilityRealLevelArrayField = ( whichAbility: ability, whichField: abilitynumberlevelarrayfield, level: number, value: number ): boolean => {};
+export const BlzRemoveAbilityRealLevelArrayField = ( whichAbility: ability, whichField: abilityreallevelarrayfield, level: number, value: number ): boolean => {};
 
 export const BlzRemoveAbilityStringLevelArrayField = ( whichAbility: ability, whichField: abilitystringlevelarrayfield, level: number, value: string ): boolean => {};
 
@@ -2587,17 +2587,17 @@ export const BlzItemAddAbility = ( whichItem: item, abilCode: number ): boolean 
 
 export const BlzGetItemBooleanField = ( whichItem: item, whichField: itembooleanfield ): boolean => {};
 
-export const BlzGetItemIntegerField = ( whichItem: item, whichField: itemnumberfield ): number => {};
+export const BlzGetItemIntegerField = ( whichItem: item, whichField: itemintegerfield ): number => {};
 
-export const BlzGetItemRealField = ( whichItem: item, whichField: itemnumberfield ): number => {};
+export const BlzGetItemRealField = ( whichItem: item, whichField: itemrealfield ): number => {};
 
 export const BlzGetItemStringField = ( whichItem: item, whichField: itemstringfield ): string => {};
 
 export const BlzSetItemBooleanField = ( whichItem: item, whichField: itembooleanfield, value: boolean ): boolean => {};
 
-export const BlzSetItemIntegerField = ( whichItem: item, whichField: itemnumberfield, value: number ): boolean => {};
+export const BlzSetItemIntegerField = ( whichItem: item, whichField: itemintegerfield, value: number ): boolean => {};
 
-export const BlzSetItemRealField = ( whichItem: item, whichField: itemnumberfield, value: number ): boolean => {};
+export const BlzSetItemRealField = ( whichItem: item, whichField: itemrealfield, value: number ): boolean => {};
 
 export const BlzSetItemStringField = ( whichItem: item, whichField: itemstringfield, value: string ): boolean => {};
 
@@ -2606,34 +2606,34 @@ export const BlzItemRemoveAbility = ( whichItem: item, abilCode: number ): boole
 // Unit
 export const BlzGetUnitBooleanField = ( whichUnit: unit, whichField: unitbooleanfield ): boolean => {};
 
-export const BlzGetUnitIntegerField = ( whichUnit: unit, whichField: unitnumberfield ): number => {};
+export const BlzGetUnitIntegerField = ( whichUnit: unit, whichField: unitintegerfield ): number => {};
 
-export const BlzGetUnitRealField = ( whichUnit: unit, whichField: unitnumberfield ): number => {};
+export const BlzGetUnitRealField = ( whichUnit: unit, whichField: unitrealfield ): number => {};
 
 export const BlzGetUnitStringField = ( whichUnit: unit, whichField: unitstringfield ): string => {};
 
 export const BlzSetUnitBooleanField = ( whichUnit: unit, whichField: unitbooleanfield, value: boolean ): boolean => {};
 
-export const BlzSetUnitIntegerField = ( whichUnit: unit, whichField: unitnumberfield, value: number ): boolean => {};
+export const BlzSetUnitIntegerField = ( whichUnit: unit, whichField: unitintegerfield, value: number ): boolean => {};
 
-export const BlzSetUnitRealField = ( whichUnit: unit, whichField: unitnumberfield, value: number ): boolean => {};
+export const BlzSetUnitRealField = ( whichUnit: unit, whichField: unitrealfield, value: number ): boolean => {};
 
 export const BlzSetUnitStringField = ( whichUnit: unit, whichField: unitstringfield, value: string ): boolean => {};
 
 // Unit Weapon
 export const BlzGetUnitWeaponBooleanField = ( whichUnit: unit, whichField: unitweaponbooleanfield, index: number ): boolean => {};
 
-export const BlzGetUnitWeaponIntegerField = ( whichUnit: unit, whichField: unitweaponnumberfield, index: number ): number => {};
+export const BlzGetUnitWeaponIntegerField = ( whichUnit: unit, whichField: unitweaponintegerfield, index: number ): number => {};
 
-export const BlzGetUnitWeaponRealField = ( whichUnit: unit, whichField: unitweaponnumberfield, index: number ): number => {};
+export const BlzGetUnitWeaponRealField = ( whichUnit: unit, whichField: unitweaponrealfield, index: number ): number => {};
 
 export const BlzGetUnitWeaponStringField = ( whichUnit: unit, whichField: unitweaponstringfield, index: number ): string => {};
 
 export const BlzSetUnitWeaponBooleanField = ( whichUnit: unit, whichField: unitweaponbooleanfield, index: number, value: boolean ): boolean => {};
 
-export const BlzSetUnitWeaponIntegerField = ( whichUnit: unit, whichField: unitweaponnumberfield, index: number, value: number ): boolean => {};
+export const BlzSetUnitWeaponIntegerField = ( whichUnit: unit, whichField: unitweaponintegerfield, index: number, value: number ): boolean => {};
 
-export const BlzSetUnitWeaponRealField = ( whichUnit: unit, whichField: unitweaponnumberfield, index: number, value: number ): boolean => {};
+export const BlzSetUnitWeaponRealField = ( whichUnit: unit, whichField: unitweaponrealfield, index: number, value: number ): boolean => {};
 
 export const BlzSetUnitWeaponStringField = ( whichUnit: unit, whichField: unitweaponstringfield, index: number, value: string ): boolean => {};
 

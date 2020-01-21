@@ -69,16 +69,16 @@ export const BlzGroupUnitAt = ( whichGroup: group, index: number ): unit => {
 	return whichGroup._array[ index ];
 
 };
-export const GroupEnumUnitsOfType = ( whichGroup: group, unitname: string, filter: boolexpr ): void => {};
-export const GroupEnumUnitsOfPlayer = ( whichGroup: group, whichPlayer: player, filter: boolexpr ): void => {};
-export const GroupEnumUnitsOfTypeCounted = ( whichGroup: group, unitname: string, filter: boolexpr, countLimit: number ): void => {};
-export const GroupEnumUnitsInRect = ( whichGroup: group, r: rect, filter: boolexpr ): void => {};
-export const GroupEnumUnitsInRectCounted = ( whichGroup: group, r: rect, filter: boolexpr, countLimit: number ): void => {};
-export const GroupEnumUnitsInRange = ( whichGroup: group, x: number, y: number, radius: number, filter: boolexpr ): void => {};
-export const GroupEnumUnitsInRangeOfLoc = ( whichGroup: group, whichLocation: location, radius: number, filter: boolexpr ): void => {};
-export const GroupEnumUnitsInRangeCounted = ( whichGroup: group, x: number, y: number, radius: number, filter: boolexpr, countLimit: number ): void => {};
-export const GroupEnumUnitsInRangeOfLocCounted = ( whichGroup: group, whichLocation: location, radius: number, filter: boolexpr, countLimit: number ): void => {};
-export const GroupEnumUnitsSelected = ( whichGroup: group, whichPlayer: player, filter: boolexpr ): void => {};
+export const GroupEnumUnitsOfType = ( whichGroup: group, unitname: string, filter: boolexpr | null ): void => {};
+export const GroupEnumUnitsOfPlayer = ( whichGroup: group, whichPlayer: player, filter: boolexpr | null ): void => {};
+export const GroupEnumUnitsOfTypeCounted = ( whichGroup: group, unitname: string, filter: boolexpr | null, countLimit: number ): void => {};
+export const GroupEnumUnitsInRect = ( whichGroup: group, r: rect, filter: boolexpr | null ): void => {};
+export const GroupEnumUnitsInRectCounted = ( whichGroup: group, r: rect, filter: boolexpr | null, countLimit: number ): void => {};
+export const GroupEnumUnitsInRange = ( whichGroup: group, x: number, y: number, radius: number, filter: boolexpr | null ): void => {};
+export const GroupEnumUnitsInRangeOfLoc = ( whichGroup: group, whichLocation: location, radius: number, filter: boolexpr | null ): void => {};
+export const GroupEnumUnitsInRangeCounted = ( whichGroup: group, x: number, y: number, radius: number, filter: boolexpr | null, countLimit: number ): void => {};
+export const GroupEnumUnitsInRangeOfLocCounted = ( whichGroup: group, whichLocation: location, radius: number, filter: boolexpr | null, countLimit: number ): void => {};
+export const GroupEnumUnitsSelected = ( whichGroup: group, whichPlayer: player, filter: boolexpr | null ): void => {};
 export const GroupImmediateOrder = ( whichGroup: group, order: string ): boolean => {};
 export const GroupImmediateOrderById = ( whichGroup: group, order: number ): boolean => {};
 export const GroupPointOrder = ( whichGroup: group, order: string, x: number, y: number ): boolean => {};

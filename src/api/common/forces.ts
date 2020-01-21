@@ -29,10 +29,10 @@ export const ForceClear = ( whichForce: force ): void => {
 	whichForce._array = undefined;
 
 };
-export const ForceEnumPlayers = ( whichForce: force, filter: boolexpr ): void => {};
+export const ForceEnumPlayers = ( whichForce: force, filter: boolexpr | null ): void => {};
 export const ForceEnumPlayersCounted = ( whichForce: force, filter: boolexpr, countLimit: number ): void => {};
-export const ForceEnumAllies = ( whichForce: force, whichPlayer: player, filter: boolexpr ): void => {};
-export const ForceEnumEnemies = ( whichForce: force, whichPlayer: player, filter: boolexpr ): void => {};
+export const ForceEnumAllies = ( whichForce: force, whichPlayer: player, filter: boolexpr | null ): void => {};
+export const ForceEnumEnemies = ( whichForce: force, whichPlayer: player, filter: boolexpr | null ): void => {};
 export const ForForce = ( whichForce: force, callback: ( player: player ) => void ): void => { for ( const player of whichForce.players ) callback( player ); };
 // Returns full map bounds, including unplayable borders, in world coordinates
 export const GetWorldBounds = (): rect => {

@@ -8,6 +8,7 @@ import { wrapGame, Game } from "../../Game";
 export const CreateTimer = contextIndexer( wrapGame( ( game: Game, id: number ): timer => ( {
 	...getAgent(),
 	active: false,
+	callback: null,
 	interval: 1,
 	lastTick: game.time,
 	nextTick: game.time + 1,
@@ -15,8 +16,8 @@ export const CreateTimer = contextIndexer( wrapGame( ( game: Game, id: number ):
 	start: game.time,
 	timerId: id,
 } ) ) );
-export const DestroyTimer = ( whichTimer: timer ): void => whichTimer.remove();
-export const TimerStart = wrapGame( ( game: Game, whichTimer: timer, timeout: number, periodic: boolean, handlerFunc?: () => void ): void => {
+export const DestroyTimer = ( whichTimer: timer | null ): void => whichTimer ? whichTimer.remove() : undefined;
+export const TimerStart = wrapGame( ( game: Game, whichTimer: timer, timeout: number, periodic: boolean, handlerFunc: ( () => void ) | null ): void => {
 
 	whichTimer.callback = handlerFunc;
 	whichTimer.interval = timeout;
