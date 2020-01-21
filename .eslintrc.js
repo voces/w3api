@@ -10,13 +10,9 @@ module.exports = {
 	rules: {
 		"no-undef": 0,
 		"@typescript-eslint/camelcase": 0,
-		"padded-blocks": ["error", "always", {allowSingleLineBlocks: true}]
+		"padded-blocks": ["error", "always", {allowSingleLineBlocks: true}],
+		"no-unused-vars": 0, // covered by TypeScript
+		"@typescript-eslint/no-empty-function": 1,
 		// "@typescript-eslint/strict-boolean-expressions": 2
 	},
-	// overrides: [{
-	// 	files: ["src/**/*.ts"],
-	// 	parserOptions: { project: "./tsconfig.json" },
-	// }]
-	// files: ["src/**/*.ts"],
-	// excludedFiles: "**/*.spec.ts",
 };

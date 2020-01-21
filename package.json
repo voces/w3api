@@ -1,5 +1,5 @@
 {
-  "name": "@voces/w3api",
+  "name": "w3api",
   "version": "1.0.0",
   "description": "TypeScript API for Warcraft III natives",
   "author": "verit",

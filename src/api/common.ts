@@ -1,4 +1,16 @@
 
+import "./common/converters";
+import "./common/forces";
+import "./common/geometry";
+import "./common/groups";
+import "./common/mapApi";
+import "./common/math";
+import "./common/string";
+import "./common/timers";
+import "./common/triggerInterface";
+import "./common/types";
+import "./common/constants/index";
+
 // ============================================================================
 // Boolean Expr API ( for compositing trigger conditions and unit filter funcs...)
 // ============================================================================
