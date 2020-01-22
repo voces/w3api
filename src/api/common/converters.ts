@@ -1,5 +1,6 @@
 
 import { contextIndexer, getAgent, contextConverter, getHandle } from "../../handles";
+import { notImplemented } from "errors";
 
 const getGamestate = contextIndexer( ( id ): gamestate => ( { ...getAgent(), gamestateId: id } ) );
 const getEvent = contextIndexer( ( id ): eventid => ( { ...getHandle(), eventidId: id } ) );
@@ -112,7 +113,7 @@ export const getPlayer = contextConverter( ( id ): player => ( {
 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 export const OrderId = ( orderIdString: string ): number => {
 
-	console.warn( "OrderID not implemented" );
+	notImplemented( "OrderId" );
 	return 0;
 
 };
@@ -120,7 +121,7 @@ export const OrderId = ( orderIdString: string ): number => {
 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 export const OrderId2String = ( orderId: number ): string => {
 
-	console.warn( "OrderId2String not implemented" );
+	notImplemented( "OrderId2String" );
 	return "";
 
 };
@@ -128,7 +129,7 @@ export const OrderId2String = ( orderId: number ): string => {
 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 export const UnitId = ( unitIdString: string ): number => {
 
-	console.warn( "UnitId not implemented" );
+	notImplemented( "UnitId" );
 	return 0;
 
 };
@@ -136,7 +137,7 @@ export const UnitId = ( unitIdString: string ): number => {
 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 export const UnitId2String = ( unitId: number ): string => {
 
-	console.warn( "UnitId2String not implemented" );
+	notImplemented( "UnitId2String" );
 	return "";
 
 };
@@ -145,7 +146,7 @@ export const UnitId2String = ( unitId: number ): string => {
 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 export const AbilityId = ( abilityIdString: string ): number => {
 
-	console.warn( "abilityIdString not implemented" );
+	notImplemented( "abilityIdString" );
 	return 0;
 
 };
@@ -153,7 +154,7 @@ export const AbilityId = ( abilityIdString: string ): number => {
 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 export const AbilityId2String = ( abilityId: number ): string => {
 
-	console.warn( "AbilityId2String not implemented" );
+	notImplemented( "AbilityId2String" );
 	return "";
 
 };
@@ -162,7 +163,7 @@ export const AbilityId2String = ( abilityId: number ): string => {
 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 export const GetObjectName = ( objectId: number ): string => {
 
-	console.warn( "GetObjectName not implemented" );
+	notImplemented( "GetObjectName" );
 	return "";
 
 };

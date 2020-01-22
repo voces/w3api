@@ -1,6 +1,7 @@
 
 import { contextIndexer, getAgent } from "../../handles";
 import { wrapGame } from "../../Game";
+import { wrapRun } from "../../Run";
 
 // ============================================================================
 // Native trigger interface
@@ -33,8 +34,8 @@ export const DisableTrigger = ( whichTrigger: trigger ): void => { whichTrigger.
 export const IsTriggerEnabled = ( whichTrigger: trigger ): boolean => whichTrigger.enabled;
 export const TriggerWaitOnSleeps = ( whichTrigger: trigger, flag: boolean ): void => { whichTrigger.waitOnSleeps = flag };
 export const IsTriggerWaitOnSleeps = ( whichTrigger: trigger ): boolean => whichTrigger.waitOnSleeps;
-export const GetFilterUnit = (): unit => {};
-export const GetEnumUnit = (): unit => {};
+export const GetFilterUnit = wrapRun( ( run ): unit | null => run.filterUnit );
+export const GetEnumUnit = wrapRun( ( run ): unit | null => run.enumUnit );
 export const GetFilterDestructable = (): destructable => {};
 export const GetEnumDestructable = (): destructable => {};
 export const GetFilterItem = (): item => {};

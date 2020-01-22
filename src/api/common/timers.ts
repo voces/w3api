@@ -1,6 +1,7 @@
 
 import { contextIndexer, getAgent } from "../../handles";
 import { wrapGame, Game } from "../../Game";
+import { notImplemented } from "../../errors";
 
 // ============================================================================
 // Timer API
@@ -50,7 +51,7 @@ export const ResumeTimer = wrapGame( ( game: Game, whichTimer: timer ): void => 
 } );
 export const GetExpiredTimer = (): timer => {
 
-	console.warn( "GetExpiredTimer not yet implemented" );
+	notImplemented( "GetExpiredTimer" );
 	return CreateTimer();
 
 };

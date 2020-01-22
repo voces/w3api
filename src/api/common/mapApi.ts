@@ -5,6 +5,7 @@ import {
 import { initStartLocation } from "./converters";
 import { Location } from "./geometry";
 import { wrapGame, Game } from "../../Game";
+import { notImplemented } from "../../errors";
 
 // ============================================================================
 // Map Setup API
@@ -67,7 +68,7 @@ export const GetPlayers = wrapGame( ( game: Game ): number => game.players.lengt
 export const IsGameTypeSupported = wrapGame( ( game: Game, whichGameType: gametype ): boolean => game.supportedGameTypes.get( whichGameType ) || false );
 export const GetGameTypeSelected = wrapGame( (): gametype => {
 
-	console.warn( "GetGameTypeSelected is not implemented" );
+	notImplemented( "GetGameTypeSelected" );
 	return GAME_TYPE_USE_MAP_SETTINGS;
 
 } );

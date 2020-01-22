@@ -1,6 +1,7 @@
 
 import { contextIndexer, getAgent } from "../../handles";
 import { Rect } from "./geometry";
+import { notImplemented } from "../../errors";
 
 // ============================================================================
 // Force API
@@ -37,7 +38,7 @@ export const ForForce = ( whichForce: force, callback: ( player: player ) => voi
 // Returns full map bounds, including unplayable borders, in world coordinates
 export const GetWorldBounds = (): rect => {
 
-	console.warn( "GetWorldBounds not yet implemented" );
+	notImplemented( "GetWorldBounds" );
 	return Rect( - Infinity, - Infinity, Infinity, Infinity );
 
 };

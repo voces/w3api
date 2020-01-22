@@ -1,5 +1,6 @@
 
 import { contextIndexer, getAgent } from "../../handles";
+import { notImplemented } from "../../errors";
 
 // ============================================================================
 // Region and Location API
@@ -41,7 +42,7 @@ export const GetLocationY = ( whichLocation: location ): number => whichLocation
 //  If you attempt to use it in a synchronous manner, it may cause a desync.
 export const GetLocationZ = ( whichLocation: location ): number => {
 
-	console.warn( "GetLocationZ is not implemented" );
+	notImplemented( "GetLocationZ" );
 	return 0;
 
 };
@@ -58,19 +59,19 @@ export const RegionClearCellAtLoc = ( whichRegion: region, whichLocation: locati
 
 export const IsLocationInRegion = ( whichRegion: region, whichLocation: location ): boolean => {
 
-	console.warn( "IsLocationInRegion is not implemented" );
+	notImplemented( "IsLocationInRegion" );
 	return false;
 
 };
 export const IsUnitInRegion = ( whichRegion: region, whichUnit: unit ): boolean => {
 
-	console.warn( "IsUnitInRegion is not implemented" );
+	notImplemented( "IsUnitInRegion" );
 	return false;
 
 };
 export const IsPointInRegion = ( whichRegion: region, x: number, y: number ): boolean => {
 
-	console.warn( "IsPointInRegion is not implemented" );
+	notImplemented( "IsPointInRegion" );
 	return false;
 
 };
