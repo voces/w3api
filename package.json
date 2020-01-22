@@ -5,7 +5,7 @@
   "author": "verit",
   "license": "MIT",
   "scripts": {
-    "build": "ts-node bin/build.ts",
+    "build": "tsc; ts-node bin/build.ts",
     "dev": "npm-watch",
     "test": "jest",
     "test-debug": "node --inspect-brk node_modules/.bin/jest --runInBand"

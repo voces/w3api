@@ -1,15 +1,15 @@
 
-import "./common/converters";
-import "./common/forces";
-import "./common/geometry";
-import "./common/groups";
-import "./common/mapApi";
-import "./common/math";
-import "./common/string";
-import "./common/timers";
-import "./common/triggerInterface";
+export * from "./common/converters";
+export * from "./common/forces";
+export * from "./common/geometry";
+export * from "./common/groups";
+export * from "./common/mapApi";
+export * from "./common/math";
+export * from "./common/string";
+export * from "./common/timers";
+export * from "./common/triggerInterface";
+export * from "./common/constants/index";
 import "./common/types";
-import "./common/constants/index";
 
 // ============================================================================
 // Boolean Expr API ( for compositing trigger conditions and unit filter funcs...)
@@ -20,11 +20,11 @@ export const Or = ( operandA: boolexpr, operandB: boolexpr ): boolexpr => {};
 
 export const Not = ( operand: boolexpr ): boolexpr => {};
 
-export const Condition = ( func: code ): conditionfunc => {};
+export const Condition = ( func: () => boolean ): conditionfunc => {};
 
 export const DestroyCondition = ( c: conditionfunc ): void => {};
 
-export const Filter = ( func: code ): filterfunc => {};
+export const Filter = ( func: () => boolean ): filterfunc => {};
 
 export const DestroyFilter = ( f: filterfunc ): void => {};
 
