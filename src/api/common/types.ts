@@ -45,14 +45,19 @@ declare interface buff extends ability { buffId: number }
 declare interface force extends agent { forceId: number; players: Set<player>; _array?: Array<player> }
 declare interface group extends agent { groupId: number; units: Set<unit>; _array?: Array<unit> }
 declare interface trigger extends agent {
+    actions: Array<triggeraction>;
+    conditions: Array<triggercondition>;
     enabled: boolean;
+    evaluate: () => boolean;
     evaluations: number;
+    events: Array<event>;
+    execute: () => void;
     executions: number;
     triggerId: number;
     waitOnSleeps: boolean;
 }
-declare interface triggercondition extends agent { triggerconditionId: number }
-declare interface triggeraction extends handle { triggeractionId: number }
+declare interface triggercondition extends agent { triggerconditionId: number; condition: conditionfunc }
+declare interface triggeraction extends handle { triggeractionId: number; func: () => void }
 declare interface timer extends agent {
     active: boolean;
     callback: ( () => void ) | null;
@@ -72,7 +77,7 @@ declare interface rect extends agent {
     minY: number;
     rectId: number;
 }
-declare interface boolexpr extends agent { boolexprId: number }
+declare interface boolexpr extends agent { boolexprId: number; func: () => boolean }
 declare interface sound extends agent { soundId: number }
 declare interface conditionfunc extends boolexpr { conditionfuncId: number }
 declare interface filterfunc extends boolexpr { filterfuncId: number }

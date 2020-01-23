@@ -26,13 +26,14 @@ export class Game {
 
 	time = 0;
 	timers = new BinaryHeap( ( t: timer ) => t.nextTick );
-	triggers: Set<trigger> = new Set()
+	triggers: Set<trigger> = new Set();
+	globalTickChecks: Set<() => void> = new Set();
 
 	tick( delta: number ): void {
 
 		const newTime = this.time + delta;
 
-		while ( this.timers.peak().nextTick <= newTime ) {
+		while ( this.timers.size && this.timers.peak().nextTick <= newTime ) {
 
 			const timer = this.timers.pop();
 			timer.lastTick += timer.interval;
@@ -51,6 +52,8 @@ export class Game {
 			}
 
 		}
+
+		this.globalTickChecks.forEach( v => v() );
 
 		this.time = newTime;
 

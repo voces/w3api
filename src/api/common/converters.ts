@@ -1,6 +1,6 @@
 
 import { contextIndexer, getAgent, contextConverter, getHandle } from "../../handles";
-import { notImplemented } from "errors";
+import { notImplemented } from "../../errors";
 
 const getGamestate = contextIndexer( ( id ): gamestate => ( { ...getAgent(), gamestateId: id } ) );
 const getEvent = contextIndexer( ( id ): eventid => ( { ...getHandle(), eventidId: id } ) );

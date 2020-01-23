@@ -1,4 +1,6 @@
 
+export * from "./common/booleanExpressions";
+export * from "./common/constants";
 export * from "./common/converters";
 export * from "./common/forces";
 export * from "./common/geometry";
@@ -7,95 +9,8 @@ export * from "./common/mapApi";
 export * from "./common/math";
 export * from "./common/string";
 export * from "./common/timers";
-export * from "./common/triggerInterface";
-export * from "./common/constants/index";
+export * from "./common/triggers";
 import "./common/types";
-
-// ============================================================================
-// Boolean Expr API ( for compositing trigger conditions and unit filter funcs...)
-// ============================================================================
-export const And = ( operandA: boolexpr, operandB: boolexpr ): boolexpr => {};
-
-export const Or = ( operandA: boolexpr, operandB: boolexpr ): boolexpr => {};
-
-export const Not = ( operand: boolexpr ): boolexpr => {};
-
-export const Condition = ( func: () => boolean ): conditionfunc => {};
-
-export const DestroyCondition = ( c: conditionfunc ): void => {};
-
-export const Filter = ( func: () => boolean ): filterfunc => {};
-
-export const DestroyFilter = ( f: filterfunc ): void => {};
-
-export const DestroyBoolExpr = ( e: boolexpr ): void => {};
-
-// ============================================================================
-// Trigger Game Event API
-// ============================================================================
-
-export const TriggerRegisterVariableEvent = ( whichTrigger: trigger, varName: string, opcode: limitop, limitval: number ): event => {};
-
-// EVENT_GAME_VARIABLE_LIMIT
-// constant native string GetTriggeringVariableName takes nothing returns string
-
-// Creates it's own timer and triggers when it expires
-export const TriggerRegisterTimerEvent = ( whichTrigger: trigger, timeout: number, periodic: boolean ): event => {};
-
-// Triggers when the timer you tell it about expires
-export const TriggerRegisterTimerExpireEvent = ( whichTrigger: trigger, t: timer ): event => {};
-
-export const TriggerRegisterGameStateEvent = ( whichTrigger: trigger, whichState: gamestate, opcode: limitop, limitval: number ): event => {};
-
-export const TriggerRegisterDialogEvent = ( whichTrigger: trigger, whichDialog: dialog ): event => {};
-
-export const TriggerRegisterDialogButtonEvent = ( whichTrigger: trigger, whichButton: button ): event => {};
-
-//  EVENT_GAME_STATE_LIMIT
-export const GetEventGameState = (): gamestate => {};
-
-export const TriggerRegisterGameEvent = ( whichTrigger: trigger, whichGameEvent: gameevent ): event => {};
-
-// EVENT_GAME_VICTORY
-export const GetWinningPlayer = (): player => {};
-
-export const TriggerRegisterEnterRegion = ( whichTrigger: trigger, whichRegion: region, filter: boolexpr | null ): event => {};
-
-// EVENT_GAME_ENTER_REGION
-export const GetTriggeringRegion = (): region => {};
-
-export const GetEnteringUnit = (): unit => {};
-
-// EVENT_GAME_LEAVE_REGION
-
-export const TriggerRegisterLeaveRegion = ( whichTrigger: trigger, whichRegion: region, filter: boolexpr | null ): event => {};
-
-export const GetLeavingUnit = (): unit => {};
-
-export const TriggerRegisterTrackableHitEvent = ( whichTrigger: trigger, t: trackable ): event => {};
-
-export const TriggerRegisterTrackableTrackEvent = ( whichTrigger: trigger, t: trackable ): event => {};
-
-// EVENT_GAME_TRACKABLE_HIT
-// EVENT_GAME_TRACKABLE_TRACK
-export const GetTriggeringTrackable = (): trackable => {};
-
-// EVENT_DIALOG_BUTTON_CLICK
-export const GetClickedButton = (): button => {};
-
-export const GetClickedDialog = (): dialog => {};
-
-// EVENT_GAME_TOURNAMENT_FINISH_SOON
-export const GetTournamentFinishSoonTimeRemaining = (): number => {};
-
-export const GetTournamentFinishNowRule = (): number => {};
-
-export const GetTournamentFinishNowPlayer = (): player => {};
-
-export const GetTournamentScore = ( whichPlayer: player ): number => {};
-
-// EVENT_GAME_SAVE
-export const GetSaveBasicFilename = (): string => {};
 
 // ============================================================================
 // Trigger Player Based Event API
@@ -350,7 +265,7 @@ export const TriggerRemoveCondition = ( whichTrigger: trigger, whichCondition: t
 
 export const TriggerClearConditions = ( whichTrigger: trigger ): void => {};
 
-export const TriggerAddAction = ( whichTrigger: trigger, actionFunc: code ): triggeraction => {};
+export const TriggerAddAction = ( whichTrigger: trigger, actionFunc: () => void ): triggeraction => {};
 
 export const TriggerRemoveAction = ( whichTrigger: trigger, whichAction: triggeraction ): void => {};
 
