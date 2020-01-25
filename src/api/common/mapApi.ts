@@ -2,7 +2,7 @@
 import {
 	GAME_TYPE_USE_MAP_SETTINGS,
 } from "./constants/mapSetup";
-import { initStartLocation } from "./converters";
+import { initStartLocation, getPlayer } from "./converters";
 import { Location } from "./geometry";
 import { wrapGame, Game } from "../../Game";
 import { notImplemented } from "../../errors";
@@ -19,7 +19,7 @@ import { notImplemented } from "../../errors";
 export const SetMapName = wrapGame( ( game: Game, name: string ): void => { game.name = name } );
 export const SetMapDescription = wrapGame( ( game: Game, description: string ): void => { game.description = description } );
 export const SetTeams = wrapGame( ( game: Game, teamCount: number ): void => { game.teams = teamCount } );
-export const SetPlayers = wrapGame( ( game: Game, playerCount: number ): void => { game.players.length = playerCount } );
+export const SetPlayers = wrapGame( ( game: Game, playerCount: number ): void => { game.players = Array( playerCount ).fill( 0 ).map( ( _, i: number ) => getPlayer( i ) ) } );
 export const DefineStartLocation = wrapGame( ( game: Game, whichStartLoc: number, x: number, y: number ): void => {
 
 	game.startLocations[ whichStartLoc ] = {

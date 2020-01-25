@@ -35,6 +35,8 @@ declare interface player extends agent {
     startLocation: number;
     taxRates: Map<player, Map<playerstate, number>>;
     team: number;
+    onChat: ( message: string ) => void;
+    onChatListener: ( callback: ( message: string ) => void ) => void;
 }
 declare interface widget extends agent { widgetId: number }
 declare interface unit extends widget { unitId: number }

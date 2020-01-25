@@ -1,6 +1,7 @@
 
 import { contextIndexer, getAgent, contextConverter, getHandle } from "../../handles";
 import { notImplemented } from "../../errors";
+import { PlayerClass } from "../../PlayerClass";
 
 const getGamestate = contextIndexer( ( id ): gamestate => ( { ...getAgent(), gamestateId: id } ) );
 const getEvent = contextIndexer( ( id ): eventid => ( { ...getHandle(), eventidId: id } ) );
@@ -91,24 +92,7 @@ export const ConvertUnitCategory = contextConverter( ( id ): unitcategory => ( {
 export const ConvertPathingFlag = contextConverter( ( id ): pathingflag => ( { ...getHandle(), pathingflagId: id } ) );
 
 export const initStartLocation = (): StartLocation => ( { x: 0, y: 0, priorities: [] } );
-export const getPlayer = contextConverter( ( id ): player => ( {
-	...getAgent(),
-	playerId: id,
-	startLocation: 0,
-	color: ConvertPlayerColor( Math.min( id, 23 ) ),
-	alliances: new Map(),
-	get racePreference(): racepreference { throw new Error( "Accesing player.racePreference before setting" ) },
-	set racePreference( racePreference: racepreference ) { Object.defineProperty( this, "racePreference", { value: racePreference } ) },
-	raceSelectable: true,
-	get controller(): mapcontrol { throw new Error( "Accesing player.controller before setting" ) },
-	set controller( controller: mapcontrol ) { Object.defineProperty( this, "controller", { value: controller } ) },
-	name: `Player ${id}`,
-	onScoreScreen: false,
-	team: 0,
-	get slotState(): playerslotstate { throw new Error( "Accesing player.slotState before setting" ) },
-	set slotState( slotState: playerslotstate ) { Object.defineProperty( this, "slotState", { value: slotState } ) },
-	taxRates: new Map(),
-} ) );
+export const getPlayer = contextConverter( ( id ): player => new PlayerClass( id ) );
 
 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 export const OrderId = ( orderIdString: string ): number => {
