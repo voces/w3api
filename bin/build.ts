@@ -7,6 +7,10 @@ glob( [ "dist/api/**/*.ts" ], { dot: true } ).then( async ( files: Array<string>
 
 	const types: Array<string> = [];
 
+	const typesPath = path.join( "dist", "api", "types.d.ts" );
+
+	await fs.unlink( typesPath ).catch( () => { /* do nothing */ } );
+
 	await Promise.all( files.map( async file => {
 
 		const content = await fs.readFile( file, "utf-8" );
@@ -15,7 +19,7 @@ glob( [ "dist/api/**/*.ts" ], { dot: true } ).then( async ( files: Array<string>
 	} ) );
 
 	fs.writeFile(
-		path.join( "dist", "api", "types.d.ts" ),
+		typesPath,
 		types.join( "\n" ).replace( /\n\n+/g, "\n" ),
 	);
 
