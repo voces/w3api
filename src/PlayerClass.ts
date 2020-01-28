@@ -23,6 +23,8 @@ export class PlayerClass implements player {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	clearRemoveHookByReference: ( reference: any ) => void;
 	agentId: number;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	onChatMap: Map<any, ( message: string ) => void> = new Map()
 
 	constructor( id: number ) {
 
@@ -81,7 +83,12 @@ export class PlayerClass implements player {
 
 	private chatListeners: Array<( message: string ) => void> = [];
 	onChat( message: string ): void { this.chatListeners.forEach( cb => cb( message ) ) }
-	onChatListener( callback: ( message: string ) => void ): void { this.chatListeners.push( callback ) }
+	addChatListener( callback: ( message: string ) => void, reference ): void {
+
+		this.chatListeners.push( callback );
+		if ( reference ) this.onChatMap.set( reference, callback );
+
+	}
 
 }
 

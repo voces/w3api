@@ -39,7 +39,6 @@ export class ContextManager {
 	 * Sets the current context for the duration of the function. Restores the
 	 * previous context upon completion.
 	 */
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	with <T>( context: Context, fn: () => T ): T {
 
 		const oldContext = this.currentContext;
@@ -54,11 +53,23 @@ export class ContextManager {
 	 * Sets the current context to an ephemeral context for the duration of the
 	 * function. Restores the previous context upon completion.
 	 */
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	withTemp <T>( fn: () => T ): T {
 
 		const oldContext = this.currentContext;
 		this.currentContext = newContext();
+		const v = fn();
+		this.currentContext = oldContext;
+		return v;
+
+	}
+
+	/**
+	 * Sets the current context to an ephemeral clone of the current context.
+	 */
+	fork <T>( fn: () => T ): T {
+
+		const oldContext = this.currentContext;
+		this.currentContext = { ...oldContext };
 		const v = fn();
 		this.currentContext = oldContext;
 		return v;

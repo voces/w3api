@@ -918,7 +918,6 @@ export const RectContainsItem = ( whichItem: item, r: rect ): boolean => {
 export const ConditionalTriggerExecute = ( trig: trigger ): void => {
 
 	if ( TriggerEvaluate( trig ) )
-
 		TriggerExecute( trig );
 
 };

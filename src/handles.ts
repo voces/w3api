@@ -6,8 +6,11 @@ const converter = (): ( ( index?: number ) => number ) => {
 	let _index = 0;
 	return ( index?: number ): number => {
 
-		if ( index !== undefined && index >= _index ) _index = index + 1;
-		else index = _index ++;
+		if ( index !== undefined ) {
+
+			if ( index >= _index ) _index = index + 1;
+
+		} else index = _index ++;
 
 		return index;
 
@@ -15,7 +18,25 @@ const converter = (): ( ( index?: number ) => number ) => {
 
 };
 
-export const contextConverter = gameContext.simpleFunctionWrapper( converter );
+const unwrappedContextConverter = gameContext.simpleFunctionWrapper( converter );
+export const contextConverter = <A extends handle>( fn: ( id: number ) => A ): ( ( id?: number ) => A ) => {
+
+	const identity = ( i: number ): number => i;
+	const converter = unwrappedContextConverter( identity );
+	const map: Array<A | undefined> = [];
+	return ( id?: number ): A => {
+
+		id = converter( id );
+		if ( map[ id ] ) return map[ id ] as A;
+
+		const value = fn( id );
+		map[ id ] = value;
+		if ( value.onRemove ) value.onRemove( () => map[ id as number ] = undefined );
+		return value;
+
+	};
+
+};
 export const contextIndexer = gameContext.complexFunctionWrapper( converter );
 
 type HandleCallback = ( handle: handle ) => void;

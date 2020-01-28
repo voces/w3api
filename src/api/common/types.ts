@@ -36,7 +36,8 @@ declare interface player extends agent {
     taxRates: Map<player, Map<playerstate, number>>;
     team: number;
     onChat: ( message: string ) => void;
-    onChatListener: ( callback: ( message: string ) => void ) => void;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    addChatListener: ( callback: ( message: string ) => void, reference: any ) => void;
 }
 declare interface widget extends agent { widgetId: number }
 declare interface unit extends widget { unitId: number }
