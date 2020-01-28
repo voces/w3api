@@ -6,11 +6,10 @@ const converter = (): ( ( index?: number ) => number ) => {
 	let _index = 0;
 	return ( index?: number ): number => {
 
-		if ( index !== undefined ) {
+		// Nothing was passed, just increment
+		if ( index === undefined ) return _index ++;
 
-			if ( index >= _index ) _index = index + 1;
-
-		} else index = _index ++;
+		if ( index >= _index ) _index = index + 1;
 
 		return index;
 

@@ -29,6 +29,8 @@ export class Game {
 	triggers: Set<trigger> = new Set();
 	globalTickChecks: Set<() => void> = new Set();
 
+	log: Array<{from?: player; to?: player; message: string}> = [];
+
 	tick( delta: number ): void {
 
 		const newTime = this.time + delta;
