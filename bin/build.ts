@@ -9,7 +9,11 @@ glob( [ "dist/api/**/*.ts" ], { dot: true } ).then( async ( files: Array<string>
 
 	const typesPath = path.join( "dist", "api", "types.d.ts" );
 
-	await fs.unlink( typesPath ).catch( () => { /* do nothing */ } );
+	try {
+
+		await fs.unlink( typesPath );
+
+	} catch ( err ) { /* do nothing */ }
 
 	await Promise.all( files.map( async file => {
 

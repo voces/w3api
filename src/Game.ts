@@ -10,26 +10,26 @@ import {
 
 export class Game {
 
-	name = "";
-	description = "";
-	teams = 1;
-	players: Array<player> = [];
-	startLocations: Array<StartLocation> = [];
-	startLocationPriorites: Array<startlocprio> = [];
-	supportedGameTypes: Map<gametype, boolean> = new Map();
-	mapFlags: Map<mapflag, boolean> = new Map();
-	placement: placement = MAP_PLACEMENT_RANDOM;
-	gameSpeed: gamespeed = MAP_SPEED_FASTEST;
-	gameDifficulty: gamedifficulty = MAP_DIFFICULTY_NORMAL;
-	resourceDensity: mapdensity = MAP_DENSITY_MEDIUM;
 	creatureDensity: mapdensity = MAP_DENSITY_MEDIUM;
-
+	description = "";
+	gameDifficulty: gamedifficulty = MAP_DIFFICULTY_NORMAL;
+	gameSpeed: gamespeed = MAP_SPEED_FASTEST;
+	globalTickChecks: Set<() => void> = new Set();
+	log: Array<{from?: player; to?: player; message: string}> = [];
+	mapFlags: Map<mapflag, boolean> = new Map();
+	name = "";
+	placement: placement = MAP_PLACEMENT_RANDOM;
+	players: Array<player> = [];
+	regions: Set<region> = new Set();
+	resourceDensity: mapdensity = MAP_DENSITY_MEDIUM;
+	startLocationPriorites: Array<startlocprio> = [];
+	startLocations: Array<StartLocation> = [];
+	supportedGameTypes: Map<gametype, boolean> = new Map();
+	teams = 1;
 	time = 0;
 	timers = new BinaryHeap( ( t: timer ) => t.nextTick );
 	triggers: Set<trigger> = new Set();
-	globalTickChecks: Set<() => void> = new Set();
-
-	log: Array<{from?: player; to?: player; message: string}> = [];
+	units: Set<unit> = new Set();
 
 	tick( delta: number ): void {
 

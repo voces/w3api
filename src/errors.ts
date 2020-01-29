@@ -1,7 +1,9 @@
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const notImplemented = ( func: string ): void => {
+export const notImplemented = ( func: string, warnOnly = false ): void => {
 
-	throw new Error( `\`${func}\` not implemented` );
+	const str = `\`${func}\` not implemented`;
+
+	if ( warnOnly ) console.warn( str );
+	else throw new Error( str );
 
 };

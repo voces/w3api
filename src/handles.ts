@@ -82,3 +82,4 @@ export const getHandle = contextIndexer( ( id ): handle => {
 
 } );
 export const getAgent = contextIndexer( ( id ): agent => ( { ...getHandle(), agentId: id } ) );
+export const getWidget = contextIndexer( ( id ): widget => ( { ...getAgent(), widgetId: id, x: 0, y: 0, life: 0 } ) );

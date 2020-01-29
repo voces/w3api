@@ -39,7 +39,7 @@ declare interface player extends agent {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     addChatListener: ( callback: ( message: string ) => void, reference: any ) => void;
 }
-declare interface widget extends agent { widgetId: number }
+declare interface widget extends agent { widgetId: number; x: number; y: number; life: number }
 declare interface unit extends widget { unitId: number }
 declare interface destructable extends widget { destructableId: number }
 declare interface item extends widget { itemId: number }
@@ -72,7 +72,8 @@ declare interface timer extends agent {
     timerId: number;
 }
 declare interface location extends agent { locationId: number; x: number; y: number }
-declare interface region extends agent { regionId: number }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+declare interface region extends agent { regionId: number; addEnterListener: ( callback: ( unit: unit ) => void, reference: any ) => void }
 declare interface rect extends agent {
     maxX: number;
     maxY: number;

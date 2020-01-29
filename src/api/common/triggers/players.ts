@@ -1,5 +1,6 @@
 
 import { newRun, wrapRun } from "../../../Run";
+import { getEvent } from "./events";
 
 // ============================================================================
 // Trigger Player Based Event API
@@ -187,7 +188,9 @@ export const TriggerRegisterPlayerChatEvent = ( whichTrigger: trigger, whichPlay
 
 	};
 
-	whichPlayer.addChatListener( callback, whichTrigger );
+	const event = getEvent();
+	whichPlayer.addChatListener( callback, event );
+	return event;
 
 };
 

@@ -38,7 +38,7 @@ export const ForForce = ( whichForce: force, callback: ( player: player ) => voi
 // Returns full map bounds, including unplayable borders, in world coordinates
 export const GetWorldBounds = (): rect => {
 
-	notImplemented( "GetWorldBounds" );
+	notImplemented( "GetWorldBounds", true );
 	return Rect( - Infinity, - Infinity, Infinity, Infinity );
 
 };

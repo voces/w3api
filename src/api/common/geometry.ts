@@ -1,6 +1,7 @@
 
 import { contextIndexer, getAgent } from "../../handles";
 import { notImplemented } from "../../errors";
+import { wrapGame } from "../../Game";
 
 // ============================================================================
 // Region and Location API
@@ -48,7 +49,27 @@ export const GetLocationZ = ( whichLocation: location ): number => {
 };
 
 // todo: test how regions work: if I add a global rect, clear a subrect, is that a hole?
-export const CreateRegion = contextIndexer( ( id ): region => ( { ...getAgent(), regionId: id } ) );
+export const CreateRegion = wrapGame( contextIndexer( ( id, game ): region => {
+
+	const enterListeners: Array<( unit: unit ) => void> = [];
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const enterListenersMap: WeakMap<any, ( unit: unit ) => void> = new WeakMap();
+
+	const region: region = {
+		...getAgent(),
+		regionId: id,
+		addEnterListener: ( callback: ( unit: unit ) => void, reference ): void => {
+
+			enterListeners.push( callback );
+			if ( reference ) enterListenersMap.set( reference, callback );
+
+		},
+	};
+	game.regions.add( region );
+	region.onRemove( () => game.regions.delete( region ) );
+	return region;
+
+} ) );
 export const RemoveRegion = ( whichRegion: region ): void => whichRegion.remove();
 export const RegionAddRect = ( whichRegion: region, r: rect ): void => {};
 export const RegionClearRect = ( whichRegion: region, r: rect ): void => {};

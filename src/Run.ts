@@ -25,7 +25,8 @@ type RunData = {
     triggeringPlayer: player | null;
     triggeringRegion: region | null;
     triggeringTrackable: trackable | null;
-    triggeringTrigger: trigger | null;
+	triggeringTrigger: trigger | null;
+	triggerUnit: unit | null;
     winningPlayer: player | null;
 }
 
@@ -54,6 +55,7 @@ export const wrapRun = runContext.dataWrapper( (): RunData => ( {
 	triggeringRegion: null,
 	triggeringTrackable: null,
 	triggeringTrigger: null,
+	triggerUnit: null,
 	winningPlayer: null,
 } ) );
 export const getRun = wrapRun( g => g );

@@ -10,8 +10,9 @@ import {
 	NOT_EQUAL,
 } from "../constants/limitEventApi";
 import { notImplemented } from "../../../errors";
-import { wrapRun, getRun } from "../../../Run";
+import { wrapRun, getRun, newRun } from "../../../Run";
 import { runContext } from "../../../contexts";
+import { CreateTimer, TimerStart } from "../timers";
 
 // ============================================================================
 // Trigger Game Event API
@@ -65,7 +66,21 @@ export const TriggerRegisterVariableEvent = wrapGame( ( game, whichTrigger: trig
 // Creates it's own timer and triggers when it expires
 export const TriggerRegisterTimerEvent = ( whichTrigger: trigger, timeout: number, periodic: boolean ): event => {
 
-	notImplemented( "TriggerRegisterTimerEvent" );
+	// todo: does WC3 use timers; do we care about the handle
+	const timer = CreateTimer();
+	TimerStart( timer, timeout, periodic, () => {
+
+		newRun( {
+			triggeringTrigger: whichTrigger,
+		}, () => {
+
+			if ( whichTrigger.evaluate() )
+				whichTrigger.execute();
+
+		} );
+
+	} );
+
 	return getEvent();
 
 };
@@ -114,8 +129,29 @@ export const GetWinningPlayer = wrapRun( ( run ): player | null => run.winningPl
 
 export const TriggerRegisterEnterRegion = ( whichTrigger: trigger, whichRegion: region, filter: boolexpr | null ): event => {
 
-	notImplemented( "TriggerRegisterEnterRegion" );
-	return getEvent();
+	const callback = ( unit: unit ): void => {
+
+		if ( filter && ! newRun( { filterUnit: unit }, filter.func ) ) return;
+
+		newRun( {
+			triggeringTrigger: whichTrigger,
+			triggerUnit: unit,
+		}, () => {
+
+			if ( whichTrigger.evaluate() )
+				whichTrigger.execute();
+
+		} );
+
+	};
+
+	const event = getEvent();
+
+	whichRegion.addEnterListener( callback, event );
+
+	// this isn't wired up to the game, so it'll never automatically fire
+	notImplemented( "TriggerRegisterEnterRegion", true );
+	return event;
 
 };
 
