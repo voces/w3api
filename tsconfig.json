@@ -20,7 +20,7 @@
         "../node_modules/*/dist/index"
       ]
     },
-    "types": ["@types/jest"],
+    "types": ["@types/jest", "@types/node"],
     "esModuleInterop": true
   },
   "include": ["src"],

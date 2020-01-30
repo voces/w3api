@@ -40,7 +40,13 @@ declare interface player extends agent {
     addChatListener: ( callback: ( message: string ) => void, reference: any ) => void;
 }
 declare interface widget extends agent { widgetId: number; x: number; y: number; life: number }
-declare interface unit extends widget { unitId: number }
+declare interface unit extends widget {
+    facing: number;
+    owner: player;
+    type: number;
+    types: WeakMap<unittype, boolean>;
+    unitId: number;
+}
 declare interface destructable extends widget { destructableId: number }
 declare interface item extends widget { itemId: number }
 declare interface ability extends agent { abilityId: number }
@@ -72,8 +78,13 @@ declare interface timer extends agent {
     timerId: number;
 }
 declare interface location extends agent { locationId: number; x: number; y: number }
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-declare interface region extends agent { regionId: number; addEnterListener: ( callback: ( unit: unit ) => void, reference: any ) => void }
+declare interface region extends agent {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    addEnterListener: ( callback: ( unit: unit ) => void, reference: any ) => void;
+    contains: ( unit: unit ) => boolean;
+    regionId: number;
+    addUnit: ( unit: unit ) => void;
+}
 declare interface rect extends agent {
     maxX: number;
     maxY: number;

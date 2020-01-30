@@ -54,6 +54,7 @@ export const CreateRegion = wrapGame( contextIndexer( ( id, game ): region => {
 	const enterListeners: Array<( unit: unit ) => void> = [];
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const enterListenersMap: WeakMap<any, ( unit: unit ) => void> = new WeakMap();
+	const units: Set<unit> = new Set();
 
 	const region: region = {
 		...getAgent(),
@@ -62,6 +63,18 @@ export const CreateRegion = wrapGame( contextIndexer( ( id, game ): region => {
 
 			enterListeners.push( callback );
 			if ( reference ) enterListenersMap.set( reference, callback );
+
+		},
+		contains: () => {
+
+			notImplemented( "region#contains", true );
+			return true;
+
+		},
+		addUnit: ( unit: unit ): void => {
+
+			units.add( unit );
+			enterListeners.forEach( cb => cb( unit ) );
 
 		},
 	};

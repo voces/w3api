@@ -1,4 +1,5 @@
 
+// import { ObjectsTranslator } from "wc3maptranslator/lib/translators/object/ObjectsTranslator";
 import { BinaryHeap } from "./BianryHeap";
 import { gameContext } from "./contexts";
 import {
@@ -29,7 +30,9 @@ export class Game {
 	time = 0;
 	timers = new BinaryHeap( ( t: timer ) => t.nextTick );
 	triggers: Set<trigger> = new Set();
-	units: Set<unit> = new Set();
+
+	private data: Record<number, Record<string, any>> = {}
+	private units: Set<unit> = new Set();
 
 	tick( delta: number ): void {
 
@@ -60,6 +63,34 @@ export class Game {
 		this.time = newTime;
 
 	}
+
+	addUnit( unit: unit ): void {
+
+		this.units.add( unit );
+		for ( const region of this.regions )
+			if ( region.contains( unit ) )
+				region.addUnit( unit );
+
+	}
+
+	// loadData( buffer: Buffer ): void {
+
+	// 	// const translator = new ObjectsTranslator();
+	// 	// const { errors, json } = translator.warToJson( translator.ObjectType.Units, buffer );
+
+	// 	if ( errors.length ) throw new Error( errors[ 0 ] );
+
+	// 	debugger;
+	// 	console.log( json );
+
+	// 	// eslint-disable-next-line no-extra-parens
+	// 	// ( json as unknown as TranslatorUnit[] ).forEach( v => {
+
+	// 	// 	this.data[ v.type ] = v;
+
+	// 	// } );
+
+	// }
 
 }
 

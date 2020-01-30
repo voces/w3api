@@ -1,13 +1,14 @@
+
 import { wrapGame } from "../../Game";
 import { contextIndexer, getWidget } from "../../handles";
 
 // ============================================================================
 // Unit API
 // Facing arguments are specified in degrees
-export const CreateUnit = contextIndexer( wrapGame( ( game, id, playerid: player, unitid: number, x: number, y: number, face: number ): unit => {
+export const CreateUnit = contextIndexer( wrapGame( ( game, id, owner: player, unitType: number, x: number, y: number, facing: number ): unit => {
 
-	const unit = { unitId: id, ...getWidget() };
-	game.units.add( unit );
+	const unit: unit = { ...getWidget(), unitId: id, owner, x, y, type: unitType, facing, types: new WeakMap() };
+	game.addUnit( unit );
 	return unit;
 
 } ) );
@@ -258,7 +259,8 @@ export const IsUnitSelected = ( whichUnit: unit, whichPlayer: player ): boolean 
 
 export const IsUnitRace = ( whichUnit: unit, whichRace: race ): boolean => {};
 
-export const IsUnitType = ( whichUnit: unit, whichUnitType: unittype ): boolean => {};
+export const IsUnitType = ( whichUnit: unit, whichUnitType: unittype ): boolean =>
+	whichUnit.types.get( whichUnitType ) || false;
 
 export const IsUnit = ( whichUnit: unit, whichSpecifiedUnit: unit ): boolean => {};
 
