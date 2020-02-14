@@ -41,10 +41,10 @@ declare interface player extends agent {
 }
 declare interface widget extends agent { widgetId: number; x: number; y: number; life: number }
 declare interface unit extends widget {
+    data: import( "w3xdata" ).UnitSpec;
     facing: number;
     owner: player;
     type: number;
-    types: WeakMap<unittype, boolean>;
     unitId: number;
 }
 declare interface destructable extends widget { destructableId: number }

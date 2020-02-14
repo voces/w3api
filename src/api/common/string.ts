@@ -38,4 +38,5 @@ export const FourCC = ( four: string ): number =>
 	four.charCodeAt( 0 ) * 256 ** 3 +
 	four.charCodeAt( 1 ) * 256 ** 2 +
 	four.charCodeAt( 2 ) * 256 +
-	four.charCodeAt( 0 );
+	four.charCodeAt( 3 );
+

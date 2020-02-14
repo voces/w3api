@@ -1,9 +1,9 @@
 
-import { contextConverter } from "./handles";
+import { contextConverter, getHandle } from "./handles";
 
 it( "contextConverter", () => {
 
-	const cc = contextConverter( ( value: number ) => ( { value } ) );
+	const cc = contextConverter( ( value: number ) => ( { ...getHandle(), value } ) );
 
 	const value1a = cc( 1 );
 	const value1b = cc( 1 );

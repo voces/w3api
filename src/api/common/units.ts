@@ -1,13 +1,24 @@
 
 import { wrapGame } from "../../Game";
 import { contextIndexer, getWidget } from "../../handles";
+import { FourCCRev } from "../../helpers/string";
+import { deepClone } from "w3xdata";
 
 // ============================================================================
 // Unit API
 // Facing arguments are specified in degrees
 export const CreateUnit = contextIndexer( wrapGame( ( game, id, owner: player, unitType: number, x: number, y: number, facing: number ): unit => {
 
-	const unit: unit = { ...getWidget(), unitId: id, owner, x, y, type: unitType, facing, types: new WeakMap() };
+	const unit: unit = {
+		...getWidget(),
+		data: deepClone( game.data.units[ FourCCRev( unitType ) ] ),
+		facing,
+		owner,
+		type: unitType,
+		unitId: id,
+		x,
+		y,
+	};
 	game.addUnit( unit );
 	return unit;
 
@@ -259,8 +270,17 @@ export const IsUnitSelected = ( whichUnit: unit, whichPlayer: player ): boolean 
 
 export const IsUnitRace = ( whichUnit: unit, whichRace: race ): boolean => {};
 
-export const IsUnitType = ( whichUnit: unit, whichUnitType: unittype ): boolean =>
-	whichUnit.types.get( whichUnitType ) || false;
+export const IsUnitType = ( whichUnit: unit, whichUnitType: unittype ): boolean => {
+
+	switch ( whichUnitType ) {
+
+		case UNIT_TYPE_STRUCTURE: return whichUnit.data.stats?.isbldg || false;
+
+	}
+
+	return false;
+
+};
 
 export const IsUnit = ( whichUnit: unit, whichSpecifiedUnit: unit ): boolean => {};
 

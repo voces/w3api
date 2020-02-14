@@ -1,5 +1,5 @@
 
-// import { ObjectsTranslator } from "wc3maptranslator/lib/translators/object/ObjectsTranslator";
+import { mapUnitSpecs, UnitSpec, mapStrings, replaceStrings } from "w3xdata";
 import { BinaryHeap } from "./BianryHeap";
 import { gameContext } from "./contexts";
 import {
@@ -31,9 +31,14 @@ export class Game {
 	timers = new BinaryHeap( ( t: timer ) => t.nextTick );
 	triggers: Set<trigger> = new Set();
 
-	private data: Record<number, Record<string, any>> = {}
+	data: {
+		units: Record<string, UnitSpec>;
+		strings: Record<string, string>;
+	} = { units: {}, strings: {} };
+
 	private units: Set<unit> = new Set();
 
+	// apparently the delta should ALWAYS 1/32 ?
 	tick( delta: number ): void {
 
 		const newTime = this.time + delta;
@@ -73,24 +78,12 @@ export class Game {
 
 	}
 
-	// loadData( buffer: Buffer ): void {
+	loadData( { w3u, wts }: {w3u: Buffer; wts: Buffer} ): void {
 
-	// 	// const translator = new ObjectsTranslator();
-	// 	// const { errors, json } = translator.warToJson( translator.ObjectType.Units, buffer );
+		this.data.strings = mapStrings( wts );
+		this.data.units = replaceStrings( mapUnitSpecs( w3u ), this.data.strings );
 
-	// 	if ( errors.length ) throw new Error( errors[ 0 ] );
-
-	// 	debugger;
-	// 	console.log( json );
-
-	// 	// eslint-disable-next-line no-extra-parens
-	// 	// ( json as unknown as TranslatorUnit[] ).forEach( v => {
-
-	// 	// 	this.data[ v.type ] = v;
-
-	// 	// } );
-
-	// }
+	}
 
 }
 
