@@ -9,9 +9,18 @@ import { deepClone } from "w3xdata";
 // Facing arguments are specified in degrees
 export const CreateUnit = contextIndexer( wrapGame( ( game, id, owner: player, unitType: number, x: number, y: number, facing: number ): unit => {
 
+	const prettyType = FourCCRev( unitType );
+	let data = game.data.units[ prettyType ];
+	if ( ! data ) {
+
+		console.warn( `Uknown unit type ${prettyType} (${unitType})` );
+		data = {};
+
+	}
+
 	const unit: unit = {
 		...getWidget(),
-		data: deepClone( game.data.units[ FourCCRev( unitType ) ] ),
+		data: deepClone( data ),
 		facing,
 		owner,
 		type: unitType,
