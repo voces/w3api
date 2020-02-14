@@ -1,2 +1,4 @@
 
-export * from "./Game"
+export * from "./Game";
+export * from "./contexts";
+export * from "./PlayerClass";
