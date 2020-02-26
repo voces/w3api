@@ -78,6 +78,12 @@ export class Game {
 
 	}
 
+	forEachUnit( fn: ( unit: unit ) => void ): void {
+
+		this.units.forEach( u => fn( u ) );
+
+	}
+
 	loadData( { w3u, wts }: {w3u: Buffer; wts: Buffer} ): void {
 
 		this.data.strings = mapStrings( wts );

@@ -17,6 +17,7 @@ glob( [ "dist/api/**/*.ts" ], { dot: true } ).then( async ( files: Array<string>
 
 	await Promise.all( files.map( async file => {
 
+		if ( file === typesPath ) return;
 		const content = await fs.readFile( file, "utf-8" );
 		types.push( content.replace( /export declare /g, "declare " ).replace( /export.*/g, "" ) );
 

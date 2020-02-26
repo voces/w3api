@@ -1,5 +1,7 @@
 
 import { contextIndexer, getAgent } from "../../handles";
+import { wrapGame } from "../../Game";
+import { getRun, newRun } from "../../Run";
 
 // ============================================================================
 // Group API
@@ -70,7 +72,24 @@ export const BlzGroupUnitAt = ( whichGroup: group, index: number ): unit => {
 
 };
 export const GroupEnumUnitsOfType = ( whichGroup: group, unitname: string, filter: boolexpr | null ): void => {};
-export const GroupEnumUnitsOfPlayer = ( whichGroup: group, whichPlayer: player, filter: boolexpr | null ): void => {};
+export const GroupEnumUnitsOfPlayer = wrapGame( ( game, whichGroup: group, whichPlayer: player, filter: boolexpr | null ): void => {
+
+	game.forEachUnit( u => {
+
+		if ( u.owner !== whichPlayer ) return;
+
+		if ( filter ) {
+
+			const filterResult = newRun( { ...getRun(), enumUnit: u }, () => filter.func() );
+			if ( ! filterResult ) return;
+
+		}
+
+		GroupAddUnit( whichGroup, u );
+
+	} );
+
+} );
 export const GroupEnumUnitsOfTypeCounted = ( whichGroup: group, unitname: string, filter: boolexpr | null, countLimit: number ): void => {};
 export const GroupEnumUnitsInRect = ( whichGroup: group, r: rect, filter: boolexpr | null ): void => {};
 export const GroupEnumUnitsInRectCounted = ( whichGroup: group, r: rect, filter: boolexpr | null, countLimit: number ): void => {};
@@ -91,5 +110,10 @@ export const GroupTargetOrderById = ( whichGroup: group, order: number, targetWi
 // as it would involve enumerating all the cells that are covered by a particularregion
 // a better implementation would be a trigger that adds relevant units as they enter
 // and removes them if they leave...
-export const ForGroup = ( whichGroup: group, callback: ( unit: unit ) => void ): void => { for ( const unit of whichGroup.units ) callback( unit ); };
+export const ForGroup = ( whichGroup: group, callback: () => void ): void => {
+
+	for ( const unit of whichGroup.units )
+		newRun( { ...getRun(), enumUnit: unit }, callback );
+
+};
 export const FirstOfGroup = ( whichGroup: group ): unit => BlzGroupUnitAt( whichGroup, 0 );

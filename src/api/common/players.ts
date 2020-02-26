@@ -11,7 +11,7 @@ export const IsPlayerAlly = ( whichPlayer: player, otherPlayer: player ): boolea
 
 export const IsPlayerEnemy = ( whichPlayer: player, otherPlayer: player ): boolean => {};
 
-export const IsPlayerInForce = ( whichPlayer: player, whichForce: force ): boolean => {};
+export const IsPlayerInForce = ( whichPlayer: player, whichForce: force ): boolean => whichForce.players.has( whichPlayer );
 
 export const IsPlayerObserver = ( whichPlayer: player ): boolean => {};
 

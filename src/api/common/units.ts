@@ -2,7 +2,7 @@
 import { wrapGame } from "../../Game";
 import { contextIndexer, getWidget } from "../../handles";
 import { FourCCRev } from "../../helpers/string";
-import { deepClone } from "w3xdata";
+import { deepClone, UnitSpec } from "w3xdata";
 
 // ============================================================================
 // Unit API
@@ -14,7 +14,7 @@ export const CreateUnit = contextIndexer( wrapGame( ( game, id, owner: player, u
 	if ( ! data ) {
 
 		console.warn( `Uknown unit type ${prettyType} (${unitType})` );
-		data = {};
+		data = {} as UnitSpec;
 
 	}
 
@@ -217,13 +217,12 @@ export const UnitUseItemPoint = ( whichUnit: unit, whichItem: item, x: number, y
 
 export const UnitUseItemTarget = ( whichUnit: unit, whichItem: item, target: widget ): boolean => {};
 
-export const GetUnitX = ( whichUnit: unit ): number => {};
-
-export const GetUnitY = ( whichUnit: unit ): number => {};
+export const GetUnitX = ( whichUnit: unit ): number => whichUnit.x;
+export const GetUnitY = ( whichUnit: unit ): number => whichUnit.y;
 
 export const GetUnitLoc = ( whichUnit: unit ): location => {};
 
-export const GetUnitFacing = ( whichUnit: unit ): number => {};
+export const GetUnitFacing = ( whichUnit: unit ): number => whichUnit.facing;
 
 export const GetUnitMoveSpeed = ( whichUnit: unit ): number => {};
 
@@ -231,9 +230,9 @@ export const GetUnitDefaultMoveSpeed = ( whichUnit: unit ): number => {};
 
 export const GetUnitState = ( whichUnit: unit, whichUnitState: unitstate ): number => {};
 
-export const GetOwningPlayer = ( whichUnit: unit ): player => {};
+export const GetOwningPlayer = ( whichUnit: unit ): player => whichUnit.owner;
 
-export const GetUnitTypeId = ( whichUnit: unit ): number => {};
+export const GetUnitTypeId = ( whichUnit: unit ): number => whichUnit.type;
 
 export const GetUnitRace = ( whichUnit: unit ): race => {};
 
