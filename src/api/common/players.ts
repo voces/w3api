@@ -29,7 +29,7 @@ export const IsLocationMaskedToPlayer = ( whichLocation: location, whichPlayer: 
 
 export const GetPlayerRace = ( whichPlayer: player ): race => {};
 
-export const GetPlayerId = ( whichPlayer: player ): number => {};
+export const GetPlayerId = ( whichPlayer: player ): number => whichPlayer.playerId;
 
 export const GetPlayerUnitCount = ( whichPlayer: player, includeIncomplete: boolean ): number => {};
 

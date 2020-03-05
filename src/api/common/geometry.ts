@@ -71,10 +71,11 @@ export const CreateRegion = wrapGame( contextIndexer( ( id, game ): region => {
 			return true;
 
 		},
-		addUnit: ( unit: unit ): void => {
+		addUnit( unit: unit ): void {
 
 			units.add( unit );
 			enterListeners.forEach( cb => cb( unit ) );
+			unit.onRemove( () => { units.delete( unit ) }, this );
 
 		},
 	};

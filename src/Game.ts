@@ -76,6 +76,8 @@ export class Game {
 			if ( region.contains( unit ) )
 				region.addUnit( unit );
 
+		unit.onRemove( () => { this.units.delete( unit ) }, this );
+
 	}
 
 	forEachUnit( fn: ( unit: unit ) => void ): void {

@@ -43,7 +43,7 @@ export const CreateCorpse = ( whichPlayer: player, unitid: number, x: number, y:
 
 export const KillUnit = ( whichUnit: unit ): void => {};
 
-export const RemoveUnit = ( whichUnit: unit ): void => {};
+export const RemoveUnit = ( whichUnit: unit ): void => whichUnit.remove();
 
 export const ShowUnit = ( whichUnit: unit, show: boolean ): void => {};
 
