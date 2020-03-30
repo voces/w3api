@@ -22,10 +22,8 @@
     "fast-glob": "^3.2.2",
     "jest": "^25.2.4",
     "npm-watch": "^0.6.0",
-    "recast": "^0.18.8",
     "ts-jest": "^25.3.0",
     "ts-node": "^8.8.1",
-    "ts-transformer-imports": "^0.4.3",
     "typescript": "^3.8.3"
   },
   "watch": {
@@ -50,6 +48,6 @@
   ],
   "main": "dist/index.js",
   "dependencies": {
-    "w3xdata": "^2.1.2"
+    "w3xdata": "^2.1.3"
   }
 }
