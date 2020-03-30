@@ -1,6 +1,7 @@
 
 import { getAgent } from "./handles";
 import { ConvertPlayerColor } from "./api/common/converters";
+import { MAP_CONTROL_NONE } from "./api/common/constants/mapSetup";
 
 export class PlayerClass implements player {
 
@@ -25,6 +26,7 @@ export class PlayerClass implements player {
 	agentId: number;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onChatMap: Map<any, ( message: string ) => void> = new Map()
+	controller = MAP_CONTROL_NONE;
 
 	constructor( id: number ) {
 
@@ -65,19 +67,6 @@ export class PlayerClass implements player {
 	set slotState( slotState: playerslotstate ) {
 
 		this._slotState = slotState;
-
-	}
-
-	private _controller?: mapcontrol;
-	get controller(): mapcontrol {
-
-		if ( ! this._controller ) throw new Error( "Accesing Player#controller before setting" );
-		return this._controller;
-
-	}
-	set controller( controller: mapcontrol ) {
-
-		this._controller = controller;
 
 	}
 
