@@ -2,10 +2,11 @@
 import {
 	GAME_TYPE_USE_MAP_SETTINGS,
 } from "./constants/mapSetup";
-import { initStartLocation, getPlayer } from "./converters";
+import { initStartLocation } from "./converters";
 import { Location } from "./geometry";
 import { wrapGame, Game } from "../../Game";
 import { notImplemented } from "../../errors";
+import { getPlayer } from "../../PlayerClass";
 
 // ============================================================================
 // Map Setup API

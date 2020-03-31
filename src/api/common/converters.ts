@@ -1,7 +1,6 @@
 
 import { contextIndexer, getAgent, contextConverter, getHandle } from "../../handles";
 import { notImplemented } from "../../errors";
-import { PlayerClass } from "../../PlayerClass";
 
 const getGamestate = contextIndexer( ( id ): gamestate => ( { ...getAgent(), gamestateId: id } ) );
 const getEvent = contextIndexer( ( id ): eventid => ( { ...getHandle(), eventidId: id } ) );
@@ -92,7 +91,6 @@ export const ConvertUnitCategory = contextConverter( ( id ): unitcategory => ( {
 export const ConvertPathingFlag = contextConverter( ( id ): pathingflag => ( { ...getHandle(), pathingflagId: id } ) );
 
 export const initStartLocation = (): StartLocation => ( { x: 0, y: 0, priorities: [] } );
-export const getPlayer = contextConverter( ( id ): player => new PlayerClass( id ) );
 
 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 export const OrderId = ( orderIdString: string ): number => {

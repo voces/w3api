@@ -1,5 +1,5 @@
 
-import { getAgent } from "./handles";
+import { getAgent, contextConverter } from "./handles";
 import { ConvertPlayerColor } from "./api/common/converters";
 import { MAP_CONTROL_NONE } from "./api/common/constants/mapSetup";
 
@@ -82,3 +82,5 @@ export class PlayerClass implements player {
 }
 
 export const simulateChat = ( player: player, message: string ): void => player.onChat( message );
+
+export const getPlayer = contextConverter( ( id ): player => new PlayerClass( id ) );

@@ -1,5 +1,5 @@
 
-import { getPlayer } from "./converters";
+import { getPlayer } from "../../PlayerClass";
 
 // ============================================================================
 // Player API
