@@ -33,7 +33,6 @@ export const StringHash = ( s: string ): number => {
 export const GetLocalizedString = ( source: string ): string => source;
 export const GetLocalizedHotkey = ( source: string ): number => source.charCodeAt( 0 );
 
-// todo: implement this...
 export const FourCC = ( four: string ): number =>
 	four.charCodeAt( 0 ) * 256 ** 3 +
 	four.charCodeAt( 1 ) * 256 ** 2 +
