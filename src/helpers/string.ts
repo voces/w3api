@@ -1,5 +1,5 @@
 
-export const FourCCRev = ( value: number ): string => {
+export const revFourCC = ( value: number ): string => {
 
 	let s = "";
 

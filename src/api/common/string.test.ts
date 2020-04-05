@@ -1,6 +1,6 @@
 
 import { FourCC } from "./string";
-import { FourCCRev } from "../../helpers/string";
+import { revFourCC } from "../../helpers/string";
 
 describe( "FourCC", () => {
 
@@ -15,4 +15,4 @@ describe( "FourCC", () => {
 
 } );
 
-it( "FourCCRev", () => expect( FourCCRev( FourCC( "hfoo" ) ) ).toEqual( "hfoo" ) );
+it( "revFourCC", () => expect( revFourCC( FourCC( "hfoo" ) ) ).toEqual( "hfoo" ) );

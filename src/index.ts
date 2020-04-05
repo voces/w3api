@@ -1,5 +1,5 @@
 
 export * from "./contexts";
 export * from "./Game";
-export * from "./helpers";
+export * from "./helpers/index";
 export * from "./PlayerClass";

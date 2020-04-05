@@ -1,7 +1,7 @@
 
 import { wrapGame } from "../../Game";
 import { contextIndexer, getWidget } from "../../handles";
-import { FourCCRev } from "../../helpers/string";
+import { revFourCC } from "../../helpers/string";
 import { deepClone, UnitSpec } from "w3xdata";
 
 // ============================================================================
@@ -9,7 +9,7 @@ import { deepClone, UnitSpec } from "w3xdata";
 // Facing arguments are specified in degrees
 export const CreateUnit = contextIndexer( wrapGame( ( game, id, owner: player, unitType: number, x: number, y: number, facing: number ): unit => {
 
-	const prettyType = FourCCRev( unitType );
+	const prettyType = revFourCC( unitType );
 	let data = game.data.units[ prettyType ];
 	if ( ! data ) {
 
