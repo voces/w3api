@@ -39,7 +39,7 @@ export class Game {
 	private units: Set<unit> = new Set();
 
 	// apparently the delta should ALWAYS 1/32 ?
-	tick( delta: number ): void {
+	tick( delta: number = 1 / 32 ): void {
 
 		const newTime = this.time + delta;
 
@@ -66,6 +66,14 @@ export class Game {
 		this.globalTickChecks.forEach( v => v() );
 
 		this.time = newTime;
+
+	}
+
+	tickFor( time: number ): void {
+
+		const ticks = time * 32;
+		for ( let i = 0; i < ticks; i ++ )
+			this.tick();
 
 	}
 
