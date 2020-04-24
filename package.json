@@ -1,6 +1,6 @@
 {
   "name": "w3api",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "TypeScript API for Warcraft III natives",
   "author": "verit",
   "license": "MIT",
@@ -48,6 +48,8 @@
   ],
   "main": "dist/index.js",
   "dependencies": {
+    "@types/luaparse": "^0.2.6",
+    "luaparse": "^0.3.0",
     "w3xdata": "^2.1.3"
   }
 }
