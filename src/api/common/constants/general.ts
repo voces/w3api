@@ -1,4 +1,3 @@
-
 // todo: verify correctness
 export const GetBJMaxPlayers = (): number => 24;
 export const GetBJPlayerNeutralVictim = (): number => 27;

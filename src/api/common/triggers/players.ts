@@ -1,4 +1,3 @@
-
 import { newRun, wrapRun } from "../../../Run";
 import { getEvent } from "./events";
 
@@ -6,13 +5,24 @@ import { getEvent } from "./events";
 // Trigger Player Based Event API
 // ============================================================================
 
-export const TriggerRegisterPlayerEvent = ( whichTrigger: trigger, whichPlayer: player, whichPlayerEvent: playerevent ): event => {};
+export const TriggerRegisterPlayerEvent = (
+	whichTrigger: trigger,
+	whichPlayer: player,
+	whichPlayerEvent: playerevent,
+): event => {};
 
 // EVENT_PLAYER_DEFEAT
 // EVENT_PLAYER_VICTORY
-export const GetTriggerPlayer = wrapRun( ( run ): player | null => run.triggeringPlayer );
+export const GetTriggerPlayer = wrapRun(
+	(run): player | null => run.triggeringPlayer,
+);
 
-export const TriggerRegisterPlayerUnitEvent = ( whichTrigger: trigger, whichPlayer: player, whichPlayerUnitEvent: playerunitevent, filter: boolexpr | null ): event => {};
+export const TriggerRegisterPlayerUnitEvent = (
+	whichTrigger: trigger,
+	whichPlayer: player,
+	whichPlayerUnitEvent: playerunitevent,
+	filter: boolexpr | null,
+): event => {};
 
 // EVENT_PLAYER_HERO_LEVEL
 // EVENT_UNIT_HERO_LEVEL
@@ -161,46 +171,69 @@ export const GetSpellTargetItem = (): item => {};
 
 export const GetSpellTargetUnit = (): unit => {};
 
-export const TriggerRegisterPlayerAllianceChange = ( whichTrigger: trigger, whichPlayer: player, whichAlliance: alliancetype ): event => {};
+export const TriggerRegisterPlayerAllianceChange = (
+	whichTrigger: trigger,
+	whichPlayer: player,
+	whichAlliance: alliancetype,
+): event => {};
 
-export const TriggerRegisterPlayerStateEvent = ( whichTrigger: trigger, whichPlayer: player, whichState: playerstate, opcode: limitop, limitval: number ): event => {};
+export const TriggerRegisterPlayerStateEvent = (
+	whichTrigger: trigger,
+	whichPlayer: player,
+	whichState: playerstate,
+	opcode: limitop,
+	limitval: number,
+): event => {};
 
 // EVENT_PLAYER_STATE_LIMIT
 export const GetEventPlayerState = (): playerstate => {};
 
-export const TriggerRegisterPlayerChatEvent = ( whichTrigger: trigger, whichPlayer: player, chatMessageToDetect: string, exactMatchOnly: boolean ): event => {
+export const TriggerRegisterPlayerChatEvent = (
+	whichTrigger: trigger,
+	whichPlayer: player,
+	chatMessageToDetect: string,
+	exactMatchOnly: boolean,
+): event => {
+	const callback = (message: string): void => {
+		if (
+			exactMatchOnly
+				? message !== chatMessageToDetect
+				: message.indexOf(chatMessageToDetect) === -1
+		)
+			return;
 
-	const callback = ( message: string ): void => {
-
-		if ( exactMatchOnly ? message !== chatMessageToDetect : message.indexOf( chatMessageToDetect ) === - 1 ) return;
-
-		newRun( {
-			chatString: message,
-			matchedChatString: chatMessageToDetect,
-			triggeringPlayer: whichPlayer,
-			triggeringTrigger: whichTrigger,
-		}, () => {
-
-			if ( whichTrigger.evaluate() )
-				whichTrigger.execute();
-
-		} );
-
+		newRun(
+			{
+				chatString: message,
+				matchedChatString: chatMessageToDetect,
+				triggeringPlayer: whichPlayer,
+				triggeringTrigger: whichTrigger,
+			},
+			() => {
+				if (whichTrigger.evaluate()) whichTrigger.execute();
+			},
+		);
 	};
 
 	const event = getEvent();
-	whichPlayer.addChatListener( callback, event );
+	whichPlayer.addChatListener(callback, event);
 	return event;
-
 };
 
 // EVENT_PLAYER_CHAT
 
 // returns the actual string they typed in ( same as what you registered for
 // if you required exact match )
-export const GetEventPlayerChatString = wrapRun( ( run ): string => run.chatString );
+export const GetEventPlayerChatString = wrapRun(
+	(run): string => run.chatString,
+);
 
 // returns the string that you registered for
-export const GetEventPlayerChatStringMatched = wrapRun( ( run ): string => run.matchedChatString );
+export const GetEventPlayerChatStringMatched = wrapRun(
+	(run): string => run.matchedChatString,
+);
 
-export const TriggerRegisterDeathEvent = ( whichTrigger: trigger, whichWidget: widget ): event => {};
+export const TriggerRegisterDeathEvent = (
+	whichTrigger: trigger,
+	whichWidget: widget,
+): event => {};

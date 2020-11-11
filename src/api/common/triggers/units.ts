@@ -1,4 +1,3 @@
-
 import { wrapRun } from "../../../Run";
 
 // ============================================================================
@@ -8,14 +7,24 @@ import { wrapRun } from "../../../Run";
 // returns handle to unit which triggered the most recent event when called from
 // within a trigger action function...returns null handle when used incorrectly
 
-export const GetTriggerUnit = wrapRun( ( run ): unit | null => run.triggerUnit );
+export const GetTriggerUnit = wrapRun((run): unit | null => run.triggerUnit);
 
-export const TriggerRegisterUnitStateEvent = ( whichTrigger: trigger, whichUnit: unit, whichState: unitstate, opcode: limitop, limitval: number ): event => {};
+export const TriggerRegisterUnitStateEvent = (
+	whichTrigger: trigger,
+	whichUnit: unit,
+	whichState: unitstate,
+	opcode: limitop,
+	limitval: number,
+): event => {};
 
 // EVENT_UNIT_STATE_LIMIT
 export const GetEventUnitState = (): unitstate => {};
 
-export const TriggerRegisterUnitEvent = ( whichTrigger: trigger, whichUnit: unit, whichEvent: unitevent ): event => {};
+export const TriggerRegisterUnitEvent = (
+	whichTrigger: trigger,
+	whichUnit: unit,
+	whichEvent: unitevent,
+): event => {};
 
 // EVENT_UNIT_DAMAGED
 export const GetEventDamage = (): number => {};
@@ -29,7 +38,12 @@ export const GetEventDamageSource = (): unit => {};
 // EVENT_UNIT_DETECTED
 export const GetEventDetectingPlayer = (): player => {};
 
-export const TriggerRegisterFilterUnitEvent = ( whichTrigger: trigger, whichUnit: unit, whichEvent: unitevent, filter: boolexpr ): event => {};
+export const TriggerRegisterFilterUnitEvent = (
+	whichTrigger: trigger,
+	whichUnit: unit,
+	whichEvent: unitevent,
+	filter: boolexpr,
+): event => {};
 
 // EVENT_UNIT_ACQUIRED_TARGET
 // EVENT_UNIT_TARGET_IN_RANGE
@@ -67,4 +81,9 @@ export const GetEventTargetUnit = (): unit => {};
 
 // See the Player Unit Order Event API above for event info funcs
 
-export const TriggerRegisterUnitInRange = ( whichTrigger: trigger, whichUnit: unit, range: number, filter: boolexpr | null ): event => {};
+export const TriggerRegisterUnitInRange = (
+	whichTrigger: trigger,
+	whichUnit: unit,
+	range: number,
+	filter: boolexpr | null,
+): event => {};
