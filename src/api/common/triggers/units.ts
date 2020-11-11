@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { notImplemented } from "../../../errors";
 import { wrapRun } from "../../../Run";
 
 // ============================================================================
@@ -15,39 +18,63 @@ export const TriggerRegisterUnitStateEvent = (
 	whichState: unitstate,
 	opcode: limitop,
 	limitval: number,
-): event => {};
+): event => {
+	notImplemented("TriggerRegisterUnitStateEvent");
+	return (null as any) as event;
+};
 
 // EVENT_UNIT_STATE_LIMIT
-export const GetEventUnitState = (): unitstate => {};
+export const GetEventUnitState = (): unitstate => {
+	notImplemented("GetEventUnitState");
+	return (null as any) as unitstate;
+};
 
 export const TriggerRegisterUnitEvent = (
 	whichTrigger: trigger,
 	whichUnit: unit,
 	whichEvent: unitevent,
-): event => {};
+): event => {
+	notImplemented("TriggerRegisterUnitEvent");
+	return (null as any) as event;
+};
 
 // EVENT_UNIT_DAMAGED
-export const GetEventDamage = (): number => {};
+export const GetEventDamage = (): number => {
+	notImplemented("GetEventDamage");
+	return 0;
+};
 
-export const GetEventDamageSource = (): unit => {};
+export const GetEventDamageSource = (): unit => {
+	notImplemented("GetEventDamageSource");
+	return (null as any) as unit;
+};
 
 // EVENT_UNIT_DEATH
 // EVENT_UNIT_DECAY
 // Use the GetDyingUnit and GetDecayingUnit funcs above
 
 // EVENT_UNIT_DETECTED
-export const GetEventDetectingPlayer = (): player => {};
+export const GetEventDetectingPlayer = (): player => {
+	notImplemented("GetEventDetectingPlayer");
+	return (null as any) as player;
+};
 
 export const TriggerRegisterFilterUnitEvent = (
 	whichTrigger: trigger,
 	whichUnit: unit,
 	whichEvent: unitevent,
 	filter: boolexpr,
-): event => {};
+): event => {
+	notImplemented("TriggerRegisterFilterUnitEvent");
+	return (null as any) as event;
+};
 
 // EVENT_UNIT_ACQUIRED_TARGET
 // EVENT_UNIT_TARGET_IN_RANGE
-export const GetEventTargetUnit = (): unit => {};
+export const GetEventTargetUnit = (): unit => {
+	notImplemented("GetEventTargetUnit");
+	return (null as any) as unit;
+};
 
 // EVENT_UNIT_ATTACKED
 // Use GetAttacker from the Player Unit Event API Below...
@@ -86,4 +113,7 @@ export const TriggerRegisterUnitInRange = (
 	whichUnit: unit,
 	range: number,
 	filter: boolexpr | null,
-): event => {};
+): event => {
+	notImplemented("TriggerRegisterUnitInRange");
+	return (null as any) as event;
+};

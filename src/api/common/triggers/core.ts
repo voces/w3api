@@ -1,9 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { notImplemented } from "../../../errors";
 import { contextIndexer, getHandle } from "../../../handles";
 
 export const TriggerAddCondition = (
 	whichTrigger: trigger,
 	condition: boolexpr,
-): triggercondition => {};
+): triggercondition => {
+	notImplemented("TriggerAddCondition");
+	return (null as any) as triggercondition;
+};
 
 export const TriggerRemoveCondition = (
 	whichTrigger: trigger,
@@ -37,7 +44,10 @@ export const TriggerSleepAction = (timeout: number): void => {};
 
 export const TriggerWaitForSound = (s: sound, offset: number): void => {};
 
-export const TriggerEvaluate = (whichTrigger: trigger | null): boolean => {};
+export const TriggerEvaluate = (whichTrigger: trigger | null): boolean => {
+	notImplemented("TriggerEvaluate");
+	return false;
+};
 
 export const TriggerExecute = (whichTrigger: trigger | null): void => {};
 

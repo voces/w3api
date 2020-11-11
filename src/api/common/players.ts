@@ -1,62 +1,99 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { notImplemented } from "../../errors";
 import { getPlayer } from "../../PlayerClass";
 
 // ============================================================================
 // Player API
 export const Player = (number: number): player => getPlayer(number);
 
-export const GetLocalPlayer = (): player => {};
+export const GetLocalPlayer = (): player => {
+	notImplemented("GetLocalPlayer");
+	return (null as any) as player;
+};
 
 export const IsPlayerAlly = (
 	whichPlayer: player,
 	otherPlayer: player,
-): boolean => {};
+): boolean => {
+	notImplemented("IsPlayerAlly");
+	return false;
+};
 
 export const IsPlayerEnemy = (
 	whichPlayer: player,
 	otherPlayer: player,
-): boolean => {};
+): boolean => {
+	notImplemented("IsPlayerEnemy");
+	return false;
+};
 
 export const IsPlayerInForce = (
 	whichPlayer: player,
 	whichForce: force,
 ): boolean => whichForce.players.has(whichPlayer);
 
-export const IsPlayerObserver = (whichPlayer: player): boolean => {};
+export const IsPlayerObserver = (whichPlayer: player): boolean => {
+	notImplemented("IsPlayerObserver");
+	return false;
+};
 
 export const IsVisibleToPlayer = (
 	x: number,
 	y: number,
 	whichPlayer: player,
-): boolean => {};
+): boolean => {
+	notImplemented("IsVisibleToPlayer");
+	return false;
+};
 
 export const IsLocationVisibleToPlayer = (
 	whichLocation: location,
 	whichPlayer: player,
-): boolean => {};
+): boolean => {
+	notImplemented("IsLocationVisibleToPlayer");
+	return false;
+};
 
 export const IsFoggedToPlayer = (
 	x: number,
 	y: number,
 	whichPlayer: player,
-): boolean => {};
+): boolean => {
+	notImplemented("IsFoggedToPlayer");
+	return false;
+};
 
 export const IsLocationFoggedToPlayer = (
 	whichLocation: location,
 	whichPlayer: player,
-): boolean => {};
+): boolean => {
+	notImplemented("IsLocationFoggedToPlayer");
+	return false;
+};
 
 export const IsMaskedToPlayer = (
 	x: number,
 	y: number,
 	whichPlayer: player,
-): boolean => {};
+): boolean => {
+	notImplemented("IsMaskedToPlayer");
+	return false;
+};
 
 export const IsLocationMaskedToPlayer = (
 	whichLocation: location,
 	whichPlayer: player,
-): boolean => {};
+): boolean => {
+	notImplemented("IsLocationMaskedToPlayer");
+	return false;
+};
 
-export const GetPlayerRace = (whichPlayer: player): race => {};
+export const GetPlayerRace = (whichPlayer: player): race => {
+	notImplemented("GetPlayerRace");
+	return (null as any) as race;
+};
 
 export const GetPlayerId = (whichPlayer: player): number =>
 	whichPlayer.playerId;
@@ -64,39 +101,63 @@ export const GetPlayerId = (whichPlayer: player): number =>
 export const GetPlayerUnitCount = (
 	whichPlayer: player,
 	includeIncomplete: boolean,
-): number => {};
+): number => {
+	notImplemented("GetPlayerUnitCount");
+	return 0;
+};
 
 export const GetPlayerTypedUnitCount = (
 	whichPlayer: player,
 	unitName: string,
 	includeIncomplete: boolean,
 	includeUpgrades: boolean,
-): number => {};
+): number => {
+	notImplemented("GetPlayerTypedUnitCount");
+	return 0;
+};
 
 export const GetPlayerStructureCount = (
 	whichPlayer: player,
 	includeIncomplete: boolean,
-): number => {};
+): number => {
+	notImplemented("GetPlayerStructureCount");
+	return 0;
+};
 
 export const GetPlayerState = (
 	whichPlayer: player,
 	whichPlayerState: playerstate,
-): number => {};
+): number => {
+	notImplemented("GetPlayerState");
+	return 0;
+};
 
 export const GetPlayerScore = (
 	whichPlayer: player,
 	whichPlayerScore: playerscore,
-): number => {};
+): number => {
+	notImplemented("GetPlayerScore");
+	return 0;
+};
 
 export const GetPlayerAlliance = (
 	sourcePlayer: player,
 	otherPlayer: player,
 	whichAllianceSetting: alliancetype,
-): boolean => {};
+): boolean => {
+	notImplemented("GetPlayerAlliance");
+	return false;
+};
 
-export const GetPlayerHandicap = (whichPlayer: player): number => {};
+export const GetPlayerHandicap = (whichPlayer: player): number => {
+	notImplemented("GetPlayerHandicap");
+	return 0;
+};
 
-export const GetPlayerHandicapXP = (whichPlayer: player): number => {};
+export const GetPlayerHandicapXP = (whichPlayer: player): number => {
+	notImplemented("GetPlayerHandicapXP");
+	return 0;
+};
 
 export const SetPlayerHandicap = (
 	whichPlayer: player,
@@ -117,7 +178,10 @@ export const SetPlayerTechMaxAllowed = (
 export const GetPlayerTechMaxAllowed = (
 	whichPlayer: player,
 	techid: number,
-): number => {};
+): number => {
+	notImplemented("GetPlayerTechMaxAllowed");
+	return 0;
+};
 
 export const AddPlayerTechResearched = (
 	whichPlayer: player,
@@ -135,13 +199,19 @@ export const GetPlayerTechResearched = (
 	whichPlayer: player,
 	techid: number,
 	specificonly: boolean,
-): boolean => {};
+): boolean => {
+	notImplemented("GetPlayerTechResearched");
+	return false;
+};
 
 export const GetPlayerTechCount = (
 	whichPlayer: player,
 	techid: number,
 	specificonly: boolean,
-): number => {};
+): number => {
+	notImplemented("GetPlayerTechCount");
+	return 0;
+};
 
 export const SetPlayerUnitsOwner = (
 	whichPlayer: player,

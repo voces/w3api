@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { notImplemented } from "../../errors";
 import { wrapGame } from "../../Game";
 import { contextIndexer, getAgent } from "../../handles";
 import { getRun, newRun } from "../../Run";
@@ -150,43 +153,67 @@ export const GroupEnumUnitsSelected = (
 export const GroupImmediateOrder = (
 	whichGroup: group,
 	order: string,
-): boolean => {};
+): boolean => {
+	notImplemented("GroupImmediateOrder");
+	return false;
+};
 export const GroupImmediateOrderById = (
 	whichGroup: group,
 	order: number,
-): boolean => {};
+): boolean => {
+	notImplemented("GroupImmediateOrderById");
+	return false;
+};
 export const GroupPointOrder = (
 	whichGroup: group,
 	order: string,
 	x: number,
 	y: number,
-): boolean => {};
+): boolean => {
+	notImplemented("GroupPointOrder");
+	return false;
+};
 export const GroupPointOrderLoc = (
 	whichGroup: group,
 	order: string,
 	whichLocation: location,
-): boolean => {};
+): boolean => {
+	notImplemented("GroupPointOrderLoc");
+	return false;
+};
 export const GroupPointOrderById = (
 	whichGroup: group,
 	order: number,
 	x: number,
 	y: number,
-): boolean => {};
+): boolean => {
+	notImplemented("GroupPointOrderById");
+	return false;
+};
 export const GroupPointOrderByIdLoc = (
 	whichGroup: group,
 	order: number,
 	whichLocation: location,
-): boolean => {};
+): boolean => {
+	notImplemented("GroupPointOrderByIdLoc");
+	return false;
+};
 export const GroupTargetOrder = (
 	whichGroup: group,
 	order: string,
 	targetWidget: widget,
-): boolean => {};
+): boolean => {
+	notImplemented("GroupTargetOrder");
+	return false;
+};
 export const GroupTargetOrderById = (
 	whichGroup: group,
 	order: number,
 	targetWidget: widget,
-): boolean => {};
+): boolean => {
+	notImplemented("GroupTargetOrderById");
+	return false;
+};
 // This will be difficult to support with potentially disjoint, cell-based regions
 // as it would involve enumerating all the cells that are covered by a particularregion
 // a better implementation would be a trigger that adds relevant units as they enter
