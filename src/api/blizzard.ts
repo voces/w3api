@@ -1,3 +1,4 @@
+/* eslint-disable no-constant-condition */
 import {
 	Acos,
 	AddHeroXP,
@@ -4630,7 +4631,7 @@ export const CreateNUnitsAtLocFacingLocBJ = (
 
 // ===========================================================================
 export const GetLastCreatedGroupEnum = (): void => {
-	GroupAddUnit(bj_groupLastCreatedDest, GetEnumUnit());
+	GroupAddUnit(bj_groupLastCreatedDest, GetEnumUnit()!);
 };
 
 // ===========================================================================
@@ -4663,7 +4664,7 @@ export const UnitSuspendDecayBJ = (suspend: boolean, whichUnit: unit): void => {
 
 // ===========================================================================
 export const DelayedSuspendDecayStopAnimEnum = (): void => {
-	const enumUnit = GetEnumUnit();
+	const enumUnit = GetEnumUnit()!;
 
 	if (GetUnitState(enumUnit, UNIT_STATE_LIFE) <= 0)
 		SetUnitTimeScale(enumUnit, 0.0001);
@@ -4671,7 +4672,7 @@ export const DelayedSuspendDecayStopAnimEnum = (): void => {
 
 // ===========================================================================
 export const DelayedSuspendDecayBoneEnum = (): void => {
-	const enumUnit = GetEnumUnit();
+	const enumUnit = GetEnumUnit()!;
 
 	if (GetUnitState(enumUnit, UNIT_STATE_LIFE) <= 0) {
 		UnitSuspendDecay(enumUnit, true);
@@ -4685,7 +4686,7 @@ export const DelayedSuspendDecayBoneEnum = (): void => {
 // off corpses thus created until after this grace period has passed.
 //
 export const DelayedSuspendDecayFleshEnum = (): void => {
-	const enumUnit = GetEnumUnit();
+	const enumUnit = GetEnumUnit()!;
 
 	if (GetUnitState(enumUnit, UNIT_STATE_LIFE) <= 0) {
 		UnitSuspendDecay(enumUnit, true);
@@ -4802,7 +4803,7 @@ export const SelectUnitSingle = (whichUnit: unit): void => {
 
 // ===========================================================================
 export const SelectGroupBJEnum = (): void => {
-	SelectUnit(GetEnumUnit(), true);
+	SelectUnit(GetEnumUnit()!, true);
 };
 
 // ===========================================================================
@@ -4917,7 +4918,7 @@ export const IsUnitAliveBJ = (whichUnit: unit): boolean =>
 
 // ===========================================================================
 export const IsUnitGroupDeadBJEnum = (): void => {
-	if (!IsUnitDeadBJ(GetEnumUnit())) bj_isUnitGroupDeadResult = false;
+	if (!IsUnitDeadBJ(GetEnumUnit()!)) bj_isUnitGroupDeadResult = false;
 };
 
 // ===========================================================================
@@ -4965,7 +4966,7 @@ export const IsUnitGroupEmptyBJ = (g: group): boolean => {
 
 // ===========================================================================
 export const IsUnitGroupInRectBJEnum = (): void => {
-	if (!RectContainsUnit(bj_isUnitGroupInRectRect, GetEnumUnit()))
+	if (!RectContainsUnit(bj_isUnitGroupInRectRect, GetEnumUnit()!))
 		bj_isUnitGroupInRectResult = false;
 };
 
@@ -5000,7 +5001,7 @@ export const ShowUnitShow = (whichUnit: unit): void => {
 
 // ===========================================================================
 export const IssueHauntOrderAtLocBJFilter = (): boolean =>
-	GetUnitTypeId(GetFilterUnit()) === FourCC("ngol");
+	GetUnitTypeId(GetFilterUnit()!) === FourCC("ngol");
 
 // ===========================================================================
 export const IssueHauntOrderAtLocBJ = (
@@ -5060,7 +5061,7 @@ export const IssueUpgradeOrderByIdBJ = (
 ): boolean => IssueImmediateOrderById(whichUnit, techId);
 
 // ===========================================================================
-export const GetAttackedUnitBJ = (): unit => GetTriggerUnit();
+export const GetAttackedUnitBJ = (): unit => GetTriggerUnit()!;
 
 // ===========================================================================
 export const SetUnitFlyHeightBJ = (
@@ -5138,7 +5139,7 @@ export const UnitIsSleepingBJ = (whichUnit: unit): boolean =>
 
 // ===========================================================================
 export const WakePlayerUnitsEnum = (): void => {
-	UnitWakeUp(GetEnumUnit());
+	UnitWakeUp(GetEnumUnit()!);
 };
 
 // ===========================================================================
@@ -5174,7 +5175,7 @@ export const DoesUnitGenerateAlarms = (whichUnit: unit): boolean =>
 
 // ===========================================================================
 export const PauseAllUnitsBJEnum = (): void => {
-	PauseUnit(GetEnumUnit(), bj_pauseAllUnitsFlag);
+	PauseUnit(GetEnumUnit()!, bj_pauseAllUnitsFlag);
 };
 
 // ===========================================================================
@@ -5717,7 +5718,7 @@ export const EnumDestructablesInRectAll = (
 
 // ===========================================================================
 export const EnumDestructablesInCircleBJFilter = (): boolean => {
-	const destLoc = GetDestructableLoc(GetFilterDestructable());
+	const destLoc = GetDestructableLoc(GetFilterDestructable()!);
 
 	const result =
 		DistanceBetweenPoints(destLoc, bj_enumDestructableCenter) <=
@@ -5901,14 +5902,14 @@ export const ChangeElevatorHeight = (
 // and shove until he finds a spot where noone will bother him.
 //
 export const NudgeUnitsInRectEnum = (): void => {
-	const nudgee = GetEnumUnit();
+	const nudgee = GetEnumUnit()!;
 
 	SetUnitPosition(nudgee, GetUnitX(nudgee), GetUnitY(nudgee));
 };
 
 // ===========================================================================
 export const NudgeItemsInRectEnum = (): void => {
-	const nudgee = GetEnumItem();
+	const nudgee = GetEnumItem()!;
 
 	SetItemPosition(nudgee, GetItemX(nudgee), GetItemY(nudgee));
 };
@@ -5929,7 +5930,7 @@ export const NudgeObjectsInRect = (nudgeArea: rect): void => {
 
 // ===========================================================================
 export const NearbyElevatorExistsEnum = (): void => {
-	const d = GetEnumDestructable();
+	const d = GetEnumDestructable()!;
 	const dType = GetDestructableTypeId(d);
 
 	if (dType === bj_ELEVATOR_CODE01 || dType === bj_ELEVATOR_CODE02)
@@ -6174,7 +6175,7 @@ export const GroupRemoveUnitSimple = (
 
 // ===========================================================================
 export const GroupAddGroupEnum = (): void => {
-	GroupAddUnit(bj_groupAddGroupDest, GetEnumUnit());
+	GroupAddUnit(bj_groupAddGroupDest, GetEnumUnit()!);
 };
 
 // ===========================================================================
@@ -6193,7 +6194,7 @@ export const GroupAddGroup = (sourceGroup: group, destGroup: group): void => {
 
 // ===========================================================================
 export const GroupRemoveGroupEnum = (): void => {
-	GroupRemoveUnit(bj_groupRemoveGroupDest, GetEnumUnit());
+	GroupRemoveUnit(bj_groupRemoveGroupDest, GetEnumUnit()!);
 };
 
 // ===========================================================================
@@ -6314,7 +6315,7 @@ export const GetUnitsInRectAll = (r: rect): group =>
 
 // ===========================================================================
 export const GetUnitsInRectOfPlayerFilter = (): boolean =>
-	GetOwningPlayer(GetFilterUnit()) === bj_groupEnumOwningPlayer;
+	GetOwningPlayer(GetFilterUnit()!) === bj_groupEnumOwningPlayer;
 
 // ===========================================================================
 export const GetUnitsInRectOfPlayer = (r: rect, whichPlayer: player): group => {
@@ -6344,7 +6345,7 @@ export const GetUnitsInRangeOfLocAll = (
 
 // ===========================================================================
 export const GetUnitsOfTypeIdAllFilter = (): boolean =>
-	GetUnitTypeId(GetFilterUnit()) === bj_groupEnumTypeId;
+	GetUnitTypeId(GetFilterUnit()!) === bj_groupEnumTypeId;
 
 // ===========================================================================
 export const GetUnitsOfTypeIdAll = (unitid: number): group => {
@@ -6386,7 +6387,7 @@ export const GetUnitsOfPlayerAll = (whichPlayer: player): group =>
 
 // ===========================================================================
 export const GetUnitsOfPlayerAndTypeIdFilter = (): boolean =>
-	GetUnitTypeId(GetFilterUnit()) === bj_groupEnumTypeId;
+	GetUnitTypeId(GetFilterUnit()!) === bj_groupEnumTypeId;
 
 // ===========================================================================
 export const GetUnitsOfPlayerAndTypeId = (
@@ -6502,7 +6503,7 @@ export const GetRandomSubGroupEnum = (): void => {
 			GetRandomReal(0, 1) < bj_randomSubGroupChance
 		) {
 			// We either need every remaining unit, or the unit passed its chance check.
-			GroupAddUnit(bj_randomSubGroupGroup, GetEnumUnit());
+			GroupAddUnit(bj_randomSubGroupGroup, GetEnumUnit()!);
 			bj_randomSubGroupWant = bj_randomSubGroupWant - 1;
 		}
 
@@ -6527,7 +6528,7 @@ export const GetRandomSubGroup = (count: number, sourceGroup: group): group => {
 
 // ===========================================================================
 export const LivingPlayerUnitsOfTypeIdFilter = (): boolean => {
-	const filterUnit = GetFilterUnit();
+	const filterUnit = GetFilterUnit()!;
 	return (
 		IsUnitAliveBJ(filterUnit) &&
 		GetUnitTypeId(filterUnit) === bj_livingPlayerUnitsTypeId
@@ -6769,10 +6770,10 @@ export const DialogClearBJ = (whichDialog: dialog): void => {
 export const GetLastCreatedButtonBJ = (): button => bj_lastCreatedButton;
 
 // ===========================================================================
-export const GetClickedButtonBJ = (): button => GetClickedButton();
+export const GetClickedButtonBJ = (): button => GetClickedButton()!;
 
 // ===========================================================================
-export const GetClickedDialogBJ = (): dialog => GetClickedDialog();
+export const GetClickedDialogBJ = (): dialog => GetClickedDialog()!;
 
 // ***************************************************************************
 // *
@@ -7087,7 +7088,7 @@ export const ConfigureNeutralVictim = (): void => {
 
 // ===========================================================================
 export const MakeUnitsPassiveForPlayerEnum = (): void => {
-	SetUnitOwner(GetEnumUnit(), Player(bj_PLAYER_NEUTRAL_VICTIM), false);
+	SetUnitOwner(GetEnumUnit()!, Player(bj_PLAYER_NEUTRAL_VICTIM), false);
 };
 
 // ===========================================================================
@@ -7222,9 +7223,9 @@ export const MeleeDefeatDialogBJ = (
 
 // ===========================================================================
 // leftGame is unused, but we don't want to break the API
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const GameOverDialogBJ = (
 	whichPlayer: player,
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	leftGame: boolean,
 ): void => {
 	let t = CreateTrigger();
@@ -9518,7 +9519,7 @@ export const RescueUnitBJ = (
 
 // ===========================================================================
 export const TriggerActionUnitRescuedBJ = (): void => {
-	const theUnit = GetTriggerUnit();
+	const theUnit = GetTriggerUnit()!;
 
 	if (IsUnitType(theUnit, UNIT_TYPE_STRUCTURE))
 		RescueUnitBJ(
@@ -9582,7 +9583,7 @@ export const MakeUnitRescuableToForceBJEnum = (): void => {
 	TryInitRescuableTriggersBJ();
 	SetUnitRescuable(
 		bj_makeUnitRescuableUnit,
-		GetEnumPlayer(),
+		GetEnumPlayer()!,
 		bj_makeUnitRescuableFlag,
 	);
 };
@@ -10912,7 +10913,7 @@ export const IsPointBlightedBJ = (where: location): boolean =>
 
 // ===========================================================================
 export const SetPlayerColorBJEnum = (): void => {
-	SetUnitColor(GetEnumUnit(), bj_setPlayerTargetColor);
+	SetUnitColor(GetEnumUnit()!, bj_setPlayerTargetColor);
 };
 
 // ===========================================================================
@@ -11313,7 +11314,7 @@ export const MeleeStartingHeroLimit = (): void => {
 
 // ===========================================================================
 export const MeleeTrainedUnitIsHeroBJFilter = (): boolean =>
-	IsUnitType(GetFilterUnit(), UNIT_TYPE_HERO);
+	IsUnitType(GetFilterUnit()!, UNIT_TYPE_HERO);
 
 // ===========================================================================
 // The first N heroes trained or hired for each player start off with a
@@ -11398,17 +11399,17 @@ export const MeleeGrantHeroItems = (): void => {
 
 // ===========================================================================
 export const MeleeClearExcessUnit = (): void => {
-	const theUnit = GetEnumUnit();
+	const theUnit = GetEnumUnit()!;
 	const owner = GetPlayerId(GetOwningPlayer(theUnit));
 
 	if (owner === PLAYER_NEUTRAL_AGGRESSIVE)
 		// Remove any Neutral Hostile units from the area.
-		RemoveUnit(GetEnumUnit());
+		RemoveUnit(theUnit);
 	else if (owner === PLAYER_NEUTRAL_PASSIVE)
 		if (!IsUnitType(theUnit, UNIT_TYPE_STRUCTURE))
 			// Remove non-structure Neutral Passive units from the area.
 
-			RemoveUnit(GetEnumUnit());
+			RemoveUnit(theUnit);
 };
 
 // ===========================================================================
@@ -11457,7 +11458,7 @@ export const MeleeClearExcessUnits = (): void => {
 
 // ===========================================================================
 export const MeleeEnumFindNearestMine = (): void => {
-	const enumUnit = GetEnumUnit();
+	const enumUnit = GetEnumUnit()!;
 	let dist: number;
 	let unitLoc: location;
 
@@ -12604,7 +12605,7 @@ export const MeleeGetAllyKeyStructureCount = (whichPlayer: player): number => {
 // Enum: Draw out a specific player.
 //
 export const MeleeDoDrawEnum = (): void => {
-	const thePlayer = GetEnumPlayer();
+	const thePlayer = GetEnumPlayer()!;
 
 	CachePlayerHeroData(thePlayer);
 	RemovePlayerPreserveUnitsBJ(thePlayer, PLAYER_GAME_RESULT_TIE, false);
@@ -12614,7 +12615,7 @@ export const MeleeDoDrawEnum = (): void => {
 // Enum: Victory out a specific player.
 //
 export const MeleeDoVictoryEnum = (): void => {
-	const thePlayer = GetEnumPlayer();
+	const thePlayer = GetEnumPlayer()!;
 	const playerIndex = GetPlayerId(thePlayer);
 
 	if (!bj_meleeVictoried[playerIndex]) {
@@ -12640,7 +12641,7 @@ export const MeleeDoDefeat = (whichPlayer: player): void => {
 // Enum: Defeat out a specific player.
 //
 export const MeleeDoDefeatEnum = (): void => {
-	const thePlayer = GetEnumPlayer();
+	const thePlayer = GetEnumPlayer()!;
 
 	// needs to happen before ownership change
 	CachePlayerHeroData(thePlayer);
@@ -13078,7 +13079,7 @@ export const MeleeTriggerActionUnitConstructionStart = (): void => {
 
 // ===========================================================================
 export const MeleeTriggerActionPlayerDefeated = (): void => {
-	const thePlayer = GetTriggerPlayer();
+	const thePlayer = GetTriggerPlayer()!;
 	CachePlayerHeroData(thePlayer);
 
 	if (MeleeGetAllyCount(thePlayer) > 0) {
@@ -13100,7 +13101,7 @@ export const MeleeTriggerActionPlayerDefeated = (): void => {
 
 // ===========================================================================
 export const MeleeTriggerActionPlayerLeft = (): void => {
-	const thePlayer = GetTriggerPlayer();
+	const thePlayer = GetTriggerPlayer()!;
 
 	// Just show game over for observers when they leave
 
@@ -13144,7 +13145,7 @@ export const MeleeTriggerTournamentFinishSoon = (): void => {
 	// Note: We may get this trigger multiple times
 	let playerIndex: number;
 	let indexPlayer: player;
-	const timeRemaining = GetTournamentFinishSoonTimeRemaining();
+	const timeRemaining = GetTournamentFinishSoonTimeRemaining()!;
 
 	if (!bj_finishSoonAllExposed) {
 		bj_finishSoonAllExposed = true;
@@ -13940,7 +13941,7 @@ export const UpdateEachStockBuildingEnum = (): void => {
 		if (iteration > bj_STOCK_MAX_ITERATIONS) return;
 	}
 
-	AddItemToStock(GetEnumUnit(), pickedItemId, 1, 1);
+	AddItemToStock(GetEnumUnit()!, pickedItemId, 1, 1);
 };
 
 // ===========================================================================

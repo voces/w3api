@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 export * from "./common/booleanExpressions";
 export * from "./common/constants";
 export * from "./common/converters";
@@ -20,15 +23,27 @@ import { AI_DIFFICULTY_NEWBIE } from "./common/constants";
 
 // ============================================================================
 // Widget API
-export const GetWidgetLife = (whichWidget: widget): number => {};
+export const GetWidgetLife = (whichWidget: widget): number => {
+	notImplemented("GetWidgetLife");
+	return 0;
+};
 
 export const SetWidgetLife = (whichWidget: widget, newLife: number): void => {};
 
-export const GetWidgetX = (whichWidget: widget): number => {};
+export const GetWidgetX = (whichWidget: widget): number => {
+	notImplemented("GetWidgetX");
+	return 0;
+};
 
-export const GetWidgetY = (whichWidget: widget): number => {};
+export const GetWidgetY = (whichWidget: widget): number => {
+	notImplemented("GetWidgetY");
+	return 0;
+};
 
-export const GetTriggerWidget = (): widget => {};
+export const GetTriggerWidget = (): widget => {
+	notImplemented("GetTriggerWidget");
+	return (null as any) as widget;
+};
 
 // ============================================================================
 // Destructable Object API
@@ -40,7 +55,10 @@ export const CreateDestructable = (
 	face: number,
 	scale: number,
 	variation: number,
-): destructable => {};
+): destructable => {
+	notImplemented("CreateDestructable");
+	return (null as any) as destructable;
+};
 
 export const CreateDestructableZ = (
 	objectid: number,
@@ -50,7 +68,10 @@ export const CreateDestructableZ = (
 	face: number,
 	scale: number,
 	variation: number,
-): destructable => {};
+): destructable => {
+	notImplemented("CreateDestructableZ");
+	return (null as any) as destructable;
+};
 
 export const CreateDeadDestructable = (
 	objectid: number,
@@ -59,7 +80,10 @@ export const CreateDeadDestructable = (
 	face: number,
 	scale: number,
 	variation: number,
-): destructable => {};
+): destructable => {
+	notImplemented("CreateDeadDestructable");
+	return (null as any) as destructable;
+};
 
 export const CreateDeadDestructableZ = (
 	objectid: number,
@@ -69,7 +93,10 @@ export const CreateDeadDestructableZ = (
 	face: number,
 	scale: number,
 	variation: number,
-): destructable => {};
+): destructable => {
+	notImplemented("CreateDeadDestructableZ");
+	return (null as any) as destructable;
+};
 
 export const RemoveDestructable = (d: destructable): void => {};
 
@@ -80,30 +107,48 @@ export const SetDestructableInvulnerable = (
 	flag: boolean,
 ): void => {};
 
-export const IsDestructableInvulnerable = (d: destructable): boolean => {};
+export const IsDestructableInvulnerable = (d: destructable): boolean => {
+	notImplemented("IsDestructableInvulnerable");
+	return false;
+};
 
 export const EnumDestructablesInRect = (
 	r: rect,
 	filter: boolexpr | null,
-	actionFunc: code,
+	actionFunc: () => void,
 ): void => {};
 
-export const GetDestructableTypeId = (d: destructable): number => {};
+export const GetDestructableTypeId = (d: destructable): number => {
+	notImplemented("GetDestructableTypeId");
+	return 0;
+};
 
-export const GetDestructableX = (d: destructable): number => {};
+export const GetDestructableX = (d: destructable): number => {
+	notImplemented("GetDestructableX");
+	return 0;
+};
 
-export const GetDestructableY = (d: destructable): number => {};
+export const GetDestructableY = (d: destructable): number => {
+	notImplemented("GetDestructableY");
+	return 0;
+};
 
 export const SetDestructableLife = (d: destructable, life: number): void => {};
 
-export const GetDestructableLife = (d: destructable): number => {};
+export const GetDestructableLife = (d: destructable): number => {
+	notImplemented("GetDestructableLife");
+	return 0;
+};
 
 export const SetDestructableMaxLife = (
 	d: destructable,
 	max: number,
 ): void => {};
 
-export const GetDestructableMaxLife = (d: destructable): number => {};
+export const GetDestructableMaxLife = (d: destructable): number => {
+	notImplemented("GetDestructableMaxLife");
+	return 0;
+};
 
 export const DestructableRestoreLife = (
 	d: destructable,
@@ -128,30 +173,54 @@ export const SetDestructableAnimationSpeed = (
 
 export const ShowDestructable = (d: destructable, flag: boolean): void => {};
 
-export const GetDestructableOccluderHeight = (d: destructable): number => {};
+export const GetDestructableOccluderHeight = (d: destructable): number => {
+	notImplemented("GetDestructableOccluderHeight");
+	return 0;
+};
 
 export const SetDestructableOccluderHeight = (
 	d: destructable,
 	height: number,
 ): void => {};
 
-export const GetDestructableName = (d: destructable): string => {};
+export const GetDestructableName = (d: destructable): string => {
+	notImplemented("GetDestructableName");
+	return "";
+};
 
-export const GetTriggerDestructable = (): destructable => {};
+export const GetTriggerDestructable = (): destructable => {
+	notImplemented("GetTriggerDestructable");
+	return (null as any) as destructable;
+};
 
 // ============================================================================
 // Item API
-export const CreateItem = (itemid: number, x: number, y: number): item => {};
+export const CreateItem = (itemid: number, x: number, y: number): item => {
+	notImplemented("CreateItem");
+	return (null as any) as item;
+};
 
 export const RemoveItem = (whichItem: item): void => {};
 
-export const GetItemPlayer = (whichItem: item): player => {};
+export const GetItemPlayer = (whichItem: item): player => {
+	notImplemented("GetItemPlayer");
+	return (null as any) as player;
+};
 
-export const GetItemTypeId = (i: item): number => {};
+export const GetItemTypeId = (i: item): number => {
+	notImplemented("GetItemTypeId");
+	return 0;
+};
 
-export const GetItemX = (i: item): number => {};
+export const GetItemX = (i: item): number => {
+	notImplemented("GetItemX");
+	return 0;
+};
 
-export const GetItemY = (i: item): number => {};
+export const GetItemY = (i: item): number => {
+	notImplemented("GetItemY");
+	return 0;
+};
 
 export const SetItemPosition = (i: item, x: number, y: number): void => {};
 
@@ -169,45 +238,87 @@ export const SetItemPlayer = (
 
 export const SetItemInvulnerable = (whichItem: item, flag: boolean): void => {};
 
-export const IsItemInvulnerable = (whichItem: item): boolean => {};
+export const IsItemInvulnerable = (whichItem: item): boolean => {
+	notImplemented("IsItemInvulnerable");
+	return false;
+};
 
 export const SetItemVisible = (whichItem: item, show: boolean): void => {};
 
-export const IsItemVisible = (whichItem: item): boolean => {};
+export const IsItemVisible = (whichItem: item): boolean => {
+	notImplemented("IsItemVisible");
+	return false;
+};
 
-export const IsItemOwned = (whichItem: item): boolean => {};
+export const IsItemOwned = (whichItem: item): boolean => {
+	notImplemented("IsItemOwned");
+	return false;
+};
 
-export const IsItemPowerup = (whichItem: item): boolean => {};
+export const IsItemPowerup = (whichItem: item): boolean => {
+	notImplemented("IsItemPowerup");
+	return false;
+};
 
-export const IsItemSellable = (whichItem: item): boolean => {};
+export const IsItemSellable = (whichItem: item): boolean => {
+	notImplemented("IsItemSellable");
+	return false;
+};
 
-export const IsItemPawnable = (whichItem: item): boolean => {};
+export const IsItemPawnable = (whichItem: item): boolean => {
+	notImplemented("IsItemPawnable");
+	return false;
+};
 
-export const IsItemIdPowerup = (itemId: number): boolean => {};
+export const IsItemIdPowerup = (itemId: number): boolean => {
+	notImplemented("IsItemIdPowerup");
+	return false;
+};
 
-export const IsItemIdSellable = (itemId: number): boolean => {};
+export const IsItemIdSellable = (itemId: number): boolean => {
+	notImplemented("IsItemIdSellable");
+	return false;
+};
 
-export const IsItemIdPawnable = (itemId: number): boolean => {};
+export const IsItemIdPawnable = (itemId: number): boolean => {
+	notImplemented("IsItemIdPawnable");
+	return false;
+};
 
 export const EnumItemsInRect = (
 	r: rect,
 	filter: boolexpr | null,
-	actionFunc: code,
+	actionFunc: () => void,
 ): void => {};
 
-export const GetItemLevel = (whichItem: item): number => {};
+export const GetItemLevel = (whichItem: item): number => {
+	notImplemented("GetItemLevel");
+	return 0;
+};
 
-export const GetItemType = (whichItem: item): itemtype => {};
+export const GetItemType = (whichItem: item): itemtype => {
+	notImplemented("GetItemType");
+	return (null as any) as itemtype;
+};
 
 export const SetItemDropID = (whichItem: item, unitId: number): void => {};
 
-export const GetItemName = (whichItem: item): string => {};
+export const GetItemName = (whichItem: item): string => {
+	notImplemented("GetItemName");
+	return "";
+};
 
-export const GetItemCharges = (whichItem: item): number => {};
+export const GetItemCharges = (whichItem: item): number => {
+	notImplemented("GetItemCharges");
+	return 0;
+};
 
 export const SetItemCharges = (whichItem: item, charges: number): void => {};
 
-export const GetItemUserData = (whichItem: item): number => {};
+export const GetItemUserData = (whichItem: item): number => {
+	notImplemented("GetItemUserData");
+	return 0;
+};
 
 export const SetItemUserData = (whichItem: item, data: number): void => {};
 
@@ -239,11 +350,17 @@ export const SetFogStateRadiusLoc = (
 
 export const FogMaskEnable = (enable: boolean): void => {};
 
-export const IsFogMaskEnabled = (): boolean => {};
+export const IsFogMaskEnabled = (): boolean => {
+	notImplemented("IsFogMaskEnabled");
+	return false;
+};
 
 export const FogEnable = (enable: boolean): void => {};
 
-export const IsFogEnabled = (): boolean => {};
+export const IsFogEnabled = (): boolean => {
+	notImplemented("IsFogEnabled");
+	return false;
+};
 
 export const CreateFogModifierRect = (
 	forWhichPlayer: player,
@@ -251,7 +368,10 @@ export const CreateFogModifierRect = (
 	where: rect,
 	useSharedVision: boolean,
 	afterUnits: boolean,
-): fogmodifier => {};
+): fogmodifier => {
+	notImplemented("CreateFogModifierRect");
+	return (null as any) as fogmodifier;
+};
 
 export const CreateFogModifierRadius = (
 	forWhichPlayer: player,
@@ -261,7 +381,10 @@ export const CreateFogModifierRadius = (
 	radius: number,
 	useSharedVision: boolean,
 	afterUnits: boolean,
-): fogmodifier => {};
+): fogmodifier => {
+	notImplemented("CreateFogModifierRadius");
+	return (null as any) as fogmodifier;
+};
 
 export const CreateFogModifierRadiusLoc = (
 	forWhichPlayer: player,
@@ -270,7 +393,10 @@ export const CreateFogModifierRadiusLoc = (
 	radius: number,
 	useSharedVision: boolean,
 	afterUnits: boolean,
-): fogmodifier => {};
+): fogmodifier => {
+	notImplemented("CreateFogModifierRadiusLoc");
+	return (null as any) as fogmodifier;
+};
 
 export const DestroyFogModifier = (whichFogModifier: fogmodifier): void => {};
 
@@ -280,11 +406,20 @@ export const FogModifierStop = (whichFogModifier: fogmodifier): void => {};
 
 // ============================================================================
 // Game API
-export const VersionGet = (): version => {};
+export const VersionGet = (): version => {
+	notImplemented("VersionGet");
+	return (null as any) as version;
+};
 
-export const VersionCompatible = (whichVersion: version): boolean => {};
+export const VersionCompatible = (whichVersion: version): boolean => {
+	notImplemented("VersionCompatible");
+	return false;
+};
 
-export const VersionSupported = (whichVersion: version): boolean => {};
+export const VersionSupported = (whichVersion: version): boolean => {
+	notImplemented("VersionSupported");
+	return false;
+};
 
 export const EndGame = (doScoreScreen: boolean): void => {};
 
@@ -316,16 +451,28 @@ export const SaveGame = (saveFileName: string): void => {};
 export const RenameSaveDirectory = (
 	sourceDirName: string,
 	destDirName: string,
-): boolean => {};
+): boolean => {
+	notImplemented("RenameSaveDirectory");
+	return false;
+};
 
-export const RemoveSaveDirectory = (sourceDirName: string): boolean => {};
+export const RemoveSaveDirectory = (sourceDirName: string): boolean => {
+	notImplemented("RemoveSaveDirectory");
+	return false;
+};
 
 export const CopySaveGame = (
 	sourceSaveName: string,
 	destSaveName: string,
-): boolean => {};
+): boolean => {
+	notImplemented("CopySaveGame");
+	return false;
+};
 
-export const SaveGameExists = (saveName: string): boolean => {};
+export const SaveGameExists = (saveName: string): boolean => {
+	notImplemented("SaveGameExists");
+	return false;
+};
 
 export const SyncSelections = (): void => {};
 
@@ -334,9 +481,10 @@ export const SetFloatGameState = (
 	value: number,
 ): void => {};
 
-export const GetFloatGameState = (
-	whichFloatGameState: fgamestate,
-): number => {};
+export const GetFloatGameState = (whichFloatGameState: fgamestate): number => {
+	notImplemented("GetFloatGameState");
+	return 0;
+};
 
 export const SetIntegerGameState = (
 	whichIntegerGameState: igamestate,
@@ -345,7 +493,10 @@ export const SetIntegerGameState = (
 
 export const GetIntegerGameState = (
 	whichIntegerGameState: igamestate,
-): number => {};
+): number => {
+	notImplemented("GetIntegerGameState");
+	return 0;
+};
 
 // ============================================================================
 // Campaign API
@@ -372,7 +523,10 @@ export const SetEdCinematicAvailable = (
 	available: boolean,
 ): void => {};
 
-export const GetDefaultDifficulty = (): gamedifficulty => {};
+export const GetDefaultDifficulty = (): gamedifficulty => {
+	notImplemented("GetDefaultDifficulty");
+	return (null as any) as gamedifficulty;
+};
 
 export const SetDefaultDifficulty = (g: gamedifficulty): void => {};
 
@@ -383,13 +537,19 @@ export const SetCustomCampaignButtonVisible = (
 
 export const GetCustomCampaignButtonVisible = (
 	whichButton: number,
-): boolean => {};
+): boolean => {
+	notImplemented("GetCustomCampaignButtonVisible");
+	return false;
+};
 
 export const DoNotSaveReplay = (): void => {};
 
 // ============================================================================
 // Dialog API
-export const DialogCreate = (): dialog => {};
+export const DialogCreate = (): dialog => {
+	notImplemented("DialogCreate");
+	return (null as any) as dialog;
+};
 
 export const DialogDestroy = (whichDialog: dialog): void => {};
 
@@ -404,14 +564,20 @@ export const DialogAddButton = (
 	whichDialog: dialog,
 	buttonText: string,
 	hotkey: number,
-): button => {};
+): button => {
+	notImplemented("DialogAddButton");
+	return (null as any) as button;
+};
 
 export const DialogAddQuitButton = (
 	whichDialog: dialog,
 	doScoreScreen: boolean,
 	buttonText: string,
 	hotkey: number,
-): button => {};
+): button => {
+	notImplemented("DialogAddQuitButton");
+	return (null as any) as button;
+};
 
 export const DialogDisplay = (
 	whichPlayer: player,
@@ -422,11 +588,20 @@ export const DialogDisplay = (
 // Creates a new or reads in an existing game cache file stored
 // in the current campaign profile dir
 //
-export const ReloadGameCachesFromDisk = (): boolean => {};
+export const ReloadGameCachesFromDisk = (): boolean => {
+	notImplemented("ReloadGameCachesFromDisk");
+	return false;
+};
 
-export const InitGameCache = (campaignFile: string): gamecache => {};
+export const InitGameCache = (campaignFile: string): gamecache => {
+	notImplemented("InitGameCache");
+	return (null as any) as gamecache;
+};
 
-export const SaveGameCache = (whichCache: gamecache): boolean => {};
+export const SaveGameCache = (whichCache: gamecache): boolean => {
+	notImplemented("SaveGameCache");
+	return false;
+};
 
 export const StoreInteger = (
 	cache: gamecache,
@@ -454,14 +629,20 @@ export const StoreUnit = (
 	missionKey: string,
 	key: string,
 	whichUnit: unit,
-): boolean => {};
+): boolean => {
+	notImplemented("StoreUnit");
+	return false;
+};
 
 export const StoreString = (
 	cache: gamecache,
 	missionKey: string,
 	key: string,
 	value: string,
-): boolean => {};
+): boolean => {
+	notImplemented("StoreString");
+	return false;
+};
 
 export const SyncStoredInteger = (
 	cache: gamecache,

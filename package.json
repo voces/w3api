@@ -5,7 +5,7 @@
   "author": "verit",
   "license": "MIT",
   "scripts": {
-    "build": "tsc; ts-node bin/build.ts",
+    "build": "tsc --project tsconfig.build.json && ts-node bin/build.ts --unhandled-rejections=strict",
     "dev": "npm-watch",
     "test": "jest",
     "test-debug": "node --inspect-brk node_modules/.bin/jest --runInBand"
