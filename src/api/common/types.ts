@@ -364,6 +364,12 @@ declare interface hashtable extends agent {
 }
 declare interface framehandle extends handle {
 	framehandleId: number;
+	name: string;
+	owner: framehandle | null;
+	priority: number;
+	createContext: number;
+	typeName?: string;
+	inherits?: string;
 }
 declare interface originframetype extends handle {
 	originframetypeId: number;
