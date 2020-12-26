@@ -54,10 +54,10 @@ export class ContextManager {
 	 * Sets the current context to an ephemeral context for the duration of the
 	 * function. Restores the previous context upon completion.
 	 */
-	withTemp<T>(fn: () => T): T {
+	withTemp<T>(fn: (context: Context) => T): T {
 		const oldContext = this.currentContext;
 		this.currentContext = newContext();
-		const v = fn();
+		const v = fn(this.currentContext);
 		this.currentContext = oldContext;
 		return v;
 	}

@@ -8,6 +8,7 @@ import {
 } from "./api/common/constants/mapSetup";
 import { BinaryHeap } from "./BianryHeap";
 import { gameContext } from "./contexts";
+import { newRun } from "./Run";
 
 export class Game {
 	creatureDensity: mapdensity = MAP_DENSITY_MEDIUM;
@@ -29,6 +30,7 @@ export class Game {
 	time = 0;
 	timers = new BinaryHeap((t: timer) => t.nextTick);
 	triggers: Set<trigger> = new Set();
+	localPlayerId = 0;
 
 	data: {
 		units: Record<string, UnitSpec>;
@@ -51,7 +53,10 @@ export class Game {
 
 			if (timer.callback) {
 				this.time = timer.lastTick;
-				timer.callback();
+
+				newRun({ expiredTimer: timer }, () => {
+					timer.callback!();
+				});
 			}
 		}
 

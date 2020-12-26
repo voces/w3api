@@ -1,6 +1,6 @@
-import { notImplemented } from "../../errors";
 import { Game, wrapGame } from "../../Game";
 import { contextIndexer, getAgent } from "../../handles";
+import { wrapRun } from "../../Run";
 
 // ============================================================================
 // Timer API
@@ -59,7 +59,4 @@ export const ResumeTimer = wrapGame((game: Game, whichTimer: timer): void => {
 	if (!whichTimer.active) game.timers.push(whichTimer);
 	whichTimer.active = true;
 });
-export const GetExpiredTimer = (): timer => {
-	notImplemented("GetExpiredTimer");
-	return CreateTimer();
-};
+export const GetExpiredTimer = wrapRun((run): timer | null => run.expiredTimer);

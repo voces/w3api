@@ -2,16 +2,16 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { notImplemented } from "../../errors";
+import { wrapGame } from "../../Game";
 import { getPlayer } from "../../PlayerClass";
 
 // ============================================================================
 // Player API
 export const Player = (number: number): player => getPlayer(number);
 
-export const GetLocalPlayer = (): player => {
-	notImplemented("GetLocalPlayer");
-	return (null as any) as player;
-};
+export const GetLocalPlayer = wrapGame(
+	(game): player => game.players[game.localPlayerId],
+);
 
 export const IsPlayerAlly = (
 	whichPlayer: player,

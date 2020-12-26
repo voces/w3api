@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { runContext } from "../../../contexts";
 import { notImplemented } from "../../../errors";
 import { wrapGame } from "../../../Game";

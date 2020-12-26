@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 type StartLocation = {
 	x: number;
 	y: number;
@@ -362,6 +364,15 @@ declare interface ubersplat extends handle {
 declare interface hashtable extends agent {
 	hashtableId: number;
 }
+type FrameSide =
+	| number
+	| undefined
+	| {
+			relative: framehandle;
+			relativeSide: "left" | "top" | "right" | "bottom";
+			xOffset: number;
+			yOffset: number;
+	  };
 declare interface framehandle extends handle {
 	framehandleId: number;
 	name: string;
@@ -370,6 +381,15 @@ declare interface framehandle extends handle {
 	createContext: number;
 	typeName?: string;
 	inherits?: string;
+	node: unknown;
+	width: number;
+	height: number;
+	pos: {
+		left: FrameSide;
+		top: FrameSide;
+		right: FrameSide;
+		bottom: FrameSide;
+	};
 }
 declare interface originframetype extends handle {
 	originframetypeId: number;
@@ -482,4 +502,3 @@ declare interface unitcategory extends handle {
 declare interface pathingflag extends handle {
 	pathingflagId: number;
 }
-/* eslint-enable @typescript-eslint/class-name-casing */

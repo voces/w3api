@@ -5,14 +5,23 @@
 
 import { notImplemented } from "../../../errors";
 import { contextIndexer, getHandle } from "../../../handles";
+import { adapter } from "../../../ui/adapter";
+import {
+	FRAMEPOINT_BOTTOM,
+	FRAMEPOINT_BOTTOMLEFT,
+	FRAMEPOINT_BOTTOMRIGHT,
+	FRAMEPOINT_LEFT,
+	FRAMEPOINT_RIGHT,
+	FRAMEPOINT_TOP,
+	FRAMEPOINT_TOPLEFT,
+	FRAMEPOINT_TOPRIGHT,
+} from "../constants";
 
 export const BlzGetOriginFrame = (
 	frameType: originframetype,
 	index: number,
-): framehandle => {
-	notImplemented("BlzGetOriginFrame");
-	return (null as any) as framehandle;
-};
+): framehandle =>
+	adapter.selectAll(".origin-" + frameType.originframetypeId)[index];
 
 export const BlzEnableUIAutoPosition = (enable: boolean): void => {};
 
@@ -26,7 +35,7 @@ export const BlzConvertColor = (
 ): number => a * 255 ** 3 + r * 255 ** 2 + g * 255 + b;
 
 export const BlzLoadTOCFile = (TOCFile: string): boolean => {
-	notImplemented("BlzLoadTOCFile");
+	notImplemented("BlzLoadTOCFile", true);
 	return false;
 };
 
@@ -37,14 +46,27 @@ export const BlzCreateFrame = contextIndexer(
 		owner: framehandle,
 		priority: number,
 		createContext: number,
-	): framehandle => ({
-		...getHandle(),
-		framehandleId: id,
-		name,
-		owner,
-		priority,
-		createContext,
-	}),
+	): framehandle => {
+		const fh: framehandle = {
+			...getHandle(),
+			framehandleId: id,
+			name,
+			owner,
+			priority,
+			createContext,
+			node: null,
+			width: 0,
+			height: 0,
+			pos: {
+				left: undefined,
+				right: undefined,
+				bottom: undefined,
+				top: undefined,
+			},
+		};
+		fh.node = adapter.createNode(fh);
+		return fh;
+	},
 );
 
 export const BlzCreateSimpleFrame = (
@@ -68,6 +90,19 @@ export const BlzCreateFrameByType = (
 
 export const BlzDestroyFrame = (frame: framehandle): void => {};
 
+const leftPoints = [FRAMEPOINT_TOPLEFT, FRAMEPOINT_LEFT, FRAMEPOINT_BOTTOMLEFT];
+const rightPoints = [
+	FRAMEPOINT_TOPRIGHT,
+	FRAMEPOINT_RIGHT,
+	FRAMEPOINT_BOTTOMRIGHT,
+];
+const topPoints = [FRAMEPOINT_TOPRIGHT, FRAMEPOINT_TOP, FRAMEPOINT_TOPLEFT];
+const bottomPoints = [
+	FRAMEPOINT_BOTTOMRIGHT,
+	FRAMEPOINT_BOTTOM,
+	FRAMEPOINT_BOTTOMLEFT,
+];
+
 export const BlzFrameSetPoint = (
 	frame: framehandle,
 	point: framepointtype,
@@ -75,21 +110,77 @@ export const BlzFrameSetPoint = (
 	relativePoint: framepointtype,
 	x: number,
 	y: number,
-): void => {};
+): void => {
+	if (leftPoints.includes(point))
+		frame.pos.left = {
+			relative,
+			relativeSide: leftPoints.includes(relativePoint) ? "left" : "right",
+			xOffset: x,
+			yOffset: 0,
+		};
+
+	if (rightPoints.includes(point))
+		frame.pos.right = {
+			relative,
+			relativeSide: leftPoints.includes(relativePoint) ? "left" : "right",
+			xOffset: x,
+			yOffset: 0,
+		};
+
+	if (topPoints.includes(point))
+		frame.pos.top = {
+			relative,
+			relativeSide: topPoints.includes(relativePoint) ? "top" : "bottom",
+			xOffset: 0,
+			yOffset: y,
+		};
+
+	if (bottomPoints.includes(point))
+		frame.pos.bottom = {
+			relative,
+			relativeSide: topPoints.includes(relativePoint) ? "top" : "bottom",
+			xOffset: 0,
+			yOffset: y,
+		};
+
+	adapter.update(frame);
+};
 
 export const BlzFrameSetAbsPoint = (
 	frame: framehandle,
 	point: framepointtype,
 	x: number,
 	y: number,
-): void => {};
+): void => {
+	if (leftPoints.includes(point)) frame.pos.left = x;
+	if (rightPoints.includes(point)) frame.pos.right = x;
+	if (topPoints.includes(point)) frame.pos.top = y;
+	if (bottomPoints.includes(point)) frame.pos.bottom = y;
 
-export const BlzFrameClearAllPoints = (frame: framehandle): void => {};
+	adapter.update(frame);
+};
+
+export const BlzFrameClearAllPoints = (frame: framehandle): void => {
+	frame.pos = {
+		left: undefined,
+		right: undefined,
+		bottom: undefined,
+		top: undefined,
+	};
+};
 
 export const BlzFrameSetAllPoints = (
 	frame: framehandle,
 	relative: framehandle,
-): void => {};
+): void => {
+	["left", "right", "botom", "top"].forEach(
+		(side) =>
+			(frame.pos[side] =
+				typeof relative.pos[side] === "number"
+					? relative.pos[side]
+					: { ...relative.pos[side] }),
+	);
+};
 
 export const BlzFrameSetVisible = (
 	frame: framehandle,
@@ -104,10 +195,7 @@ export const BlzFrameIsVisible = (frame: framehandle): boolean => {
 export const BlzGetFrameByName = (
 	name: string,
 	createContext: number,
-): framehandle => {
-	notImplemented("BlzGetFrameByName");
-	return (null as any) as framehandle;
-};
+): framehandle => adapter.selectAll(name)[createContext];
 
 export const BlzFrameGetName = (frame: framehandle): string => {
 	notImplemented("BlzFrameGetName");
@@ -212,7 +300,11 @@ export const BlzFrameSetSize = (
 	frame: framehandle,
 	width: number,
 	height: number,
-): void => {};
+): void => {
+	frame.width = width;
+	frame.height = height;
+	adapter.update(frame);
+};
 
 export const BlzFrameSetVertexColor = (
 	frame: framehandle,
