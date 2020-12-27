@@ -51,6 +51,6 @@
   "dependencies": {
     "@types/luaparse": "^0.2.6",
     "luaparse": "^0.3.0",
-    "w3xdata": "^2.1.3"
+    "w3xdata": "^2.2.0"
   }
 }

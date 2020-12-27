@@ -6,11 +6,7 @@
     "lib": ["es2020", "dom" ],
     "moduleResolution": "node",
     "strict": true,
-    "noImplicitAny": false,
-    "noImplicitThis": true,
-    "alwaysStrict": true,
     "declaration": true,
-    "strictNullChecks": true,
     "paths": {
       "*": [
         "../node_modules/*/src/index",

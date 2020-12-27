@@ -84,7 +84,7 @@ export class Game {
 		this.units.forEach((u) => fn(u));
 	}
 
-	loadData({ w3u, wts }: { w3u: Buffer; wts: Buffer }): void {
+	loadData({ w3u, wts }: { w3u: Buffer; wts: string }): void {
 		this.data.strings = mapStrings(wts);
 		this.data.units = replaceStrings(mapUnitSpecs(w3u), this.data.strings);
 	}

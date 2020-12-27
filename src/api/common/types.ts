@@ -390,6 +390,7 @@ declare interface framehandle extends handle {
 		right: FrameSide;
 		bottom: FrameSide;
 	};
+	children: framehandle[];
 }
 declare interface originframetype extends handle {
 	originframetypeId: number;

@@ -67,7 +67,10 @@ export class PlayerClass implements player {
 	onChat(message: string): void {
 		this.chatListeners.forEach((cb) => cb(message));
 	}
-	addChatListener(callback: (message: string) => void, reference): void {
+	addChatListener(
+		callback: (message: string) => void,
+		reference: unknown,
+	): void {
 		this.chatListeners.push(callback);
 		if (reference) this.onChatMap.set(reference, callback);
 	}

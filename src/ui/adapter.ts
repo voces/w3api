@@ -4,7 +4,7 @@ const nodeMap = new Map<framehandle, HTMLElement>();
 const resolveX = (side: framehandle["pos"]["left"]): number | undefined => {
 	if (side === undefined) return undefined;
 	if (typeof side === "number") return side;
-	const relX = resolveX(side.relative[side.relativeSide]);
+	const relX = resolveX(side.relative.pos[side.relativeSide]);
 	if (relX === undefined) return undefined;
 	return relX + side.xOffset;
 };
@@ -12,7 +12,7 @@ const resolveX = (side: framehandle["pos"]["left"]): number | undefined => {
 const resolveY = (side: framehandle["pos"]["top"]): number | undefined => {
 	if (side === undefined) return undefined;
 	if (typeof side === "number") return side;
-	const relY = resolveY(side.relative[side.relativeSide]);
+	const relY = resolveY(side.relative.pos[side.relativeSide]);
 	if (relY === undefined) return undefined;
 	return relY + side.yOffset;
 };

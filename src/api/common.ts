@@ -17,7 +17,6 @@ export * from "./common/triggers";
 export * from "./common/units";
 export * from "./common/visualApi";
 export * from "./common/ui";
-import "./common/types";
 
 import { notImplemented } from "../errors";
 import { AI_DIFFICULTY_NEWBIE } from "./common/constants";
@@ -4589,4 +4588,159 @@ export const BlzSetUnitWeaponStringField = (
 ): boolean => {
 	notImplemented("BlzSetUnitWeaponStringField");
 	return false;
+};
+
+export const SetCinematicAudio = (cinematicAudio: boolean): void => {
+	notImplemented("SetCinematicAudio");
+};
+
+export const CameraSetDepthOfFieldScale = (scale: number): void => {
+	notImplemented("CameraSetDepthOfFieldScale");
+};
+
+export const CameraSetFocalDistance = (distance: number): void => {
+	notImplemented("CameraSetFocalDistance");
+};
+
+export const BlzCameraSetupSetLabel = (
+	whichSetup: camerasetup,
+	label: string,
+): void => {
+	notImplemented("BlzCameraSetupSetLabel");
+};
+
+export const BlzCameraSetupGetLabel = (whichSetup: camerasetup): string => {
+	notImplemented("BlzCameraSetupGetLabel");
+	return "";
+};
+
+export const BlzStartUnitAbilityCooldown = (
+	whichUnit: unit,
+	abilCode: number,
+	cooldown: number,
+): void => {
+	notImplemented("BlzStartUnitAbilityCooldown");
+};
+
+export const BlzShowUnitTeamGlow = (whichUnit: unit, show: boolean): void => {
+	notImplemented("BlzShowUnitTeamGlow");
+};
+
+export const BlzSetUnitFacingEx = (
+	whichUnit: unit,
+	facingAngle: number,
+): void => {
+	notImplemented("BlzSetUnitFacingEx");
+};
+
+export const BlzSetUnitSkin = (whichUnit: unit, skinId: number): void => {
+	notImplemented("BlzSetUnitSkin");
+};
+
+export const BlzGetUnitSkin = (whichUnit: unit): number => {
+	notImplemented("BlzGetUnitSkin");
+	return 0;
+};
+
+export const BlzCreateUnitWithSkin = (
+	id: player,
+	unitid: number,
+	x: number,
+	y: number,
+	face: number,
+	skinId: number,
+): unit => {
+	notImplemented("BlzCreateUnitWithSkin");
+	return null as any;
+};
+
+export const TriggerRegisterUpgradeCommandEvent = (
+	whichTrigger: trigger,
+	whichUpgrade: number,
+): event => {
+	notImplemented("TriggerRegisterUpgradeCommandEvent");
+	return null as any;
+};
+
+export const TriggerRegisterCommandEvent = (
+	whichTrigger: trigger,
+	whichAbility: number,
+	order: string,
+): event => {
+	notImplemented("TriggerRegisterCommandEvent");
+	return null as any;
+};
+
+export const SetSoundFacialAnimationLabel = (
+	soundHandle: sound,
+	animationLabel: string,
+): boolean => {
+	notImplemented("SetSoundFacialAnimationLabel");
+	return false;
+};
+
+export const SetSoundFacialAnimationGroupLabel = (
+	soundHandle: sound,
+	groupLabel: string,
+): boolean => {
+	notImplemented("SetSoundFacialAnimationGroupLabel");
+	return false;
+};
+
+export const SetSoundFacialAnimationSetFilepath = (
+	soundHandle: sound,
+	animationSetFilepath: string,
+): boolean => {
+	notImplemented("SetSoundFacialAnimationSetFilepath");
+	return false;
+};
+
+export const SetDialogueTextKey = (
+	soundHandle: sound,
+	dialogueText: string,
+): boolean => {
+	notImplemented("SetDialogueTextKey");
+	return false;
+};
+
+export const GetDialogueTextKey = (soundHandle: sound): string => {
+	notImplemented("GetDialogueTextKey");
+	return "";
+};
+
+export const SetDialogueSpeakerNameKey = (
+	soundHandle: sound,
+	speakerName: string,
+): boolean => {
+	notImplemented("SetDialogueSpeakerNameKey");
+	return false;
+};
+
+export const GetDialogueSpeakerNameKey = (soundHandle: sound): string => {
+	notImplemented("GetDialogueSpeakerNameKey");
+	return "";
+};
+
+export const BlzGetPlayerTownHallCount = (whichPlayer: player): number => {
+	notImplemented("BlzGetPlayerTownHallCount");
+	return 0;
+};
+
+export const BlzSetItemSkin = (whichItem: item, skinId: number): void => {
+	notImplemented("BlzSetItemSkin");
+};
+
+export const BlzGetItemSkin = (whichItem: item): number => {
+	notImplemented("BlzGetItemSkin");
+	return 0;
+};
+
+export const BlzCreateItemWithSkin = (
+	itemid: number,
+	x: number,
+	y: number,
+	skinId: number,
+): item => {
+	notImplemented("BlzCreateItemWithSkin");
+	return null as any;
 };

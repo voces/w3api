@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-// import "./common/types";
 
 import { notImplemented } from "../../../errors";
 import { contextIndexer, getHandle } from "../../../handles";
@@ -63,6 +62,7 @@ export const BlzCreateFrame = contextIndexer(
 				bottom: undefined,
 				top: undefined,
 			},
+			children: [],
 		};
 		fh.node = adapter.createNode(fh);
 		return fh;
@@ -173,13 +173,14 @@ export const BlzFrameSetAllPoints = (
 	frame: framehandle,
 	relative: framehandle,
 ): void => {
-	["left", "right", "botom", "top"].forEach(
-		(side) =>
-			(frame.pos[side] =
-				typeof relative.pos[side] === "number"
-					? relative.pos[side]
-					: { ...relative.pos[side] }),
-	);
+	(["left", "right", "bottom", "top"] as const).forEach((side) => {
+		const value = relative.pos[side];
+		frame.pos[side] = value
+			? typeof value === "number"
+				? value
+				: { ...value }
+			: undefined;
+	});
 };
 
 export const BlzFrameSetVisible = (
@@ -374,3 +375,11 @@ export const BlzGetTriggerFrameText = (): string => {
 	notImplemented("BlzGetTriggerFrameText");
 	return "";
 };
+
+export const BlzFrameGetChildrenCount = (frame: framehandle): number =>
+	frame.children.length;
+
+export const BlzFrameGetChild = (
+	frame: framehandle,
+	index: number,
+): framehandle => frame.children[index];

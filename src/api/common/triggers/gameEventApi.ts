@@ -51,6 +51,8 @@ export const TriggerRegisterVariableEvent = wrapGame(
 			throw new Error(`Unhandled variable event ${opcode.limitopId}`);
 		game.globalTickChecks.add((): void => {
 			if (!whichTrigger.enabled) return;
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-ignore - There's no other way to do this
 			if (condition(globalThis[varName], limitval)) {
 				if (!hit) {
 					hit = true;

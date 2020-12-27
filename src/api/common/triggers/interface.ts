@@ -93,4 +93,6 @@ export const GetTriggerEvalCount = (whichTrigger: trigger): number =>
 	whichTrigger.evaluations;
 export const GetTriggerExecCount = (whichTrigger: trigger): number =>
 	whichTrigger.executions;
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 export const ExecuteFunc = (funcName: string): void => globalThis[funcName]();
