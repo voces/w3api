@@ -9,6 +9,7 @@ import {
 	FRAMEPOINT_BOTTOM,
 	FRAMEPOINT_BOTTOMLEFT,
 	FRAMEPOINT_BOTTOMRIGHT,
+	FRAMEPOINT_CENTER,
 	FRAMEPOINT_LEFT,
 	FRAMEPOINT_RIGHT,
 	FRAMEPOINT_TOP,
@@ -50,7 +51,7 @@ export const BlzCreateFrame = contextIndexer(
 			...getHandle(),
 			framehandleId: id,
 			name,
-			owner,
+			parent: owner,
 			priority,
 			createContext,
 			node: null,
@@ -61,10 +62,12 @@ export const BlzCreateFrame = contextIndexer(
 				right: undefined,
 				bottom: undefined,
 				top: undefined,
+				center: undefined,
 			},
 			children: [],
+			visible: true,
 		};
-		fh.node = adapter.createNode(fh);
+		fh.node = adapter.createNode(fh, owner);
 		return fh;
 	},
 );
@@ -143,6 +146,14 @@ export const BlzFrameSetPoint = (
 			yOffset: y,
 		};
 
+	if (point === FRAMEPOINT_CENTER)
+		frame.pos.center = {
+			relative,
+			relativeSide: relativePoint,
+			xOffset: x,
+			yOffset: y,
+		};
+
 	adapter.update(frame);
 };
 
@@ -157,6 +168,8 @@ export const BlzFrameSetAbsPoint = (
 	if (topPoints.includes(point)) frame.pos.top = y;
 	if (bottomPoints.includes(point)) frame.pos.bottom = y;
 
+	if (point === FRAMEPOINT_CENTER) frame.pos.center = { x, y };
+
 	adapter.update(frame);
 };
 
@@ -166,6 +179,7 @@ export const BlzFrameClearAllPoints = (frame: framehandle): void => {
 		right: undefined,
 		bottom: undefined,
 		top: undefined,
+		center: undefined,
 	};
 };
 
@@ -173,20 +187,24 @@ export const BlzFrameSetAllPoints = (
 	frame: framehandle,
 	relative: framehandle,
 ): void => {
-	(["left", "right", "bottom", "top"] as const).forEach((side) => {
-		const value = relative.pos[side];
-		frame.pos[side] = value
-			? typeof value === "number"
-				? value
-				: { ...value }
-			: undefined;
-	});
+	frame.pos = {
+		top: { relative, relativeSide: "top", xOffset: 0, yOffset: 0 },
+		bottom: { relative, relativeSide: "bottom", xOffset: 0, yOffset: 0 },
+		left: { relative, relativeSide: "left", xOffset: 0, yOffset: 0 },
+		right: { relative, relativeSide: "right", xOffset: 0, yOffset: 0 },
+		center: undefined,
+	};
+	adapter.update(frame);
 };
 
 export const BlzFrameSetVisible = (
-	frame: framehandle,
+	frame: framehandle | null,
 	visible: boolean,
-): void => {};
+): void => {
+	if (!frame) return;
+	frame.visible = visible;
+	adapter.update(frame);
+};
 
 export const BlzFrameIsVisible = (frame: framehandle): boolean => {
 	notImplemented("BlzFrameIsVisible");
@@ -205,7 +223,9 @@ export const BlzFrameGetName = (frame: framehandle): string => {
 
 export const BlzFrameClick = (frame: framehandle): void => {};
 
-export const BlzFrameSetText = (frame: framehandle, text: string): void => {};
+export const BlzFrameSetText = (frame: framehandle, text: string): void => {
+	frame.text = text;
+};
 
 export const BlzFrameGetText = (frame: framehandle): string => {
 	notImplemented("BlzFrameGetText");
@@ -272,7 +292,9 @@ export const BlzFrameSetScale = (frame: framehandle, scale: number): void => {};
 export const BlzFrameSetTooltip = (
 	frame: framehandle,
 	tooltip: framehandle,
-): void => {};
+): void => {
+	adapter.setTooltip(frame, tooltip);
+};
 
 export const BlzFrameCageMouse = (
 	frame: framehandle,
@@ -319,10 +341,8 @@ export const BlzFrameSetParent = (
 	parent: framehandle,
 ): void => {};
 
-export const BlzFrameGetParent = (frame: framehandle): framehandle => {
-	notImplemented("BlzFrameGetParent");
-	return (null as any) as framehandle;
-};
+export const BlzFrameGetParent = (frame: framehandle): framehandle | null =>
+	frame.parent;
 
 export const BlzFrameGetHeight = (frame: framehandle): number => {
 	notImplemented("BlzFrameGetHeight");

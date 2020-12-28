@@ -1,5 +1,6 @@
 import { mapStrings, mapUnitSpecs, replaceStrings, UnitSpec } from "w3xdata";
 
+import { IsPointInRegion } from "./api";
 import {
 	MAP_DENSITY_MEDIUM,
 	MAP_DIFFICULTY_NORMAL,
@@ -9,7 +10,6 @@ import {
 import { BinaryHeap } from "./BianryHeap";
 import { gameContext } from "./contexts";
 import { newRun } from "./Run";
-
 export class Game {
 	creatureDensity: mapdensity = MAP_DENSITY_MEDIUM;
 	description = "";
@@ -49,8 +49,10 @@ export class Game {
 			if (timer.periodic) {
 				timer.nextTick += timer.interval;
 				this.timers.push(timer);
-			} else timer.nextTick = timer.lastTick;
-
+			} else {
+				timer.nextTick = timer.lastTick;
+				timer.active = false;
+			}
 			if (timer.callback) {
 				this.time = timer.lastTick;
 
@@ -73,7 +75,7 @@ export class Game {
 	addUnit(unit: unit): void {
 		this.units.add(unit);
 		for (const region of this.regions)
-			if (region.contains(unit)) region.addUnit(unit);
+			if (IsPointInRegion(region, unit.x, unit.y)) region.addUnit(unit);
 
 		unit.onRemove(() => {
 			this.units.delete(unit);

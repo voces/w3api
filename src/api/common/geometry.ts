@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { notImplemented } from "../../errors";
 import { wrapGame } from "../../Game";
 import { contextIndexer, getAgent } from "../../handles";
@@ -5,6 +7,10 @@ import { contextIndexer, getAgent } from "../../handles";
 // ============================================================================
 // Region and Location API
 //
+
+const isPointInRect = (x: number, y: number, rect: rect) =>
+	x >= rect.minX && x <= rect.maxX && y >= rect.minY && y <= rect.maxY;
+
 export const Rect = contextIndexer(
 	(id, minx: number, miny: number, maxx: number, maxy: number): rect => ({
 		...getAgent(),
@@ -114,10 +120,6 @@ export const CreateRegion = wrapGame(
 					enterListeners.push(callback);
 					if (reference) enterListenersMap.set(reference, callback);
 				},
-				contains: () => {
-					notImplemented("region#contains", true);
-					return true;
-				},
 				addUnit(unit: unit): void {
 					units.add(unit);
 					enterListeners.forEach((cb) => cb(unit));
@@ -125,6 +127,7 @@ export const CreateRegion = wrapGame(
 						units.delete(unit);
 					}, this);
 				},
+				rects: [],
 			};
 			game.regions.add(region);
 			region.onRemove(() => game.regions.delete(region));
@@ -133,26 +136,39 @@ export const CreateRegion = wrapGame(
 	),
 );
 export const RemoveRegion = (whichRegion: region): void => whichRegion.remove();
-export const RegionAddRect = (whichRegion: region, r: rect): void => {};
-export const RegionClearRect = (whichRegion: region, r: rect): void => {};
+export const RegionAddRect = (whichRegion: region, r: rect): void => {
+	notImplemented("RegionAddRect");
+	whichRegion.rects.push(r);
+};
+export const RegionClearRect = (whichRegion: region, r: rect): void => {
+	notImplemented("RegionClearRect");
+};
 export const RegionAddCell = (
 	whichRegion: region,
 	x: number,
 	y: number,
-): void => {};
+): void => {
+	notImplemented("RegionAddCell");
+};
 export const RegionAddCellAtLoc = (
 	whichRegion: region,
 	whichLocation: location,
-): void => {};
+): void => {
+	notImplemented("RegionAddCellAtLoc");
+};
 export const RegionClearCell = (
 	whichRegion: region,
 	x: number,
 	y: number,
-): void => {};
+): void => {
+	notImplemented("RegionClearCell");
+};
 export const RegionClearCellAtLoc = (
 	whichRegion: region,
 	whichLocation: location,
-): void => {};
+): void => {
+	notImplemented("RegionClearCellAtLoc");
+};
 
 export const IsLocationInRegion = (
 	whichRegion: region,
@@ -174,5 +190,5 @@ export const IsPointInRegion = (
 	y: number,
 ): boolean => {
 	notImplemented("IsPointInRegion");
-	return false;
+	return whichRegion.rects.some((r) => isPointInRect(x, y, r));
 };

@@ -122,9 +122,9 @@ declare interface location extends agent {
 declare interface region extends agent {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	addEnterListener: (callback: (unit: unit) => void, reference: any) => void;
-	contains: (unit: unit) => boolean;
 	regionId: number;
 	addUnit: (unit: unit) => void;
+	rects: rect[];
 }
 declare interface rect extends agent {
 	maxX: number;
@@ -364,19 +364,17 @@ declare interface ubersplat extends handle {
 declare interface hashtable extends agent {
 	hashtableId: number;
 }
-type FrameSide =
-	| number
-	| undefined
-	| {
-			relative: framehandle;
-			relativeSide: "left" | "top" | "right" | "bottom";
-			xOffset: number;
-			yOffset: number;
-	  };
+type RelativeFrameSide = {
+	relative: framehandle;
+	relativeSide: "left" | "top" | "right" | "bottom" | framepointtype;
+	xOffset: number;
+	yOffset: number;
+};
+type FrameSide = number | undefined | RelativeFrameSide;
 declare interface framehandle extends handle {
 	framehandleId: number;
 	name: string;
-	owner: framehandle | null;
+	parent: framehandle | null;
 	priority: number;
 	createContext: number;
 	typeName?: string;
@@ -389,8 +387,11 @@ declare interface framehandle extends handle {
 		top: FrameSide;
 		right: FrameSide;
 		bottom: FrameSide;
+		center: RelativeFrameSide | { x: number; y: number } | undefined;
 	};
 	children: framehandle[];
+	text?: string;
+	visible: boolean;
 }
 declare interface originframetype extends handle {
 	originframetypeId: number;

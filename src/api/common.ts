@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+
 export * from "./common/booleanExpressions";
 export * from "./common/constants";
 export * from "./common/converters";
@@ -12,11 +13,12 @@ export * from "./common/math";
 export * from "./common/players";
 export * from "./common/random";
 export * from "./common/string";
+export * from "./common/timerDialogs";
 export * from "./common/timers";
 export * from "./common/triggers";
+export * from "./common/ui";
 export * from "./common/units";
 export * from "./common/visualApi";
-export * from "./common/ui";
 
 import { notImplemented } from "../errors";
 import { AI_DIFFICULTY_NEWBIE } from "./common/constants";
@@ -1828,56 +1830,6 @@ export const DefeatConditionSetDescription = (
 export const FlashQuestDialogButton = (): void => {};
 
 export const ForceQuestDialogUpdate = (): void => {};
-
-// ============================================================================
-// Timer Dialog API
-export const CreateTimerDialog = (t: timer | null): timerdialog => {
-	notImplemented("CreateTimerDialog");
-	return (null as any) as timerdialog;
-};
-
-export const DestroyTimerDialog = (whichDialog: timerdialog): void => {};
-
-export const TimerDialogSetTitle = (
-	whichDialog: timerdialog,
-	title: string,
-): void => {};
-
-export const TimerDialogSetTitleColor = (
-	whichDialog: timerdialog,
-	red: number,
-	green: number,
-	blue: number,
-	alpha: number,
-): void => {};
-
-export const TimerDialogSetTimeColor = (
-	whichDialog: timerdialog,
-	red: number,
-	green: number,
-	blue: number,
-	alpha: number,
-): void => {};
-
-export const TimerDialogSetSpeed = (
-	whichDialog: timerdialog,
-	speedMultFactor: number,
-): void => {};
-
-export const TimerDialogDisplay = (
-	whichDialog: timerdialog,
-	display: boolean,
-): void => {};
-
-export const IsTimerDialogDisplayed = (whichDialog: timerdialog): boolean => {
-	notImplemented("IsTimerDialogDisplayed");
-	return false;
-};
-
-export const TimerDialogSetRealTimeRemaining = (
-	whichDialog: timerdialog,
-	timeRemaining: number,
-): void => {};
 
 // ============================================================================
 // Leaderboard API

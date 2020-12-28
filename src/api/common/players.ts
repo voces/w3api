@@ -96,7 +96,7 @@ export const GetPlayerRace = (whichPlayer: player): race => {
 };
 
 export const GetPlayerId = (whichPlayer: player): number =>
-	whichPlayer.playerId;
+	whichPlayer?.playerId ?? 0;
 
 export const GetPlayerUnitCount = (
 	whichPlayer: player,
