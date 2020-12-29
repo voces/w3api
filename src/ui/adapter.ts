@@ -2,11 +2,39 @@ import { BlzFrameSetVisible } from "../api";
 
 const frameMap = new Map<HTMLElement, framehandle>();
 const nodeMap = new Map<framehandle, HTMLElement>();
+// values depend on key
+const positionDependencies = new WeakMap<framehandle, Set<framehandle>>();
+const reversePositionDependencies = new WeakMap<
+	framehandle,
+	Set<Set<framehandle>>
+>();
 
-const resolveX = (side: framehandle["pos"]["left"]): number | undefined => {
+const markDeps = (frame: framehandle, side: framehandle["pos"]["left"]) => {
+	if (typeof side !== "object") return;
+	let deps = positionDependencies.get(side.relative);
+	if (!deps) {
+		deps = new Set();
+		positionDependencies.set(side.relative, deps);
+	}
+	deps.add(frame);
+
+	let reverseDeps = reversePositionDependencies.get(frame);
+	if (!reverseDeps) {
+		reverseDeps = new Set();
+		reversePositionDependencies.set(frame, reverseDeps);
+	}
+	reverseDeps.add(deps);
+};
+
+const resolveX = (
+	frame: framehandle,
+	side: framehandle["pos"]["left"],
+): number | undefined => {
 	if (side === undefined) return undefined;
 	if (typeof side === "number") return side;
 	if (typeof side.relativeSide === "string") {
+		markDeps(frame, side);
+
 		const { width } = getSize(side.relative);
 		const xAnchor = getXAnchor(side.relative, width);
 		if (!xAnchor) return;
@@ -25,10 +53,15 @@ const resolveX = (side: framehandle["pos"]["left"]): number | undefined => {
 	}
 };
 
-const resolveY = (side: framehandle["pos"]["top"]): number | undefined => {
+const resolveY = (
+	frame: framehandle,
+	side: framehandle["pos"]["top"],
+): number | undefined => {
 	if (side === undefined) return undefined;
 	if (typeof side === "number") return side;
 	if (typeof side.relativeSide === "string") {
+		markDeps(frame, side);
+
 		const { height } = getSize(side.relative);
 		const yAnchor = getYAnchor(side.relative, height);
 		if (!yAnchor) return;
@@ -64,7 +97,9 @@ const getSize = (
 	let width: number | undefined;
 	if (widthFrom === "explicit") width = frame.width;
 	else if (widthFrom === "points")
-		width = resolveX(frame.pos.right)! - resolveX(frame.pos.left)!;
+		width =
+			resolveX(frame, frame.pos.right)! -
+			resolveX(frame, frame.pos.left)!;
 	else if (widthFrom === "implicit") {
 		const pxWidth = nodeMap.get(frame)?.clientWidth;
 		width = typeof pxWidth === "number" ? px2wc(pxWidth) : undefined;
@@ -79,7 +114,9 @@ const getSize = (
 	let height: number | undefined;
 	if (heightFrom === "explicit") height = frame.height;
 	else if (heightFrom === "points")
-		height = resolveY(frame.pos.top)! - resolveY(frame.pos.bottom)!;
+		height =
+			resolveY(frame, frame.pos.bottom)! -
+			resolveY(frame, frame.pos.top)!;
 	else if (heightFrom === "implicit") {
 		const pxHeight = nodeMap.get(frame)?.clientHeight;
 		height = typeof pxHeight === "number" ? px2wc(pxHeight) : undefined;
@@ -95,16 +132,17 @@ const getSize = (
 
 const getYAnchor = (frame: framehandle, height?: number) => {
 	let top: number | undefined;
-	if (frame.pos.top !== undefined) top = resolveY(frame.pos.top);
+	if (frame.pos.top !== undefined) top = resolveY(frame, frame.pos.top);
 	else if (frame.pos.bottom !== undefined && height !== undefined)
-		top = resolveY(frame.pos.bottom)! + height;
+		top = resolveY(frame, frame.pos.bottom)! + height;
 
 	if (top !== undefined) return { top };
 
 	let bottom: number | undefined;
-	if (frame.pos.bottom !== undefined) bottom = resolveY(frame.pos.bottom);
+	if (frame.pos.bottom !== undefined)
+		bottom = resolveY(frame, frame.pos.bottom);
 	else if (frame.pos.top !== undefined && height !== undefined)
-		bottom = resolveY(frame.pos.top)! + height;
+		bottom = resolveY(frame, frame.pos.top)! + height;
 
 	if (bottom !== undefined) return { bottom };
 
@@ -116,15 +154,15 @@ const getYAnchor = (frame: framehandle, height?: number) => {
 
 const getXAnchor = (frame: framehandle, width?: number) => {
 	let left: number | undefined;
-	if (frame.pos.left !== undefined) left = resolveX(frame.pos.left);
+	if (frame.pos.left !== undefined) left = resolveX(frame, frame.pos.left);
 	else if (frame.pos.right !== undefined && width !== undefined)
-		left = resolveX(frame.pos.right)! - width;
+		left = resolveX(frame, frame.pos.right)! - width;
 	if (left !== undefined) return { left };
 
 	let right: number | undefined;
-	if (frame.pos.right !== undefined) right = resolveX(frame.pos.right);
+	if (frame.pos.right !== undefined) right = resolveX(frame, frame.pos.right);
 	else if (frame.pos.left !== undefined && width !== undefined)
-		right = resolveX(frame.pos.left)! + width;
+		right = resolveX(frame, frame.pos.left)! + width;
 	if (right !== undefined) return { right };
 
 	if (frame.pos.center && width !== undefined) {
@@ -161,7 +199,19 @@ const px2wc = (px: number): number => px / getScale();
 export const wcy2px = (y: number): number => wc2px(0.6 - y) + getYOffset();
 export const wcx2px = (x: number): number => wc2px(x) + getXOffset();
 
-const updateSizeAndPosition = (frame: framehandle) => {
+const updateSizeAndPosition = (frame: framehandle, updated = new Set()) => {
+	if (updated.has(frame)) {
+		console.error("recursive updateSizeAndPosition");
+		return;
+	}
+	updated.add(frame);
+
+	const reverseDeps = reversePositionDependencies.get(frame);
+	if (reverseDeps) {
+		reverseDeps.forEach((set) => set.delete(frame));
+		reverseDeps.clear();
+	}
+
 	const { width, height, implicitWidth, implicitHeight } = getSize(frame);
 	const { x, y } = getAnchor(frame, width, height);
 	const element = nodeMap.get(frame)!;
@@ -190,6 +240,10 @@ const updateSizeAndPosition = (frame: framehandle) => {
 		element.style.width = wc2px(width) + "px";
 	if (height !== undefined && !implicitHeight)
 		element.style.height = wc2px(height) + "px";
+
+	positionDependencies
+		.get(frame)
+		?.forEach((f) => updateSizeAndPosition(f, updated));
 };
 
 export const adapter = {
