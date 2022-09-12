@@ -1,14 +1,14 @@
 import {
-	ConvertGameDifficulty,
-	ConvertGameSpeed,
-	ConvertGameType,
-	ConvertMapControl,
-	ConvertMapDensity,
-	ConvertMapFlag,
-	ConvertPlacement,
-	ConvertPlayerSlotState,
-	ConvertRacePref,
-	ConvertStartLocPrio,
+  ConvertGameDifficulty,
+  ConvertGameSpeed,
+  ConvertGameType,
+  ConvertMapControl,
+  ConvertMapDensity,
+  ConvertMapFlag,
+  ConvertPlacement,
+  ConvertPlayerSlotState,
+  ConvertRacePref,
+  ConvertStartLocPrio,
 } from "../converters";
 
 // ===================================================

@@ -1,9 +1,9 @@
 import {
-	ConvertBlendMode,
-	ConvertCameraField,
-	ConvertFogState,
-	ConvertRarityControl,
-	ConvertTexMapFlags,
+  ConvertBlendMode,
+  ConvertCameraField,
+  ConvertFogState,
+  ConvertRarityControl,
+  ConvertTexMapFlags,
 } from "../converters";
 
 // ===================================================

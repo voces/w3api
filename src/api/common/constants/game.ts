@@ -1,16 +1,16 @@
 import {
-	ConvertAllianceType,
-	ConvertAnimType,
-	ConvertAttackType,
-	ConvertDamageType,
-	ConvertMouseButtonType,
-	ConvertPathingType,
-	ConvertPlayerColor,
-	ConvertPlayerGameResult,
-	ConvertRace,
-	ConvertSubAnimType,
-	ConvertVersion,
-	ConvertWeaponType,
+  ConvertAllianceType,
+  ConvertAnimType,
+  ConvertAttackType,
+  ConvertDamageType,
+  ConvertMouseButtonType,
+  ConvertPathingType,
+  ConvertPlayerColor,
+  ConvertPlayerGameResult,
+  ConvertRace,
+  ConvertSubAnimType,
+  ConvertVersion,
+  ConvertWeaponType,
 } from "../converters";
 import { GetPlayerNeutralAggressive, GetPlayerNeutralPassive } from "./general";
 
