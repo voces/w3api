@@ -1,7 +1,7 @@
 type StartLocation = {
-	x: number;
-	y: number;
-	priorities: Array<startlocprio>;
+  x: number;
+  y: number;
+  priorities: Array<startlocprio>;
 };
 
 // ============================================================================
@@ -9,471 +9,473 @@ type StartLocation = {
 // possible to help prevent passing bad values to native functions
 //
 declare interface handle {
-	handleId: number;
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	onRemove: (callback: (handle: handle) => void, reference?: any) => void;
-	remove: () => void;
-	clearRemoveHook: (
-		callback: (handle: handle) => void,
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		reference?: any,
-	) => void;
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	clearRemoveHookByReference: (reference: any) => void;
+  handleId: number;
+  onRemove: (
+    callback: (handle: handle) => void,
+    // deno-lint-ignore ban-types
+    reference?: object,
+  ) => void;
+  remove: () => void;
+  clearRemoveHook: (
+    callback: (handle: handle) => void,
+    // deno-lint-ignore ban-types
+    reference?: object,
+  ) => void;
+  // deno-lint-ignore ban-types
+  clearRemoveHookByReference: (reference: object) => void;
 }
 declare interface agent extends handle {
-	agentId: number;
+  agentId: number;
 }
 declare interface event extends agent {
-	eventId: number;
+  eventId: number;
 }
 declare interface player extends agent {
-	alliances: Map<player, Map<alliancetype, boolean>>;
-	color: playercolor;
-	controller: mapcontrol;
-	name: string;
-	onScoreScreen: boolean;
-	playerId: number;
-	racePreference: racepreference;
-	raceSelectable: boolean;
-	slotState: playerslotstate;
-	startLocation: number;
-	taxRates: Map<player, Map<playerstate, number>>;
-	team: number;
-	onChat: (message: string) => void;
-	addChatListener: (
-		callback: (message: string) => void,
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		reference: any,
-	) => void;
+  alliances: Map<player, Map<alliancetype, boolean>>;
+  color: playercolor;
+  controller: mapcontrol;
+  name: string;
+  onScoreScreen: boolean;
+  playerId: number;
+  racePreference: racepreference;
+  raceSelectable: boolean;
+  slotState: playerslotstate;
+  startLocation: number;
+  taxRates: Map<player, Map<playerstate, number>>;
+  team: number;
+  onChat: (message: string) => void;
+  addChatListener: (
+    callback: (message: string) => void,
+    // deno-lint-ignore no-explicit-any
+    reference: any,
+  ) => void;
 }
 declare interface widget extends agent {
-	widgetId: number;
-	x: number;
-	y: number;
-	life: number;
+  widgetId: number;
+  x: number;
+  y: number;
+  life: number;
 }
 declare interface unit extends widget {
-	data: import("w3xdata").UnitSpec;
-	facing: number;
-	owner: player;
-	type: number;
-	unitId: number;
+  data: import("w3xdata").UnitSpec;
+  facing: number;
+  owner: player;
+  type: number;
+  unitId: number;
 }
 declare interface destructable extends widget {
-	destructableId: number;
+  destructableId: number;
 }
 declare interface item extends widget {
-	itemId: number;
+  itemId: number;
 }
 declare interface ability extends agent {
-	abilityId: number;
+  abilityId: number;
 }
 declare interface buff extends ability {
-	buffId: number;
+  buffId: number;
 }
 declare interface force extends agent {
-	forceId: number;
-	players: Set<player>;
-	_array?: Array<player>;
+  forceId: number;
+  players: Set<player>;
+  _array?: Array<player>;
 }
 declare interface group extends agent {
-	groupId: number;
-	units: Set<unit>;
-	_array?: Array<unit>;
+  groupId: number;
+  units: Set<unit>;
+  _array?: Array<unit>;
 }
 declare interface trigger extends agent {
-	actions: Array<triggeraction>;
-	conditions: Array<triggercondition>;
-	enabled: boolean;
-	evaluate: () => boolean;
-	evaluations: number;
-	events: Array<event>;
-	execute: () => void;
-	executions: number;
-	triggerId: number;
-	waitOnSleeps: boolean;
+  actions: Array<triggeraction>;
+  conditions: Array<triggercondition>;
+  enabled: boolean;
+  evaluate: () => boolean;
+  evaluations: number;
+  events: Array<event>;
+  execute: () => void;
+  executions: number;
+  triggerId: number;
+  waitOnSleeps: boolean;
 }
 declare interface triggercondition extends agent {
-	triggerconditionId: number;
-	condition: conditionfunc;
+  triggerconditionId: number;
+  condition: conditionfunc;
 }
 declare interface triggeraction extends handle {
-	triggeractionId: number;
-	func: () => void;
+  triggeractionId: number;
+  func: () => void;
 }
 declare interface timer extends agent {
-	active: boolean;
-	callback: (() => void) | null;
-	interval: number;
-	lastTick: number;
-	nextTick: number;
-	periodic: boolean;
-	start: number;
-	timerId: number;
+  active: boolean;
+  callback: (() => void) | null;
+  interval: number;
+  lastTick: number;
+  nextTick: number;
+  periodic: boolean;
+  start: number;
+  timerId: number;
 }
 declare interface location extends agent {
-	locationId: number;
-	x: number;
-	y: number;
+  locationId: number;
+  x: number;
+  y: number;
 }
 declare interface region extends agent {
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	addEnterListener: (callback: (unit: unit) => void, reference: any) => void;
-	contains: (unit: unit) => boolean;
-	regionId: number;
-	addUnit: (unit: unit) => void;
+  // deno-lint-ignore no-explicit-any
+  addEnterListener: (callback: (unit: unit) => void, reference: any) => void;
+  contains: (unit: unit) => boolean;
+  regionId: number;
+  addUnit: (unit: unit) => void;
 }
 declare interface rect extends agent {
-	maxX: number;
-	maxY: number;
-	minX: number;
-	minY: number;
-	rectId: number;
+  maxX: number;
+  maxY: number;
+  minX: number;
+  minY: number;
+  rectId: number;
 }
 declare interface boolexpr extends agent {
-	boolexprId: number;
-	func: () => boolean;
+  boolexprId: number;
+  func: () => boolean;
 }
 declare interface sound extends agent {
-	soundId: number;
+  soundId: number;
 }
 declare interface conditionfunc extends boolexpr {
-	conditionfuncId: number;
+  conditionfuncId: number;
 }
 declare interface filterfunc extends boolexpr {
-	filterfuncId: number;
+  filterfuncId: number;
 }
 declare interface unitpool extends handle {
-	unitpoolId: number;
+  unitpoolId: number;
 }
 declare interface itempool extends handle {
-	itempoolId: number;
+  itempoolId: number;
 }
 declare interface race extends handle {
-	raceId: number;
+  raceId: number;
 }
 declare interface alliancetype extends handle {
-	alliancetypeId: number;
+  alliancetypeId: number;
 }
 declare interface racepreference extends handle {
-	racepreferenceId: number;
+  racepreferenceId: number;
 }
 declare interface gamestate extends handle {
-	gamestateId: number;
+  gamestateId: number;
 }
 declare interface igamestate extends gamestate {
-	igamestateId: number;
+  igamestateId: number;
 }
 declare interface fgamestate extends gamestate {
-	fgamestateId: number;
+  fgamestateId: number;
 }
 declare interface playerstate extends handle {
-	playerstateId: number;
+  playerstateId: number;
 }
 declare interface playerscore extends handle {
-	playerscoreId: number;
+  playerscoreId: number;
 }
 declare interface playergameresult extends handle {
-	playergameresultId: number;
+  playergameresultId: number;
 }
 declare interface unitstate extends handle {
-	unitstateId: number;
+  unitstateId: number;
 }
 declare interface aidifficulty extends handle {
-	aidifficultyId: number;
+  aidifficultyId: number;
 }
 
 declare interface eventid extends handle {
-	eventidId: number;
+  eventidId: number;
 }
 declare interface gameevent extends eventid {
-	gameeventId: number;
+  gameeventId: number;
 }
 declare interface playerevent extends eventid {
-	playereventId: number;
+  playereventId: number;
 }
 declare interface playerunitevent extends eventid {
-	playeruniteventId: number;
+  playeruniteventId: number;
 }
 declare interface unitevent extends eventid {
-	uniteventId: number;
+  uniteventId: number;
 }
 declare interface limitop extends eventid {
-	limitopId: number;
+  limitopId: number;
 }
 declare interface widgetevent extends eventid {
-	widgeteventId: number;
+  widgeteventId: number;
 }
 declare interface dialogevent extends eventid {
-	dialogeventId: number;
+  dialogeventId: number;
 }
 declare interface unittype extends handle {
-	unittypeId: number;
+  unittypeId: number;
 }
 
 declare interface gamespeed extends handle {
-	gamespeedId: number;
+  gamespeedId: number;
 }
 declare interface gamedifficulty extends handle {
-	gamedifficultyId: number;
+  gamedifficultyId: number;
 }
 declare interface gametype extends handle {
-	gametypeId: number;
+  gametypeId: number;
 }
 declare interface mapflag extends handle {
-	mapflagId: number;
+  mapflagId: number;
 }
 declare interface mapvisibility extends handle {
-	mapvisibilityId: number;
+  mapvisibilityId: number;
 }
 declare interface mapsetting extends handle {
-	mapsettingId: number;
+  mapsettingId: number;
 }
 declare interface mapdensity extends handle {
-	mapdensityId: number;
+  mapdensityId: number;
 }
 declare interface mapcontrol extends handle {
-	mapcontrolId: number;
+  mapcontrolId: number;
 }
 declare interface playerslotstate extends handle {
-	playerslotstateId: number;
+  playerslotstateId: number;
 }
 declare interface volumegroup extends handle {
-	volumegroupId: number;
+  volumegroupId: number;
 }
 declare interface camerafield extends handle {
-	camerafieldId: number;
+  camerafieldId: number;
 }
 declare interface camerasetup extends handle {
-	camerasetupId: number;
+  camerasetupId: number;
 }
 declare interface playercolor extends handle {
-	playercolorId: number;
+  playercolorId: number;
 }
 declare interface placement extends handle {
-	placementId: number;
+  placementId: number;
 }
 declare interface startlocprio extends handle {
-	startlocprioId: number;
+  startlocprioId: number;
 }
 declare interface raritycontrol extends handle {
-	raritycontrolId: number;
+  raritycontrolId: number;
 }
 declare interface blendmode extends handle {
-	blendmodeId: number;
+  blendmodeId: number;
 }
 declare interface texmapflags extends handle {
-	texmapflagsId: number;
+  texmapflagsId: number;
 }
 declare interface effect extends agent {
-	effectId: number;
+  effectId: number;
 }
 declare interface effecttype extends handle {
-	effecttypeId: number;
+  effecttypeId: number;
 }
 declare interface weathereffect extends handle {
-	weathereffectId: number;
+  weathereffectId: number;
 }
 declare interface terraindeformation extends handle {
-	terraindeformationId: number;
+  terraindeformationId: number;
 }
 declare interface fogstate extends handle {
-	fogstateId: number;
+  fogstateId: number;
 }
 declare interface fogmodifier extends agent {
-	fogmodifierId: number;
+  fogmodifierId: number;
 }
 declare interface dialog extends agent {
-	dialogId: number;
+  dialogId: number;
 }
 declare interface button extends agent {
-	buttonId: number;
+  buttonId: number;
 }
 declare interface quest extends agent {
-	questId: number;
+  questId: number;
 }
 declare interface questitem extends agent {
-	questitemId: number;
+  questitemId: number;
 }
 declare interface defeatcondition extends agent {
-	defeatconditionId: number;
+  defeatconditionId: number;
 }
 declare interface timerdialog extends agent {
-	timerdialogId: number;
+  timerdialogId: number;
 }
 declare interface leaderboard extends agent {
-	leaderboardId: number;
+  leaderboardId: number;
 }
 declare interface multiboard extends agent {
-	multiboardId: number;
+  multiboardId: number;
 }
 declare interface multiboarditem extends agent {
-	multiboarditemId: number;
+  multiboarditemId: number;
 }
 declare interface trackable extends agent {
-	trackableId: number;
+  trackableId: number;
 }
 declare interface gamecache extends agent {
-	gamecacheId: number;
+  gamecacheId: number;
 }
 declare interface version extends handle {
-	versionId: number;
+  versionId: number;
 }
 declare interface itemtype extends handle {
-	itemtypeId: number;
+  itemtypeId: number;
 }
 declare interface texttag extends handle {
-	texttagId: number;
+  texttagId: number;
 }
 declare interface attacktype extends handle {
-	attacktypeId: number;
+  attacktypeId: number;
 }
 declare interface damagetype extends handle {
-	damagetypeId: number;
+  damagetypeId: number;
 }
 declare interface weapontype extends handle {
-	weapontypeId: number;
+  weapontypeId: number;
 }
 declare interface soundtype extends handle {
-	soundtypeId: number;
+  soundtypeId: number;
 }
 declare interface lightning extends handle {
-	lightningId: number;
+  lightningId: number;
 }
 declare interface pathingtype extends handle {
-	pathingtypeId: number;
+  pathingtypeId: number;
 }
 declare interface mousebuttontype extends handle {
-	mousebuttontypeId: number;
+  mousebuttontypeId: number;
 }
 declare interface animtype extends handle {
-	animtypeId: number;
+  animtypeId: number;
 }
 declare interface subanimtype extends handle {
-	subanimtypeId: number;
+  subanimtypeId: number;
 }
 declare interface image extends handle {
-	imageId: number;
+  imageId: number;
 }
 declare interface ubersplat extends handle {
-	ubersplatId: number;
+  ubersplatId: number;
 }
 declare interface hashtable extends agent {
-	hashtableId: number;
+  hashtableId: number;
 }
 declare interface framehandle extends handle {
-	framehandleId: number;
+  framehandleId: number;
 }
 declare interface originframetype extends handle {
-	originframetypeId: number;
+  originframetypeId: number;
 }
 declare interface framepointtype extends handle {
-	framepointtypeId: number;
+  framepointtypeId: number;
 }
 declare interface textaligntype extends handle {
-	textaligntypeId: number;
+  textaligntypeId: number;
 }
 declare interface frameeventtype extends handle {
-	frameeventtypeId: number;
+  frameeventtypeId: number;
 }
 declare interface oskeytype extends handle {
-	oskeytypeId: number;
+  oskeytypeId: number;
 }
 declare interface abilityintegerfield extends handle {
-	abilityintegerfieldId: number;
+  abilityintegerfieldId: number;
 }
 declare interface abilityrealfield extends handle {
-	abilityrealfieldId: number;
+  abilityrealfieldId: number;
 }
 declare interface abilitybooleanfield extends handle {
-	abilitybooleanfieldId: number;
+  abilitybooleanfieldId: number;
 }
 declare interface abilitystringfield extends handle {
-	abilitystringfieldId: number;
+  abilitystringfieldId: number;
 }
 declare interface abilityintegerlevelfield extends handle {
-	abilityintegerlevelfieldId: number;
+  abilityintegerlevelfieldId: number;
 }
 declare interface abilityreallevelfield extends handle {
-	abilityreallevelfieldId: number;
+  abilityreallevelfieldId: number;
 }
 declare interface abilitybooleanlevelfield extends handle {
-	abilitybooleanlevelfieldId: number;
+  abilitybooleanlevelfieldId: number;
 }
 declare interface abilitystringlevelfield extends handle {
-	abilitystringlevelfieldId: number;
+  abilitystringlevelfieldId: number;
 }
 declare interface abilityintegerlevelarrayfield extends handle {
-	abilityintegerlevelarrayfieldId: number;
+  abilityintegerlevelarrayfieldId: number;
 }
 declare interface abilityreallevelarrayfield extends handle {
-	abilityreallevelarrayfieldId: number;
+  abilityreallevelarrayfieldId: number;
 }
 declare interface abilitybooleanlevelarrayfield extends handle {
-	abilitybooleanlevelarrayfieldId: number;
+  abilitybooleanlevelarrayfieldId: number;
 }
 declare interface abilitystringlevelarrayfield extends handle {
-	abilitystringlevelarrayfieldId: number;
+  abilitystringlevelarrayfieldId: number;
 }
 declare interface unitintegerfield extends handle {
-	unitintegerfieldId: number;
+  unitintegerfieldId: number;
 }
 declare interface unitrealfield extends handle {
-	unitrealfieldId: number;
+  unitrealfieldId: number;
 }
 declare interface unitbooleanfield extends handle {
-	unitbooleanfieldId: number;
+  unitbooleanfieldId: number;
 }
 declare interface unitstringfield extends handle {
-	unitstringfieldId: number;
+  unitstringfieldId: number;
 }
 declare interface unitweaponintegerfield extends handle {
-	unitweaponintegerfieldId: number;
+  unitweaponintegerfieldId: number;
 }
 declare interface unitweaponrealfield extends handle {
-	unitweaponrealfieldId: number;
+  unitweaponrealfieldId: number;
 }
 declare interface unitweaponbooleanfield extends handle {
-	unitweaponbooleanfieldId: number;
+  unitweaponbooleanfieldId: number;
 }
 declare interface unitweaponstringfield extends handle {
-	unitweaponstringfieldId: number;
+  unitweaponstringfieldId: number;
 }
 declare interface itemintegerfield extends handle {
-	itemintegerfieldId: number;
+  itemintegerfieldId: number;
 }
 declare interface itemrealfield extends handle {
-	itemrealfieldId: number;
+  itemrealfieldId: number;
 }
 declare interface itembooleanfield extends handle {
-	itembooleanfieldId: number;
+  itembooleanfieldId: number;
 }
 declare interface itemstringfield extends handle {
-	itemstringfieldId: number;
+  itemstringfieldId: number;
 }
 declare interface movetype extends handle {
-	movetypeId: number;
+  movetypeId: number;
 }
 declare interface targetflag extends handle {
-	targetflagId: number;
+  targetflagId: number;
 }
 declare interface armortype extends handle {
-	armortypeId: number;
+  armortypeId: number;
 }
 declare interface heroattribute extends handle {
-	heroattributeId: number;
+  heroattributeId: number;
 }
 declare interface defensetype extends handle {
-	defensetypeId: number;
+  defensetypeId: number;
 }
 declare interface regentype extends handle {
-	regentypeId: number;
+  regentypeId: number;
 }
 declare interface unitcategory extends handle {
-	unitcategoryId: number;
+  unitcategoryId: number;
 }
 declare interface pathingflag extends handle {
-	pathingflagId: number;
+  pathingflagId: number;
 }
-/* eslint-enable @typescript-eslint/class-name-casing */

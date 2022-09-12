@@ -6,7 +6,7 @@ export const Sin = (radians: number): number => Math.sin(radians);
 export const Cos = (radians: number): number => Math.cos(radians);
 export const Tan = (radians: number): number => Math.tan(radians);
 const clamp = (min: number, value: number, max: number): number =>
-	Math.max(Math.min(value, max), min);
+  Math.max(Math.min(value, max), min);
 // Expect values between -1 and 1...returns 0 for invalid input
 export const Asin = (y: number): number => Math.asin(clamp(-1, y, 1));
 export const Acos = (x: number): number => Math.acos(clamp(-1, x, 1));

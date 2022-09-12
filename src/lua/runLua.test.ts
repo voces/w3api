@@ -1,27 +1,18 @@
-
 import { promises as fs } from "fs";
 import { runLua } from "./runLua";
 
-describe( "smoke", () => {
+describe("smoke", () => {
+  beforeEach(() => {
+    Reflect.set(globalThis, "gg_rct_Pen", null);
+  });
 
-	beforeEach( () => {
+  it("fixus", async () => {
+    const luaCode = await fs.readFile("src/test/data/war3map.lua", "utf-8");
 
-		globalThis.gg_rct_Pen = null;
+    runLua(luaCode);
+  });
 
-	} );
-
-	it( "fixus", async () => {
-
-		const luaCode = await fs.readFile( "src/test/data/war3map.lua", "utf-8" );
-
-		runLua( luaCode );
-
-	} );
-
-	afterEach( () => {
-
-		delete globalThis.gg_rct_Pen;
-
-	} );
-
-} );
+  afterEach(() => {
+    Reflect.deleteProperty(globalThis, "gg_rct_Pen");
+  });
+});

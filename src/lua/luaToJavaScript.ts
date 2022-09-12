@@ -1,83 +1,92 @@
-
 import {
-	parse,
-	Base,
-	Chunk,
-	AssignmentStatement,
-	Identifier,
-	FunctionDeclaration,
-	LocalStatement,
-	CallExpression,
-	StringLiteral,
-	UnaryExpression,
-	NumericLiteral,
-	CallStatement,
-	BooleanLiteral,
-	BinaryExpression,
+  AssignmentStatement,
+  Base,
+  BinaryExpression,
+  BooleanLiteral,
+  CallExpression,
+  CallStatement,
+  Chunk,
+  FunctionDeclaration,
+  Identifier,
+  LocalStatement,
+  NumericLiteral,
+  parse,
+  StringLiteral,
+  UnaryExpression,
 } from "luaparse";
 import { inspect } from "util";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const luaNodeMap: Record<string, ( nodeA: any ) => string> = {};
+// deno-lint-ignore no-explicit-any
+const luaNodeMap: Record<string, (nodeA: any) => string> = {};
 
-const luaNodeToString = <T extends Base<string>>( node: T ): string => {
+const luaNodeToString = <T extends Base<string>>(node: T): string => {
+  if (node === undefined) {
+    return "undefined";
+  }
 
-	if ( node === undefined )
-		return "undefined";
+  if (luaNodeMap[node.type]) {
+    return luaNodeMap[node.type](node);
+  }
 
-	if ( luaNodeMap[ node.type ] )
-		return luaNodeMap[ node.type ]( node );
-
-	throw new Error( `Unhandled node type ${node.type}\n` + inspect( node, { colors: true, depth: 3 } ) );
-
+  throw new Error(
+    `Unhandled node type ${node.type}\n` +
+      inspect(node, { colors: true, depth: 3 }),
+  );
 };
 
-luaNodeMap.Chunk = ( node: Chunk ): string => node.body.map( luaNodeToString ).join( "\n\n" );
+luaNodeMap.Chunk = (node: Chunk): string =>
+  node.body.map(luaNodeToString).join("\n\n");
 
-luaNodeMap.AssignmentStatement = ( node: AssignmentStatement ): string =>
-	node.variables.map( ( variable, index ) =>
-		`${luaNodeToString( variable )} = ${luaNodeToString( node.init[ index ] )};`,
-	).join( "\n" );
+luaNodeMap.AssignmentStatement = (node: AssignmentStatement): string =>
+  node.variables.map((variable, index) =>
+    `${luaNodeToString(variable)} = ${luaNodeToString(node.init[index])};`
+  ).join("\n");
 
-luaNodeMap.Identifier = ( node: Identifier ): string => node.name;
+luaNodeMap.Identifier = (node: Identifier): string => node.name;
 
 luaNodeMap.NilLiteral = (): string => "null";
 
-luaNodeMap.FunctionDeclaration = ( node: FunctionDeclaration ): string =>
-	( node.identifier ? `const ${luaNodeToString( node.identifier )} = ` : "" ) +
-	`() => {${
-		node.body.length ?
-			`\n\n${node.body.map( node => `\t${luaNodeToString( node )}` ).join( "\n" )}\n\n` :
-			""
-	}};`;
+luaNodeMap.FunctionDeclaration = (node: FunctionDeclaration): string =>
+  (node.identifier ? `const ${luaNodeToString(node.identifier)} = ` : "") +
+  `() => {${
+    node.body.length
+      ? `\n\n${
+        node.body.map((node) => `\t${luaNodeToString(node)}`).join("\n")
+      }\n\n`
+      : ""
+  }};`;
 
-luaNodeMap.LocalStatement = ( node: LocalStatement ): string =>
-	node.variables.map( ( variable, index ) =>
-		`let ${luaNodeToString( variable )} = ${luaNodeToString( node.init[ index ] )};`,
-	).join( "\n" );
+luaNodeMap.LocalStatement = (node: LocalStatement): string =>
+  node.variables.map((variable, index) =>
+    `let ${luaNodeToString(variable)} = ${luaNodeToString(node.init[index])};`
+  ).join("\n");
 
-luaNodeMap.CallExpression = ( node: CallExpression ): string =>
-	`${luaNodeToString( node.base )}(${node.arguments.length ? ` ${node.arguments.map( luaNodeToString ).join( ", " )} ` : ""})`;
+luaNodeMap.CallExpression = (node: CallExpression): string =>
+  `${luaNodeToString(node.base)}(${
+    node.arguments.length
+      ? ` ${node.arguments.map(luaNodeToString).join(", ")} `
+      : ""
+  })`;
 
-luaNodeMap.StringLiteral = ( node: StringLiteral ): string =>
-	node.raw;
+luaNodeMap.StringLiteral = (node: StringLiteral): string => node.raw;
 
-luaNodeMap.UnaryExpression = ( node: UnaryExpression ): string => {
-
-	if ( node.operator === "-" ) return "-" + luaNodeToString( node.argument );
-	throw new Error( `Unhandled unary expression operator '${node.operator}'` );
-
+luaNodeMap.UnaryExpression = (node: UnaryExpression): string => {
+  if (node.operator === "-") return "-" + luaNodeToString(node.argument);
+  throw new Error(`Unhandled unary expression operator '${node.operator}'`);
 };
 
-luaNodeMap.NumericLiteral = ( node: NumericLiteral ): string => node.raw;
+luaNodeMap.NumericLiteral = (node: NumericLiteral): string => node.raw;
 
-luaNodeMap.CallStatement = ( node: CallStatement ): string =>
-	luaNodeToString( node.expression ) + ";";
+luaNodeMap.CallStatement = (node: CallStatement): string =>
+  luaNodeToString(node.expression) + ";";
 
-luaNodeMap.BooleanLiteral = ( node: BooleanLiteral ): string => node.value.toString();
+luaNodeMap.BooleanLiteral = (node: BooleanLiteral): string =>
+  node.value.toString();
 
-luaNodeMap.BinaryExpression = ( node: BinaryExpression ): string =>
-	`${luaNodeToString( node.left )} ${node.operator} ${luaNodeToString( node.right )}`;
+luaNodeMap.BinaryExpression = (node: BinaryExpression): string =>
+  `${luaNodeToString(node.left)} ${node.operator} ${
+    luaNodeToString(node.right)
+  }`;
 
 /**
  * Converts Lua code to JavaScript. Does not handle all cases, just those that
@@ -85,5 +94,5 @@ luaNodeMap.BinaryExpression = ( node: BinaryExpression ): string =>
  * @param lua The code to convert.
  * @returns Transpiled JavaScript code.
  */
-export const luaToJavaScript = ( lua: string ): string =>
-	luaNodeToString( parse( lua ) );
+export const luaToJavaScript = (lua: string): string =>
+  luaNodeToString(parse(lua));

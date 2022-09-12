@@ -1,362 +1,356 @@
+// deno-lint-ignore-file no-unused-vars
 import { notImplemented } from "../../errors";
 import {
-	contextConverter,
-	contextIndexer,
-	getAgent,
-	getHandle,
+  contextConverter,
+  contextIndexer,
+  getAgent,
+  getHandle,
 } from "../../handles";
 
 const getGamestate = contextIndexer(
-	(id): gamestate => ({ ...getAgent(), gamestateId: id }),
+  (id): gamestate => ({ ...getAgent(), gamestateId: id }),
 );
 const getEvent = contextIndexer(
-	(id): eventid => ({ ...getHandle(), eventidId: id }),
+  (id): eventid => ({ ...getHandle(), eventidId: id }),
 );
 
 export const ConvertRace = contextConverter(
-	(id): race => ({ ...getHandle(), raceId: id }),
+  (id): race => ({ ...getHandle(), raceId: id }),
 );
 export const ConvertAllianceType = contextConverter(
-	(id): alliancetype => ({ ...getHandle(), alliancetypeId: id }),
+  (id): alliancetype => ({ ...getHandle(), alliancetypeId: id }),
 );
 export const ConvertRacePref = contextConverter(
-	(id): racepreference => ({ ...getHandle(), racepreferenceId: id }),
+  (id): racepreference => ({ ...getHandle(), racepreferenceId: id }),
 );
 export const ConvertIGameState = contextConverter(
-	(id): igamestate => ({ ...getGamestate(), igamestateId: id }),
+  (id): igamestate => ({ ...getGamestate(), igamestateId: id }),
 );
 export const ConvertFGameState = contextConverter(
-	(id): fgamestate => ({ ...getGamestate(), fgamestateId: id }),
+  (id): fgamestate => ({ ...getGamestate(), fgamestateId: id }),
 );
 export const ConvertPlayerState = contextConverter(
-	(id): playerstate => ({ ...getHandle(), playerstateId: id }),
+  (id): playerstate => ({ ...getHandle(), playerstateId: id }),
 );
 export const ConvertPlayerScore = contextConverter(
-	(id): playerscore => ({ ...getHandle(), playerscoreId: id }),
+  (id): playerscore => ({ ...getHandle(), playerscoreId: id }),
 );
 export const ConvertPlayerGameResult = contextConverter(
-	(id): playergameresult => ({ ...getHandle(), playergameresultId: id }),
+  (id): playergameresult => ({ ...getHandle(), playergameresultId: id }),
 );
 export const ConvertUnitState = contextConverter(
-	(id): unitstate => ({ ...getHandle(), unitstateId: id }),
+  (id): unitstate => ({ ...getHandle(), unitstateId: id }),
 );
 export const ConvertAIDifficulty = contextConverter(
-	(id): aidifficulty => ({ ...getHandle(), aidifficultyId: id }),
+  (id): aidifficulty => ({ ...getHandle(), aidifficultyId: id }),
 );
 export const ConvertGameEvent = contextConverter(
-	(id): gameevent => ({ ...getEvent(), gameeventId: id }),
+  (id): gameevent => ({ ...getEvent(), gameeventId: id }),
 );
 export const ConvertPlayerEvent = contextConverter(
-	(id): playerevent => ({ ...getEvent(), playereventId: id }),
+  (id): playerevent => ({ ...getEvent(), playereventId: id }),
 );
 export const ConvertPlayerUnitEvent = contextConverter(
-	(id): playerunitevent => ({ ...getEvent(), playeruniteventId: id }),
+  (id): playerunitevent => ({ ...getEvent(), playeruniteventId: id }),
 );
 export const ConvertWidgetEvent = contextConverter(
-	(id): widgetevent => ({ ...getEvent(), widgeteventId: id }),
+  (id): widgetevent => ({ ...getEvent(), widgeteventId: id }),
 );
 export const ConvertDialogEvent = contextConverter(
-	(id): dialogevent => ({ ...getEvent(), dialogeventId: id }),
+  (id): dialogevent => ({ ...getEvent(), dialogeventId: id }),
 );
 export const ConvertUnitEvent = contextConverter(
-	(id): unitevent => ({ ...getEvent(), uniteventId: id }),
+  (id): unitevent => ({ ...getEvent(), uniteventId: id }),
 );
 export const ConvertLimitOp = contextConverter(
-	(id): limitop => ({ ...getEvent(), limitopId: id }),
+  (id): limitop => ({ ...getEvent(), limitopId: id }),
 );
 export const ConvertUnitType = contextConverter(
-	(id): unittype => ({ ...getHandle(), unittypeId: id }),
+  (id): unittype => ({ ...getHandle(), unittypeId: id }),
 );
 export const ConvertGameSpeed = contextConverter(
-	(id): gamespeed => ({ ...getHandle(), gamespeedId: id }),
+  (id): gamespeed => ({ ...getHandle(), gamespeedId: id }),
 );
 export const ConvertPlacement = contextConverter(
-	(id): placement => ({ ...getHandle(), placementId: id }),
+  (id): placement => ({ ...getHandle(), placementId: id }),
 );
 export const ConvertStartLocPrio = contextConverter(
-	(id): startlocprio => ({ ...getHandle(), startlocprioId: id }),
+  (id): startlocprio => ({ ...getHandle(), startlocprioId: id }),
 );
 export const ConvertGameDifficulty = contextConverter(
-	(id): gamedifficulty => ({ ...getHandle(), gamedifficultyId: id }),
+  (id): gamedifficulty => ({ ...getHandle(), gamedifficultyId: id }),
 );
 export const ConvertGameType = contextConverter(
-	(id): gametype => ({ ...getHandle(), gametypeId: id }),
+  (id): gametype => ({ ...getHandle(), gametypeId: id }),
 );
 export const ConvertMapFlag = contextConverter(
-	(id): mapflag => ({ ...getHandle(), mapflagId: id }),
+  (id): mapflag => ({ ...getHandle(), mapflagId: id }),
 );
 export const ConvertMapVisibility = contextConverter(
-	(id): mapvisibility => ({ ...getHandle(), mapvisibilityId: id }),
+  (id): mapvisibility => ({ ...getHandle(), mapvisibilityId: id }),
 );
 export const ConvertMapSetting = contextConverter(
-	(id): mapsetting => ({ ...getHandle(), mapsettingId: id }),
+  (id): mapsetting => ({ ...getHandle(), mapsettingId: id }),
 );
 export const ConvertMapDensity = contextConverter(
-	(id): mapdensity => ({ ...getHandle(), mapdensityId: id }),
+  (id): mapdensity => ({ ...getHandle(), mapdensityId: id }),
 );
 export const ConvertMapControl = contextConverter(
-	(id): mapcontrol => ({ ...getHandle(), mapcontrolId: id }),
+  (id): mapcontrol => ({ ...getHandle(), mapcontrolId: id }),
 );
 export const ConvertPlayerColor = contextConverter(
-	(id): playercolor => ({ ...getHandle(), playercolorId: id }),
+  (id): playercolor => ({ ...getHandle(), playercolorId: id }),
 );
 export const ConvertPlayerSlotState = contextConverter(
-	(id): playerslotstate => ({ ...getHandle(), playerslotstateId: id }),
+  (id): playerslotstate => ({ ...getHandle(), playerslotstateId: id }),
 );
 export const ConvertVolumeGroup = contextConverter(
-	(id): volumegroup => ({ ...getHandle(), volumegroupId: id }),
+  (id): volumegroup => ({ ...getHandle(), volumegroupId: id }),
 );
 export const ConvertCameraField = contextConverter(
-	(id): camerafield => ({ ...getHandle(), camerafieldId: id }),
+  (id): camerafield => ({ ...getHandle(), camerafieldId: id }),
 );
 export const ConvertBlendMode = contextConverter(
-	(id): blendmode => ({ ...getHandle(), blendmodeId: id }),
+  (id): blendmode => ({ ...getHandle(), blendmodeId: id }),
 );
 export const ConvertRarityControl = contextConverter(
-	(id): raritycontrol => ({ ...getHandle(), raritycontrolId: id }),
+  (id): raritycontrol => ({ ...getHandle(), raritycontrolId: id }),
 );
 export const ConvertTexMapFlags = contextConverter(
-	(id): texmapflags => ({ ...getHandle(), texmapflagsId: id }),
+  (id): texmapflags => ({ ...getHandle(), texmapflagsId: id }),
 );
 export const ConvertFogState = contextConverter(
-	(id): fogstate => ({ ...getHandle(), fogstateId: id }),
+  (id): fogstate => ({ ...getHandle(), fogstateId: id }),
 );
 export const ConvertEffectType = contextConverter(
-	(id): effecttype => ({ ...getHandle(), effecttypeId: id }),
+  (id): effecttype => ({ ...getHandle(), effecttypeId: id }),
 );
 export const ConvertVersion = contextConverter(
-	(id): version => ({ ...getHandle(), versionId: id }),
+  (id): version => ({ ...getHandle(), versionId: id }),
 );
 export const ConvertItemType = contextConverter(
-	(id): itemtype => ({ ...getHandle(), itemtypeId: id }),
+  (id): itemtype => ({ ...getHandle(), itemtypeId: id }),
 );
 export const ConvertAttackType = contextConverter(
-	(id): attacktype => ({ ...getHandle(), attacktypeId: id }),
+  (id): attacktype => ({ ...getHandle(), attacktypeId: id }),
 );
 export const ConvertDamageType = contextConverter(
-	(id): damagetype => ({ ...getHandle(), damagetypeId: id }),
+  (id): damagetype => ({ ...getHandle(), damagetypeId: id }),
 );
 export const ConvertWeaponType = contextConverter(
-	(id): weapontype => ({ ...getHandle(), weapontypeId: id }),
+  (id): weapontype => ({ ...getHandle(), weapontypeId: id }),
 );
 export const ConvertSoundType = contextConverter(
-	(id): soundtype => ({ ...getHandle(), soundtypeId: id }),
+  (id): soundtype => ({ ...getHandle(), soundtypeId: id }),
 );
 export const ConvertPathingType = contextConverter(
-	(id): pathingtype => ({ ...getHandle(), pathingtypeId: id }),
+  (id): pathingtype => ({ ...getHandle(), pathingtypeId: id }),
 );
 export const ConvertMouseButtonType = contextConverter(
-	(id): mousebuttontype => ({ ...getHandle(), mousebuttontypeId: id }),
+  (id): mousebuttontype => ({ ...getHandle(), mousebuttontypeId: id }),
 );
 export const ConvertAnimType = contextConverter(
-	(id): animtype => ({ ...getHandle(), animtypeId: id }),
+  (id): animtype => ({ ...getHandle(), animtypeId: id }),
 );
 export const ConvertSubAnimType = contextConverter(
-	(id): subanimtype => ({ ...getHandle(), subanimtypeId: id }),
+  (id): subanimtype => ({ ...getHandle(), subanimtypeId: id }),
 );
 export const ConvertOriginFrameType = contextConverter(
-	(id): originframetype => ({ ...getHandle(), originframetypeId: id }),
+  (id): originframetype => ({ ...getHandle(), originframetypeId: id }),
 );
 export const ConvertFramePointType = contextConverter(
-	(id): framepointtype => ({ ...getHandle(), framepointtypeId: id }),
+  (id): framepointtype => ({ ...getHandle(), framepointtypeId: id }),
 );
 export const ConvertTextAlignType = contextConverter(
-	(id): textaligntype => ({ ...getHandle(), textaligntypeId: id }),
+  (id): textaligntype => ({ ...getHandle(), textaligntypeId: id }),
 );
 export const ConvertFrameEventType = contextConverter(
-	(id): frameeventtype => ({ ...getHandle(), frameeventtypeId: id }),
+  (id): frameeventtype => ({ ...getHandle(), frameeventtypeId: id }),
 );
 export const ConvertOsKeyType = contextConverter(
-	(id): oskeytype => ({ ...getHandle(), oskeytypeId: id }),
+  (id): oskeytype => ({ ...getHandle(), oskeytypeId: id }),
 );
 export const ConvertAbilityIntegerField = contextConverter(
-	(id): abilityintegerfield => ({
-		...getHandle(),
-		abilityintegerfieldId: id,
-	}),
+  (id): abilityintegerfield => ({
+    ...getHandle(),
+    abilityintegerfieldId: id,
+  }),
 );
 export const ConvertAbilityRealField = contextConverter(
-	(id): abilityintegerfield => ({
-		...getHandle(),
-		abilityintegerfieldId: id,
-	}),
+  (id): abilityintegerfield => ({
+    ...getHandle(),
+    abilityintegerfieldId: id,
+  }),
 );
 export const ConvertAbilityBooleanField = contextConverter(
-	(id): abilitybooleanfield => ({
-		...getHandle(),
-		abilitybooleanfieldId: id,
-	}),
+  (id): abilitybooleanfield => ({
+    ...getHandle(),
+    abilitybooleanfieldId: id,
+  }),
 );
 export const ConvertAbilityStringField = contextConverter(
-	(id): abilitystringfield => ({ ...getHandle(), abilitystringfieldId: id }),
+  (id): abilitystringfield => ({ ...getHandle(), abilitystringfieldId: id }),
 );
 export const ConvertAbilityIntegerLevelField = contextConverter(
-	(id): abilityintegerlevelfield => ({
-		...getHandle(),
-		abilityintegerlevelfieldId: id,
-	}),
+  (id): abilityintegerlevelfield => ({
+    ...getHandle(),
+    abilityintegerlevelfieldId: id,
+  }),
 );
 export const ConvertAbilityRealLevelField = contextConverter(
-	(id): abilityreallevelfield => ({
-		...getHandle(),
-		abilityreallevelfieldId: id,
-	}),
+  (id): abilityreallevelfield => ({
+    ...getHandle(),
+    abilityreallevelfieldId: id,
+  }),
 );
 export const ConvertAbilityBooleanLevelField = contextConverter(
-	(id): abilitybooleanlevelfield => ({
-		...getHandle(),
-		abilitybooleanlevelfieldId: id,
-	}),
+  (id): abilitybooleanlevelfield => ({
+    ...getHandle(),
+    abilitybooleanlevelfieldId: id,
+  }),
 );
 export const ConvertAbilityStringLevelField = contextConverter(
-	(id): abilitystringlevelfield => ({
-		...getHandle(),
-		abilitystringlevelfieldId: id,
-	}),
+  (id): abilitystringlevelfield => ({
+    ...getHandle(),
+    abilitystringlevelfieldId: id,
+  }),
 );
 export const ConvertAbilityIntegerLevelArrayField = contextConverter(
-	(id): abilityintegerlevelarrayfield => ({
-		...getHandle(),
-		abilityintegerlevelarrayfieldId: id,
-	}),
+  (id): abilityintegerlevelarrayfield => ({
+    ...getHandle(),
+    abilityintegerlevelarrayfieldId: id,
+  }),
 );
 export const ConvertAbilityRealLevelArrayField = contextConverter(
-	(id): abilityreallevelarrayfield => ({
-		...getHandle(),
-		abilityreallevelarrayfieldId: id,
-	}),
+  (id): abilityreallevelarrayfield => ({
+    ...getHandle(),
+    abilityreallevelarrayfieldId: id,
+  }),
 );
 export const ConvertAbilityBooleanLevelArrayField = contextConverter(
-	(id): abilitybooleanlevelarrayfield => ({
-		...getHandle(),
-		abilitybooleanlevelarrayfieldId: id,
-	}),
+  (id): abilitybooleanlevelarrayfield => ({
+    ...getHandle(),
+    abilitybooleanlevelarrayfieldId: id,
+  }),
 );
 export const ConvertAbilityStringLevelArrayField = contextConverter(
-	(id): abilitystringlevelarrayfield => ({
-		...getHandle(),
-		abilitystringlevelarrayfieldId: id,
-	}),
+  (id): abilitystringlevelarrayfield => ({
+    ...getHandle(),
+    abilitystringlevelarrayfieldId: id,
+  }),
 );
 export const ConvertUnitIntegerField = contextConverter(
-	(id): unitintegerfield => ({ ...getHandle(), unitintegerfieldId: id }),
+  (id): unitintegerfield => ({ ...getHandle(), unitintegerfieldId: id }),
 );
 export const ConvertUnitRealField = contextConverter(
-	(id): unitrealfield => ({ ...getHandle(), unitrealfieldId: id }),
+  (id): unitrealfield => ({ ...getHandle(), unitrealfieldId: id }),
 );
 export const ConvertUnitBooleanField = contextConverter(
-	(id): unitbooleanfield => ({ ...getHandle(), unitbooleanfieldId: id }),
+  (id): unitbooleanfield => ({ ...getHandle(), unitbooleanfieldId: id }),
 );
 export const ConvertUnitStringField = contextConverter(
-	(id): unitstringfield => ({ ...getHandle(), unitstringfieldId: id }),
+  (id): unitstringfield => ({ ...getHandle(), unitstringfieldId: id }),
 );
 export const ConvertUnitWeaponIntegerField = contextConverter(
-	(id): unitweaponintegerfield => ({
-		...getHandle(),
-		unitweaponintegerfieldId: id,
-	}),
+  (id): unitweaponintegerfield => ({
+    ...getHandle(),
+    unitweaponintegerfieldId: id,
+  }),
 );
 export const ConvertUnitWeaponRealField = contextConverter(
-	(id): unitweaponrealfield => ({
-		...getHandle(),
-		unitweaponrealfieldId: id,
-	}),
+  (id): unitweaponrealfield => ({
+    ...getHandle(),
+    unitweaponrealfieldId: id,
+  }),
 );
 export const ConvertUnitWeaponBooleanField = contextConverter(
-	(id): unitweaponbooleanfield => ({
-		...getHandle(),
-		unitweaponbooleanfieldId: id,
-	}),
+  (id): unitweaponbooleanfield => ({
+    ...getHandle(),
+    unitweaponbooleanfieldId: id,
+  }),
 );
 export const ConvertUnitWeaponStringField = contextConverter(
-	(id): unitweaponstringfield => ({
-		...getHandle(),
-		unitweaponstringfieldId: id,
-	}),
+  (id): unitweaponstringfield => ({
+    ...getHandle(),
+    unitweaponstringfieldId: id,
+  }),
 );
 export const ConvertItemIntegerField = contextConverter(
-	(id): itemintegerfield => ({ ...getHandle(), itemintegerfieldId: id }),
+  (id): itemintegerfield => ({ ...getHandle(), itemintegerfieldId: id }),
 );
 export const ConvertItemRealField = contextConverter(
-	(id): itemrealfield => ({ ...getHandle(), itemrealfieldId: id }),
+  (id): itemrealfield => ({ ...getHandle(), itemrealfieldId: id }),
 );
 export const ConvertItemBooleanField = contextConverter(
-	(id): itembooleanfield => ({ ...getHandle(), itembooleanfieldId: id }),
+  (id): itembooleanfield => ({ ...getHandle(), itembooleanfieldId: id }),
 );
 export const ConvertItemStringField = contextConverter(
-	(id): itemstringfield => ({ ...getHandle(), itemstringfieldId: id }),
+  (id): itemstringfield => ({ ...getHandle(), itemstringfieldId: id }),
 );
 export const ConvertMoveType = contextConverter(
-	(id): movetype => ({ ...getHandle(), movetypeId: id }),
+  (id): movetype => ({ ...getHandle(), movetypeId: id }),
 );
 export const ConvertTargetFlag = contextConverter(
-	(id): targetflag => ({ ...getHandle(), targetflagId: id }),
+  (id): targetflag => ({ ...getHandle(), targetflagId: id }),
 );
 export const ConvertArmorType = contextConverter(
-	(id): armortype => ({ ...getHandle(), armortypeId: id }),
+  (id): armortype => ({ ...getHandle(), armortypeId: id }),
 );
 export const ConvertHeroAttribute = contextConverter(
-	(id): heroattribute => ({ ...getHandle(), heroattributeId: id }),
+  (id): heroattribute => ({ ...getHandle(), heroattributeId: id }),
 );
 export const ConvertDefenseType = contextConverter(
-	(id): defensetype => ({ ...getHandle(), defensetypeId: id }),
+  (id): defensetype => ({ ...getHandle(), defensetypeId: id }),
 );
 export const ConvertRegenType = contextConverter(
-	(id): regentype => ({ ...getHandle(), regentypeId: id }),
+  (id): regentype => ({ ...getHandle(), regentypeId: id }),
 );
 export const ConvertUnitCategory = contextConverter(
-	(id): unitcategory => ({ ...getHandle(), unitcategoryId: id }),
+  (id): unitcategory => ({ ...getHandle(), unitcategoryId: id }),
 );
 export const ConvertPathingFlag = contextConverter(
-	(id): pathingflag => ({ ...getHandle(), pathingflagId: id }),
+  (id): pathingflag => ({ ...getHandle(), pathingflagId: id }),
 );
 
 export const initStartLocation = (): StartLocation => ({
-	x: 0,
-	y: 0,
-	priorities: [],
+  x: 0,
+  y: 0,
+  priorities: [],
 });
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const OrderId = (orderIdString: string): number => {
-	notImplemented("OrderId");
-	return 0;
+  notImplemented("OrderId");
+  return 0;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const OrderId2String = (orderId: number): string => {
-	notImplemented("OrderId2String");
-	return "";
+  notImplemented("OrderId2String");
+  return "";
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const UnitId = (unitIdString: string): number => {
-	notImplemented("UnitId");
-	return 0;
+  notImplemented("UnitId");
+  return 0;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const UnitId2String = (unitId: number): string => {
-	notImplemented("UnitId2String");
-	return "";
+  notImplemented("UnitId2String");
+  return "";
 };
 
 // Not currently working correctly...
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const AbilityId = (abilityIdString: string): number => {
-	notImplemented("abilityIdString");
-	return 0;
+  notImplemented("abilityIdString");
+  return 0;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const AbilityId2String = (abilityId: number): string => {
-	notImplemented("AbilityId2String");
-	return "";
+  notImplemented("AbilityId2String");
+  return "";
 };
 
 // Looks up the "name" field for any object (unit, item, ability)
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const GetObjectName = (objectId: number): string => {
-	notImplemented("GetObjectName");
-	return "";
+  notImplemented("GetObjectName");
+  return "";
 };

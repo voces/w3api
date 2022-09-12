@@ -1,6 +1,6 @@
 export const main = (): void => {
-	/* user code */
+  /* user code */
 };
 export const config = (): void => {
-	/* user code */
+  /* user code */
 };
