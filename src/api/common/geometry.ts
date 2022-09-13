@@ -1,4 +1,5 @@
 // deno-lint-ignore-file no-unused-vars
+
 import { notImplemented } from "../../errors";
 import { Game, wrapGame } from "../../Game";
 import { contextIndexer, getAgent } from "../../handles";
@@ -6,19 +7,31 @@ import { contextIndexer, getAgent } from "../../handles";
 // ============================================================================
 // Region and Location API
 //
+
+const isPointInRect = (x: number, y: number, rect: rect) =>
+  x >= rect.minX && x <= rect.maxX && y >= rect.minY && y <= rect.maxY;
+
 export const Rect = contextIndexer(
-  (id, minx: number, miny: number, maxx: number, maxy: number): rect => ({
-    ...getAgent(),
-    rectId: id,
-    minX: minx,
-    minY: miny,
-    maxX: maxx,
-    maxY: maxy,
-  }),
+  (id, minx: number, miny: number, maxx: number, maxy: number): rect => {
+    const rect: rect = {
+      ...getAgent(),
+      rectId: id,
+      minX: minx,
+      minY: miny,
+      maxX: maxx,
+      maxY: maxy,
+      contains: (point) => isPointInRect(point.x, point.y, rect),
+    };
+
+    return rect;
+  },
 );
+
 export const RectFromLoc = (min: location, max: location): rect =>
   Rect(min.x, min.y, max.x, max.y);
+
 export const RemoveRect = (whichRect: rect): void => whichRect.remove();
+
 export const SetRect = (
   whichRect: rect,
   minx: number,
@@ -33,15 +46,19 @@ export const SetRect = (
     maxY: maxy,
   });
 };
+
 export const SetRectFromLoc = (
   whichRect: rect,
   min: location,
   max: location,
 ): void => SetRect(whichRect, min.x, min.y, max.x, max.y);
+
 export const GetRectCenterX = (whichRect: rect): number =>
   (whichRect.minX + whichRect.maxX) / 2;
+
 export const GetRectCenterY = (whichRect: rect): number =>
   (whichRect.minY + whichRect.maxY) / 2;
+
 export const MoveRectTo = (
   whichRect: rect,
   newCenterX: number,
@@ -58,11 +75,16 @@ export const MoveRectTo = (
     whichRect.maxY + offsetY,
   );
 };
+
 export const MoveRectToLoc = (whichRect: rect, newCenterLoc: location): void =>
   MoveRectTo(whichRect, newCenterLoc.x, newCenterLoc.y);
+
 export const GetRectMinX = (whichRect: rect): number => whichRect.minX;
+
 export const GetRectMinY = (whichRect: rect): number => whichRect.minY;
+
 export const GetRectMaxX = (whichRect: rect): number => whichRect.maxX;
+
 export const GetRectMaxY = (whichRect: rect): number => whichRect.maxY;
 
 export const Location = contextIndexer(
@@ -75,6 +97,7 @@ export const Location = contextIndexer(
 );
 export const RemoveLocation = (whichLocation: location): void =>
   whichLocation.remove();
+
 export const MoveLocation = (
   whichLocation: location,
   newX: number,
@@ -82,10 +105,13 @@ export const MoveLocation = (
 ): void => {
   Object.assign(whichLocation, { x: newX, y: newY });
 };
+
 export const GetLocationX = (whichLocation: location): number =>
   whichLocation.x;
+
 export const GetLocationY = (whichLocation: location): number =>
   whichLocation.y;
+
 // This function is asynchronous. The values it returns are not guaranteed synchronous between each player.
 //  If you attempt to use it in a synchronous manner, it may cause a desync.
 export const GetLocationZ = (whichLocation: location): number => {
@@ -114,10 +140,7 @@ export const CreateRegion = wrapGame(
           enterListeners.push(callback);
           if (reference) enterListenersMap.set(reference, callback);
         },
-        contains: () => {
-          notImplemented("region#contains", true);
-          return true;
-        },
+        contains: (point) => region.rects.some((r) => r.contains(point)),
         addUnit(unit: unit): void {
           units.add(unit);
           enterListeners.forEach((cb) => cb(unit));
@@ -125,6 +148,7 @@ export const CreateRegion = wrapGame(
             units.delete(unit);
           }, this);
         },
+        rects: [],
       };
       game.regions.add(region);
       region.onRemove(() => game.regions.delete(region));
@@ -132,47 +156,65 @@ export const CreateRegion = wrapGame(
     },
   ),
 );
+
 export const RemoveRegion = (whichRegion: region): void => whichRegion.remove();
-export const RegionAddRect = (whichRegion: region, r: rect): void => {};
-export const RegionClearRect = (whichRegion: region, r: rect): void => {};
+
+export const RegionAddRect = (whichRegion: region, r: rect): void => {
+  whichRegion.rects.push(r);
+};
+
+export const RegionClearRect = (whichRegion: region, r: rect): void => {
+  notImplemented("RegionClearRect");
+};
+
 export const RegionAddCell = (
   whichRegion: region,
   x: number,
   y: number,
-): void => {};
+): void => {
+  notImplemented("RegionAddCell");
+};
+
 export const RegionAddCellAtLoc = (
   whichRegion: region,
   whichLocation: location,
-): void => {};
+): void => {
+  notImplemented("RegionAddCellAtLoc");
+};
+
 export const RegionClearCell = (
   whichRegion: region,
   x: number,
   y: number,
-): void => {};
+): void => {
+  notImplemented("RegionClearCell");
+};
+
 export const RegionClearCellAtLoc = (
   whichRegion: region,
   whichLocation: location,
-): void => {};
+): void => {
+  notImplemented("RegionClearCellAtLoc");
+};
 
 export const IsLocationInRegion = (
   whichRegion: region,
   whichLocation: location,
-): boolean => {
-  notImplemented("IsLocationInRegion");
-  return false;
-};
+): boolean => IsPointInRegion(whichRegion, whichLocation.x, whichLocation.y);
+
 export const IsUnitInRegion = (
   whichRegion: region,
   whichUnit: unit,
-): boolean => {
-  notImplemented("IsUnitInRegion");
-  return false;
-};
+): boolean => IsPointInRegion(whichRegion, whichUnit.x, whichUnit.y);
+
 export const IsPointInRegion = (
   whichRegion: region,
   x: number,
   y: number,
-): boolean => {
-  notImplemented("IsPointInRegion");
-  return false;
+): boolean => whichRegion.rects.some((r) => isPointInRect(x, y, r));
+
+// Returns full map bounds, including unplayable borders, in world coordinates
+export const GetWorldBounds = (): rect => {
+  notImplemented("GetWorldBounds", true);
+  return Rect(-Infinity, -Infinity, Infinity, Infinity);
 };

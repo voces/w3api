@@ -6,8 +6,9 @@ import {
   MAP_PLACEMENT_RANDOM,
   MAP_SPEED_FASTEST,
 } from "./api/common/constants/mapSetup";
-import { BinaryHeap } from "./BianryHeap";
+import { BinaryHeap } from "./BinaryHeap";
 import { gameContext } from "./contexts";
+import { newRun } from "./Run";
 
 export class Game {
   creatureDensity: mapdensity = MAP_DENSITY_MEDIUM;
@@ -29,6 +30,7 @@ export class Game {
   time = 0;
   timers = new BinaryHeap((t: timer) => t.nextTick);
   triggers: Set<trigger> = new Set();
+  localPlayerId = 0;
 
   data: {
     units: Record<string, UnitSpec>;
@@ -47,11 +49,14 @@ export class Game {
       if (timer.periodic) {
         timer.nextTick += timer.interval;
         this.timers.push(timer);
-      } else timer.nextTick = timer.lastTick;
+      } else {
+        timer.nextTick = timer.lastTick;
+        timer.active = false;
+      }
 
       if (timer.callback) {
         this.time = timer.lastTick;
-        timer.callback();
+        newRun({ expiredTimer: timer }, () => timer.callback!());
       }
     }
 
@@ -80,7 +85,7 @@ export class Game {
     this.units.forEach((u) => fn(u));
   }
 
-  loadData({ w3u, wts }: { w3u: Buffer; wts: Buffer }): void {
+  loadData({ w3u, wts }: { w3u: Buffer; wts: Buffer | string }): void {
     this.data.strings = mapStrings(wts.toString());
     this.data.units = replaceStrings(mapUnitSpecs(w3u), this.data.strings);
   }

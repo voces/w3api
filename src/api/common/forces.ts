@@ -1,7 +1,6 @@
 // deno-lint-ignore-file no-unused-vars
-import { notImplemented } from "../../errors";
+
 import { contextIndexer, getAgent } from "../../handles";
-import { Rect } from "./geometry";
 
 // ============================================================================
 // Force API
@@ -63,9 +62,4 @@ export const ForForce = (
   callback: (player: player) => void,
 ): void => {
   for (const player of whichForce.players) callback(player);
-};
-// Returns full map bounds, including unplayable borders, in world coordinates
-export const GetWorldBounds = (): rect => {
-  notImplemented("GetWorldBounds", true);
-  return Rect(-Infinity, -Infinity, Infinity, Infinity);
 };

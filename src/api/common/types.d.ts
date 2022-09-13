@@ -123,9 +123,10 @@ declare interface location extends agent {
 declare interface region extends agent {
   // deno-lint-ignore no-explicit-any
   addEnterListener: (callback: (unit: unit) => void, reference: any) => void;
-  contains: (unit: unit) => boolean;
+  contains: <T extends { x: number; y: number }>(point: T) => boolean;
   regionId: number;
   addUnit: (unit: unit) => void;
+  rects: rect[];
 }
 declare interface rect extends agent {
   maxX: number;
@@ -133,6 +134,7 @@ declare interface rect extends agent {
   minX: number;
   minY: number;
   rectId: number;
+  contains: <T extends { x: number; y: number }>(point: T) => boolean;
 }
 declare interface boolexpr extends agent {
   boolexprId: number;
@@ -365,8 +367,34 @@ declare interface ubersplat extends handle {
 declare interface hashtable extends agent {
   hashtableId: number;
 }
+type RelativeFrameSide = {
+  relative: framehandle;
+  relativeSide: "left" | "top" | "right" | "bottom" | framepointtype;
+  xOffset: number;
+  yOffset: number;
+};
+type FrameSide = number | undefined | RelativeFrameSide;
 declare interface framehandle extends handle {
   framehandleId: number;
+  name: string;
+  parent: framehandle | null;
+  priority: number;
+  createContext: number;
+  typeName?: string;
+  inherits?: string;
+  node: unknown;
+  width: number;
+  height: number;
+  pos: {
+    left: FrameSide;
+    top: FrameSide;
+    right: FrameSide;
+    bottom: FrameSide;
+    center: RelativeFrameSide | { x: number; y: number } | undefined;
+  };
+  children: framehandle[];
+  text?: string;
+  visible: boolean;
 }
 declare interface originframetype extends handle {
   originframetypeId: number;

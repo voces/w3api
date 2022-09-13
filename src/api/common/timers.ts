@@ -1,10 +1,7 @@
-import { notImplemented } from "../../errors";
+import { wrapRun } from "../../Run";
 import { Game, wrapGame } from "../../Game";
 import { contextIndexer, getAgent } from "../../handles";
 
-// ============================================================================
-// Timer API
-//
 export const CreateTimer = contextIndexer(
   wrapGame(
     (game: Game, id: number): timer => ({
@@ -20,8 +17,10 @@ export const CreateTimer = contextIndexer(
     }),
   ),
 );
+
 export const DestroyTimer = (whichTimer: timer | null): void =>
   whichTimer ? whichTimer.remove() : undefined;
+
 export const TimerStart = wrapGame(
   (
     game: Game,
@@ -41,17 +40,22 @@ export const TimerStart = wrapGame(
     whichTimer.active = true;
   },
 );
+
 export const TimerGetElapsed = wrapGame(
   (game: Game, whichTimer: timer): number => game.time - whichTimer.start,
 );
+
 export const TimerGetRemaining = (whichTimer: timer): number =>
   whichTimer.nextTick - whichTimer.start;
+
 export const TimerGetTimeout = (whichTimer: timer): number =>
   whichTimer.interval;
+
 export const PauseTimer = wrapGame((game: Game, whichTimer: timer): void => {
   whichTimer.active = false;
   game.timers.remove(whichTimer);
 });
+
 export const ResumeTimer = wrapGame((game: Game, whichTimer: timer): void => {
   whichTimer.lastTick = game.time;
   whichTimer.nextTick = game.time + whichTimer.interval;
@@ -59,7 +63,5 @@ export const ResumeTimer = wrapGame((game: Game, whichTimer: timer): void => {
   if (!whichTimer.active) game.timers.push(whichTimer);
   whichTimer.active = true;
 });
-export const GetExpiredTimer = (): timer => {
-  notImplemented("GetExpiredTimer");
-  return CreateTimer();
-};
+
+export const GetExpiredTimer = wrapRun((run) => run.expiredTimer);
