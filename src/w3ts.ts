@@ -1,4 +1,3 @@
-declare const compiletime: <T>(fn: () => T) => T;
 const compiletimeFn = <T>(fn: () => T): T => {
   const oldRequire = require;
   require = Object.assign(
