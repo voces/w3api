@@ -4601,7 +4601,7 @@ export const BlzCreateUnitWithSkin = (
   skinId: number,
 ): unit => {
   notImplemented("BlzCreateUnitWithSkin");
-  return null as any;
+  return null as unknown as unit;
 };
 
 export const TriggerRegisterUpgradeCommandEvent = (
@@ -4609,7 +4609,7 @@ export const TriggerRegisterUpgradeCommandEvent = (
   whichUpgrade: number,
 ): event => {
   notImplemented("TriggerRegisterUpgradeCommandEvent");
-  return null as any;
+  return null as unknown as event;
 };
 
 export const TriggerRegisterCommandEvent = (
@@ -4618,7 +4618,7 @@ export const TriggerRegisterCommandEvent = (
   order: string,
 ): event => {
   notImplemented("TriggerRegisterCommandEvent");
-  return null as any;
+  return null as unknown as event;
 };
 
 export const SetSoundFacialAnimationLabel = (
@@ -4692,5 +4692,5 @@ export const BlzCreateItemWithSkin = (
   skinId: number,
 ): item => {
   notImplemented("BlzCreateItemWithSkin");
-  return null as any;
+  return null as unknown as item;
 };

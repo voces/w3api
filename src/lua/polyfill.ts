@@ -1,6 +1,6 @@
-globalThis.tonumber = parseFloat;
+Reflect.set(globalThis, "tonumber", parseFloat);
 
-globalThis.string = {
+Reflect.set(globalThis, "string", {
   gsub: (
     s: string,
     pattern: string,
@@ -20,21 +20,22 @@ globalThis.string = {
   },
   pack: (format: string, ...strings: string[]) =>
     format + "|strings" + strings.join("|strbrk"),
+  // deno-lint-ignore no-unused-vars
   unpack: (format: string, string: string, pos?: number) =>
     string
-      .split("|strings")[0]
+      .split("|strings")[1]
       .slice(pos ?? 0)
       .split("|strbrk"),
   byte: (str: string, index: number) => str.charCodeAt(index - 1),
-};
+});
 
-globalThis.os = {
+Reflect.set(globalThis, "os", {
   clock: () => performance.now() / 1000,
-};
+});
 
-globalThis.print = console.log;
+Reflect.set(globalThis, "print", console.log);
 
-globalThis.math = {
+Reflect.set(globalThis, "math", {
   min: Math.min,
   max: Math.max,
-};
+});

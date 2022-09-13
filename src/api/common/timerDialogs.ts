@@ -1,3 +1,5 @@
+// deno-lint-ignore-file no-unused-vars
+
 import { notImplemented } from "../../errors";
 import { wrapGame } from "../../Game";
 import { contextIndexer, getAgent } from "../../handles";

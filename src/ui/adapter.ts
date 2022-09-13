@@ -260,8 +260,7 @@ export const adapter = {
     const div = document.createElement("span");
     div.style.position = "fixed";
     div.style.background = "rgba(0,0,0,0.1)";
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (div as any).frame = handle;
+    Reflect.set(div, "frame", handle);
     div.setAttribute("frame", handle.handleId.toString());
     frameMap.set(div, handle);
     nodeMap.set(handle, div);

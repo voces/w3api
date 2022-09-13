@@ -1,3 +1,5 @@
+// deno-lint-ignore-file no-unused-vars
+
 import { notImplemented } from "../../../errors";
 import { contextIndexer, getHandle } from "../../../handles";
 import { adapter } from "../../../ui/adapter";
@@ -374,17 +376,17 @@ export const BlzTriggerRegisterFrameEvent = (
   eventId: frameeventtype,
 ): event => {
   notImplemented("BlzTriggerRegisterFrameEvent");
-  return (null as any) as event;
+  return (null as unknown) as event;
 };
 
 export const BlzGetTriggerFrame = (): framehandle => {
   notImplemented("BlzGetTriggerFrame");
-  return (null as any) as framehandle;
+  return (null as unknown) as framehandle;
 };
 
 export const BlzGetTriggerFrameEvent = (): frameeventtype => {
   notImplemented("BlzGetTriggerFrameEvent");
-  return (null as any) as frameeventtype;
+  return (null as unknown) as frameeventtype;
 };
 
 export const BlzGetTriggerFrameValue = (): number => {
