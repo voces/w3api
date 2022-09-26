@@ -20,3 +20,4 @@ export const SquareRoot = (x: number): number => x ** (1 / 2);
 // x ==0.0 and y < 0    => 0
 //
 export const Pow = (x: number, power: number): number => x ** power;
+export const MathRound = (r: number): number => Math.round(r);

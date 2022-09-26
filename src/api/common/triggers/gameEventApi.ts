@@ -4,6 +4,17 @@ import { notImplemented } from "../../../errors";
 import { wrapGame } from "../../../Game";
 import { getRun, newRun, wrapRun } from "../../../Run";
 import {
+  EVENT_DIALOG_BUTTON_CLICK,
+  EVENT_DIALOG_CLICK,
+  EVENT_GAME_ENTER_REGION,
+  EVENT_GAME_LEAVE_REGION,
+  EVENT_GAME_STATE_LIMIT,
+  EVENT_GAME_TIMER_EXPIRED,
+  EVENT_GAME_TRACKABLE_HIT,
+  EVENT_GAME_TRACKABLE_TRACK,
+  EVENT_GAME_VARIABLE_LIMIT,
+} from "../constants/gamePlayerAndUnitEvents";
+import {
   EQUAL,
   GREATER_THAN,
   GREATER_THAN_OR_EQUAL,
@@ -43,7 +54,7 @@ export const TriggerRegisterVariableEvent = wrapGame(
     opcode: limitop,
     limitval: number,
   ): event => {
-    const event = getEvent();
+    const event = getEvent(EVENT_GAME_VARIABLE_LIMIT);
     whichTrigger.events.push(event);
     let hit = false;
     const condition = variableEventConditions.get(opcode);
@@ -90,7 +101,10 @@ export const TriggerRegisterTimerEvent = (
     );
   });
 
-  return getEvent();
+  const event = getEvent(EVENT_GAME_TIMER_EXPIRED);
+  whichTrigger.events.push(event);
+
+  return event;
 };
 
 // Triggers when the timer you tell it about expires
@@ -99,7 +113,32 @@ export const TriggerRegisterTimerExpireEvent = (
   t: timer,
 ): event => {
   notImplemented("TriggerRegisterTimerExpireEvent");
-  return getEvent();
+
+  const event = getEvent(EVENT_GAME_TIMER_EXPIRED);
+  whichTrigger.events.push(event);
+
+  const oldCallback = t.callback;
+  t.callback = () =>
+    newRun({ triggeringTrigger: whichTrigger }, () => {
+      let error;
+      try {
+        if (whichTrigger.evaluate()) whichTrigger.execute();
+      } catch (err) {
+        error = err;
+      }
+
+      if (oldCallback) {
+        try {
+          oldCallback();
+        } catch (err) {
+          if (!error) error = err;
+        }
+      }
+
+      if (error) throw error;
+    });
+
+  return event;
 };
 
 export const TriggerRegisterGameStateEvent = (
@@ -108,24 +147,35 @@ export const TriggerRegisterGameStateEvent = (
   opcode: limitop,
   limitval: number,
 ): event => {
-  notImplemented("TriggerRegisterGameStateEvent");
-  return getEvent();
+  notImplemented("TriggerRegisterGameStateEvent", true);
+  const event = getEvent(EVENT_GAME_STATE_LIMIT);
+  event.gamestate = whichState;
+  event.limitop = opcode;
+  event.limitval = limitval;
+  whichTrigger.events.push(event);
+  return event;
 };
 
 export const TriggerRegisterDialogEvent = (
   whichTrigger: trigger,
   whichDialog: dialog,
 ): event => {
-  notImplemented("TriggerRegisterDialogEvent");
-  return getEvent();
+  notImplemented("TriggerRegisterDialogEvent", true);
+  const event = getEvent(EVENT_DIALOG_CLICK);
+  event.dialog = whichDialog;
+  whichTrigger.events.push(event);
+  return event;
 };
 
 export const TriggerRegisterDialogButtonEvent = (
   whichTrigger: trigger,
   whichButton: button,
 ): event => {
-  notImplemented("TriggerRegisterDialogButtonEvent");
-  return getEvent();
+  notImplemented("TriggerRegisterDialogButtonEvent", true);
+  const event = getEvent(EVENT_DIALOG_BUTTON_CLICK);
+  event.button = whichButton;
+  whichTrigger.events.push(event);
+  return event;
 };
 
 //  EVENT_GAME_STATE_LIMIT
@@ -137,8 +187,10 @@ export const TriggerRegisterGameEvent = (
   whichTrigger: trigger,
   whichGameEvent: gameevent,
 ): event => {
-  notImplemented("TriggerRegisterGameEvent");
-  return getEvent();
+  notImplemented("TriggerRegisterGameEvent", true);
+  const event = getEvent(whichGameEvent);
+  whichTrigger.events.push(event);
+  return event;
 };
 
 // EVENT_GAME_VICTORY
@@ -165,7 +217,9 @@ export const TriggerRegisterEnterRegion = (
     );
   };
 
-  const event = getEvent();
+  const event = getEvent(EVENT_GAME_ENTER_REGION);
+  event.region = whichRegion;
+  if (filter) event.filter = filter;
 
   whichRegion.addEnterListener(callback, event);
 
@@ -188,8 +242,12 @@ export const TriggerRegisterLeaveRegion = (
   whichRegion: region,
   filter: boolexpr | null,
 ): event => {
-  notImplemented("TriggerRegisterLeaveRegion");
-  return getEvent();
+  notImplemented("TriggerRegisterLeaveRegion", true);
+  const event = getEvent(EVENT_GAME_LEAVE_REGION);
+  event.region = whichRegion;
+  if (filter) event.filter = filter;
+  whichTrigger.events.push(event);
+  return event;
 };
 
 export const GetLeavingUnit = wrapRun((run): unit | null => run.leavingUnit);
@@ -198,16 +256,22 @@ export const TriggerRegisterTrackableHitEvent = (
   whichTrigger: trigger,
   t: trackable,
 ): event => {
-  notImplemented("TriggerRegisterTrackableHitEvent");
-  return getEvent();
+  notImplemented("TriggerRegisterTrackableHitEvent", true);
+  const event = getEvent(EVENT_GAME_TRACKABLE_HIT);
+  event.trackable = t;
+  whichTrigger.events.push(event);
+  return event;
 };
 
 export const TriggerRegisterTrackableTrackEvent = (
   whichTrigger: trigger,
   t: trackable,
 ): event => {
-  notImplemented("TriggerRegisterTrackableTrackEvent");
-  return getEvent();
+  notImplemented("TriggerRegisterTrackableTrackEvent", true);
+  const event = getEvent(EVENT_GAME_TRACKABLE_TRACK);
+  event.trackable = t;
+  whichTrigger.events.push(event);
+  return event;
 };
 
 // EVENT_GAME_TRACKABLE_HIT

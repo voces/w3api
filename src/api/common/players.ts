@@ -1,4 +1,5 @@
 // deno-lint-ignore-file no-unused-vars
+import { wrapGame } from "../../Game";
 import { notImplemented } from "../../errors";
 import { getPlayer } from "../../PlayerClass";
 
@@ -6,10 +7,9 @@ import { getPlayer } from "../../PlayerClass";
 // Player API
 export const Player = (number: number): player => getPlayer(number);
 
-export const GetLocalPlayer = (): player => {
-  notImplemented("GetLocalPlayer");
-  return (null as unknown) as player;
-};
+export const GetLocalPlayer = wrapGame((game) =>
+  game.players[game.localPlayerId]
+);
 
 export const IsPlayerAlly = (
   whichPlayer: player,
@@ -94,7 +94,7 @@ export const GetPlayerRace = (whichPlayer: player): race => {
 };
 
 export const GetPlayerId = (whichPlayer: player): number =>
-  whichPlayer.playerId;
+  whichPlayer?.playerId ?? 0;
 
 export const GetPlayerUnitCount = (
   whichPlayer: player,

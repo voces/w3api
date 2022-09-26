@@ -10,6 +10,7 @@ type RunData = {
   enumPlayer: player | null;
   enumUnit: unit | null;
   eventGameState: gamestate | null;
+  expiredTimer: timer | null;
   filterDestructable: destructable | null;
   filterItem: item | null;
   filterPlayer: player | null;
@@ -26,6 +27,7 @@ type RunData = {
   triggeringTrackable: trackable | null;
   triggeringTrigger: trigger | null;
   triggerUnit: unit | null;
+  triggerKey: oskeytype | null;
   winningPlayer: player | null;
 };
 
@@ -40,6 +42,7 @@ export const wrapRun = runContext.dataWrapper(
     enumPlayer: null,
     enumUnit: null,
     eventGameState: null,
+    expiredTimer: null,
     filterDestructable: null,
     filterItem: null,
     filterPlayer: null,
@@ -56,6 +59,7 @@ export const wrapRun = runContext.dataWrapper(
     triggeringTrackable: null,
     triggeringTrigger: null,
     triggerUnit: null,
+    triggerKey: null,
     winningPlayer: null,
   }),
 );

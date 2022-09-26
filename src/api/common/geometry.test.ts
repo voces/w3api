@@ -4,7 +4,7 @@ it("Rect", () => {
   const rect = Rect(-2, -1, 2, 1);
 
   expect(Object.keys(rect).sort()).toEqual(
-    "agentId clearRemoveHook clearRemoveHookByReference handleId maxX maxY minX minY onRemove rectId remove"
+    "agentId clearRemoveHook clearRemoveHookByReference contains handleId maxX maxY minX minY onRemove rectId remove"
       .split(
         " ",
       ),

@@ -1,13 +1,13 @@
 {
   "name": "w3api",
-  "version": "2.3.3",
+  "version": "2.4.0",
   "description": "TypeScript API for Warcraft III natives",
   "author": "verit",
   "license": "MIT",
   "scripts": {
     "build": "tsc --project tsconfig.build.json && ts-node bin/build.ts --unhandled-rejections=strict",
     "clean": "rm -rf dist",
-    "prepublishOnly": "npm run clean && npm run build",
+    "prepublishOnly": "npm run clean && npm run build && npm run test-lint",
     "test-debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "test-lint": "deno lint . --ignore=node_modules,dist",
     "test": "jest"
@@ -34,6 +34,7 @@
     "dist"
   ],
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "dependencies": {
     "luaparse": "^0.3.1",
     "w3xdata": "^2.2.2"

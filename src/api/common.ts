@@ -11,8 +11,10 @@ export * from "./common/math";
 export * from "./common/players";
 export * from "./common/random";
 export * from "./common/string";
+export * from "./common/timerDialogs";
 export * from "./common/timers";
 export * from "./common/triggers";
+export * from "./common/ui";
 export * from "./common/units";
 export * from "./common/visualApi";
 
@@ -1826,56 +1828,6 @@ export const DefeatConditionSetDescription = (
 export const FlashQuestDialogButton = (): void => {};
 
 export const ForceQuestDialogUpdate = (): void => {};
-
-// ============================================================================
-// Timer Dialog API
-export const CreateTimerDialog = (t: timer | null): timerdialog => {
-  notImplemented("CreateTimerDialog");
-  return (null as unknown) as timerdialog;
-};
-
-export const DestroyTimerDialog = (whichDialog: timerdialog): void => {};
-
-export const TimerDialogSetTitle = (
-  whichDialog: timerdialog,
-  title: string,
-): void => {};
-
-export const TimerDialogSetTitleColor = (
-  whichDialog: timerdialog,
-  red: number,
-  green: number,
-  blue: number,
-  alpha: number,
-): void => {};
-
-export const TimerDialogSetTimeColor = (
-  whichDialog: timerdialog,
-  red: number,
-  green: number,
-  blue: number,
-  alpha: number,
-): void => {};
-
-export const TimerDialogSetSpeed = (
-  whichDialog: timerdialog,
-  speedMultFactor: number,
-): void => {};
-
-export const TimerDialogDisplay = (
-  whichDialog: timerdialog,
-  display: boolean,
-): void => {};
-
-export const IsTimerDialogDisplayed = (whichDialog: timerdialog): boolean => {
-  notImplemented("IsTimerDialogDisplayed");
-  return false;
-};
-
-export const TimerDialogSetRealTimeRemaining = (
-  whichDialog: timerdialog,
-  timeRemaining: number,
-): void => {};
 
 // ============================================================================
 // Leaderboard API
@@ -3901,277 +3853,6 @@ export const BlzIsTargetIndicatorEnabled = (): boolean => {
   return false;
 };
 
-export const BlzGetOriginFrame = (
-  frameType: originframetype,
-  index: number,
-): framehandle => {
-  notImplemented("BlzGetOriginFrame");
-  return (null as unknown) as framehandle;
-};
-
-export const BlzEnableUIAutoPosition = (enable: boolean): void => {};
-
-export const BlzHideOriginFrames = (enable: boolean): void => {};
-
-export const BlzConvertColor = (
-  a: number,
-  r: number,
-  g: number,
-  b: number,
-): number => a * 255 ** 3 + r * 255 ** 2 + g * 255 + b;
-
-export const BlzLoadTOCFile = (TOCFile: string): boolean => {
-  notImplemented("BlzLoadTOCFile");
-  return false;
-};
-
-export const BlzCreateFrame = (
-  name: string,
-  owner: framehandle,
-  priority: number,
-  createContext: number,
-): framehandle => {
-  notImplemented("BlzCreateFrame");
-  return (null as unknown) as framehandle;
-};
-
-export const BlzCreateSimpleFrame = (
-  name: string,
-  owner: framehandle,
-  createContext: number,
-): framehandle => {
-  notImplemented("BlzCreateSimpleFrame");
-  return (null as unknown) as framehandle;
-};
-
-export const BlzCreateFrameByType = (
-  typeName: string,
-  name: string,
-  owner: framehandle,
-  inherits: string,
-  createContext: number,
-): framehandle => {
-  notImplemented("BlzCreateFrameByType");
-  return (null as unknown) as framehandle;
-};
-
-export const BlzDestroyFrame = (frame: framehandle): void => {};
-
-export const BlzFrameSetPoint = (
-  frame: framehandle,
-  point: framepointtype,
-  relative: framehandle,
-  relativePoint: framepointtype,
-  x: number,
-  y: number,
-): void => {};
-
-export const BlzFrameSetAbsPoint = (
-  frame: framehandle,
-  point: framepointtype,
-  x: number,
-  y: number,
-): void => {};
-
-export const BlzFrameClearAllPoints = (frame: framehandle): void => {};
-
-export const BlzFrameSetAllPoints = (
-  frame: framehandle,
-  relative: framehandle,
-): void => {};
-
-export const BlzFrameSetVisible = (
-  frame: framehandle,
-  visible: boolean,
-): void => {};
-
-export const BlzFrameIsVisible = (frame: framehandle): boolean => {
-  notImplemented("BlzFrameIsVisible");
-  return false;
-};
-
-export const BlzGetFrameByName = (
-  name: string,
-  createContext: number,
-): framehandle => {
-  notImplemented("BlzGetFrameByName");
-  return (null as unknown) as framehandle;
-};
-
-export const BlzFrameGetName = (frame: framehandle): string => {
-  notImplemented("BlzFrameGetName");
-  return "";
-};
-
-export const BlzFrameClick = (frame: framehandle): void => {};
-
-export const BlzFrameSetText = (frame: framehandle, text: string): void => {};
-
-export const BlzFrameGetText = (frame: framehandle): string => {
-  notImplemented("BlzFrameGetText");
-  return "";
-};
-
-export const BlzFrameAddText = (frame: framehandle, text: string): void => {};
-
-export const BlzFrameSetTextSizeLimit = (
-  frame: framehandle,
-  size: number,
-): void => {};
-
-export const BlzFrameGetTextSizeLimit = (frame: framehandle): number => {
-  notImplemented("BlzFrameGetTextSizeLimit");
-  return 0;
-};
-
-export const BlzFrameSetTextColor = (
-  frame: framehandle,
-  color: number,
-): void => {};
-
-export const BlzFrameSetFocus = (frame: framehandle, flag: boolean): void => {};
-
-export const BlzFrameSetModel = (
-  frame: framehandle,
-  modelFile: string,
-  cameraIndex: number,
-): void => {};
-
-export const BlzFrameSetEnable = (
-  frame: framehandle,
-  enabled: boolean,
-): void => {};
-
-export const BlzFrameGetEnable = (frame: framehandle): boolean => {
-  notImplemented("BlzFrameGetEnable");
-  return false;
-};
-
-export const BlzFrameSetAlpha = (frame: framehandle, alpha: number): void => {};
-
-export const BlzFrameGetAlpha = (frame: framehandle): number => {
-  notImplemented("BlzFrameGetAlpha");
-  return 0;
-};
-
-export const BlzFrameSetSpriteAnimate = (
-  frame: framehandle,
-  primaryProp: number,
-  flags: number,
-): void => {};
-
-export const BlzFrameSetTexture = (
-  frame: framehandle,
-  texFile: string,
-  flag: number,
-  blend: boolean,
-): void => {};
-
-export const BlzFrameSetScale = (frame: framehandle, scale: number): void => {};
-
-export const BlzFrameSetTooltip = (
-  frame: framehandle,
-  tooltip: framehandle,
-): void => {};
-
-export const BlzFrameCageMouse = (
-  frame: framehandle,
-  enable: boolean,
-): void => {};
-
-export const BlzFrameSetValue = (frame: framehandle, value: number): void => {};
-
-export const BlzFrameGetValue = (frame: framehandle): number => {
-  notImplemented("BlzFrameGetValue");
-  return 0;
-};
-
-export const BlzFrameSetMinMaxValue = (
-  frame: framehandle,
-  minValue: number,
-  maxValue: number,
-): void => {};
-
-export const BlzFrameSetStepSize = (
-  frame: framehandle,
-  stepSize: number,
-): void => {};
-
-export const BlzFrameSetSize = (
-  frame: framehandle,
-  width: number,
-  height: number,
-): void => {};
-
-export const BlzFrameSetVertexColor = (
-  frame: framehandle,
-  color: number,
-): void => {};
-
-export const BlzFrameSetLevel = (frame: framehandle, level: number): void => {};
-
-export const BlzFrameSetParent = (
-  frame: framehandle,
-  parent: framehandle,
-): void => {};
-
-export const BlzFrameGetParent = (frame: framehandle): framehandle => {
-  notImplemented("BlzFrameGetParent");
-  return (null as unknown) as framehandle;
-};
-
-export const BlzFrameGetHeight = (frame: framehandle): number => {
-  notImplemented("BlzFrameGetHeight");
-  return 0;
-};
-
-export const BlzFrameGetWidth = (frame: framehandle): number => {
-  notImplemented("BlzFrameGetWidth");
-  return 0;
-};
-
-export const BlzFrameSetFont = (
-  frame: framehandle,
-  fileName: string,
-  height: number,
-  flags: number,
-): void => {};
-
-export const BlzFrameSetTextAlignment = (
-  frame: framehandle,
-  vert: textaligntype,
-  horz: textaligntype,
-): void => {};
-
-export const BlzTriggerRegisterFrameEvent = (
-  whichTrigger: trigger,
-  frame: framehandle,
-  eventId: frameeventtype,
-): event => {
-  notImplemented("BlzTriggerRegisterFrameEvent");
-  return (null as unknown) as event;
-};
-
-export const BlzGetTriggerFrame = (): framehandle => {
-  notImplemented("BlzGetTriggerFrame");
-  return (null as unknown) as framehandle;
-};
-
-export const BlzGetTriggerFrameEvent = (): frameeventtype => {
-  notImplemented("BlzGetTriggerFrameEvent");
-  return (null as unknown) as frameeventtype;
-};
-
-export const BlzGetTriggerFrameValue = (): number => {
-  notImplemented("BlzGetTriggerFrameValue");
-  return 0;
-};
-
-export const BlzGetTriggerFrameText = (): string => {
-  notImplemented("BlzGetTriggerFrameText");
-  return "";
-};
-
 export const BlzTriggerRegisterPlayerSyncEvent = (
   whichTrigger: trigger,
   whichPlayer: player,
@@ -4195,32 +3876,6 @@ export const BlzGetTriggerSyncPrefix = (): string => {
 export const BlzGetTriggerSyncData = (): string => {
   notImplemented("BlzGetTriggerSyncData");
   return "";
-};
-
-export const BlzTriggerRegisterPlayerKeyEvent = (
-  whichTrigger: trigger,
-  whichPlayer: player,
-  key: oskeytype,
-  metaKey: number,
-  keyDown: boolean,
-): event => {
-  notImplemented("BlzTriggerRegisterPlayerKeyEvent");
-  return (null as unknown) as event;
-};
-
-export const BlzGetTriggerPlayerKey = (): oskeytype => {
-  notImplemented("BlzGetTriggerPlayerKey");
-  return (null as unknown) as oskeytype;
-};
-
-export const BlzGetTriggerPlayerMetaKey = (): number => {
-  notImplemented("BlzGetTriggerPlayerMetaKey");
-  return 0;
-};
-
-export const BlzGetTriggerPlayerIsKeyDown = (): boolean => {
-  notImplemented("BlzGetTriggerPlayerIsKeyDown");
-  return false;
 };
 
 export const BlzEnableCursor = (enable: boolean): void => {};
@@ -4857,4 +4512,159 @@ export const BlzSetUnitWeaponStringField = (
 ): boolean => {
   notImplemented("BlzSetUnitWeaponStringField");
   return false;
+};
+
+export const SetCinematicAudio = (cinematicAudio: boolean): void => {
+  notImplemented("SetCinematicAudio");
+};
+
+export const CameraSetDepthOfFieldScale = (scale: number): void => {
+  notImplemented("CameraSetDepthOfFieldScale");
+};
+
+export const CameraSetFocalDistance = (distance: number): void => {
+  notImplemented("CameraSetFocalDistance");
+};
+
+export const BlzCameraSetupSetLabel = (
+  whichSetup: camerasetup,
+  label: string,
+): void => {
+  notImplemented("BlzCameraSetupSetLabel");
+};
+
+export const BlzCameraSetupGetLabel = (whichSetup: camerasetup): string => {
+  notImplemented("BlzCameraSetupGetLabel");
+  return "";
+};
+
+export const BlzStartUnitAbilityCooldown = (
+  whichUnit: unit,
+  abilCode: number,
+  cooldown: number,
+): void => {
+  notImplemented("BlzStartUnitAbilityCooldown");
+};
+
+export const BlzShowUnitTeamGlow = (whichUnit: unit, show: boolean): void => {
+  notImplemented("BlzShowUnitTeamGlow");
+};
+
+export const BlzSetUnitFacingEx = (
+  whichUnit: unit,
+  facingAngle: number,
+): void => {
+  notImplemented("BlzSetUnitFacingEx");
+};
+
+export const BlzSetUnitSkin = (whichUnit: unit, skinId: number): void => {
+  notImplemented("BlzSetUnitSkin");
+};
+
+export const BlzGetUnitSkin = (whichUnit: unit): number => {
+  notImplemented("BlzGetUnitSkin");
+  return 0;
+};
+
+export const BlzCreateUnitWithSkin = (
+  id: player,
+  unitid: number,
+  x: number,
+  y: number,
+  face: number,
+  skinId: number,
+): unit => {
+  notImplemented("BlzCreateUnitWithSkin");
+  return null as unknown as unit;
+};
+
+export const TriggerRegisterUpgradeCommandEvent = (
+  whichTrigger: trigger,
+  whichUpgrade: number,
+): event => {
+  notImplemented("TriggerRegisterUpgradeCommandEvent");
+  return null as unknown as event;
+};
+
+export const TriggerRegisterCommandEvent = (
+  whichTrigger: trigger,
+  whichAbility: number,
+  order: string,
+): event => {
+  notImplemented("TriggerRegisterCommandEvent");
+  return null as unknown as event;
+};
+
+export const SetSoundFacialAnimationLabel = (
+  soundHandle: sound,
+  animationLabel: string,
+): boolean => {
+  notImplemented("SetSoundFacialAnimationLabel");
+  return false;
+};
+
+export const SetSoundFacialAnimationGroupLabel = (
+  soundHandle: sound,
+  groupLabel: string,
+): boolean => {
+  notImplemented("SetSoundFacialAnimationGroupLabel");
+  return false;
+};
+
+export const SetSoundFacialAnimationSetFilepath = (
+  soundHandle: sound,
+  animationSetFilepath: string,
+): boolean => {
+  notImplemented("SetSoundFacialAnimationSetFilepath");
+  return false;
+};
+
+export const SetDialogueTextKey = (
+  soundHandle: sound,
+  dialogueText: string,
+): boolean => {
+  notImplemented("SetDialogueTextKey");
+  return false;
+};
+
+export const GetDialogueTextKey = (soundHandle: sound): string => {
+  notImplemented("GetDialogueTextKey");
+  return "";
+};
+
+export const SetDialogueSpeakerNameKey = (
+  soundHandle: sound,
+  speakerName: string,
+): boolean => {
+  notImplemented("SetDialogueSpeakerNameKey");
+  return false;
+};
+
+export const GetDialogueSpeakerNameKey = (soundHandle: sound): string => {
+  notImplemented("GetDialogueSpeakerNameKey");
+  return "";
+};
+
+export const BlzGetPlayerTownHallCount = (whichPlayer: player): number => {
+  notImplemented("BlzGetPlayerTownHallCount");
+  return 0;
+};
+
+export const BlzSetItemSkin = (whichItem: item, skinId: number): void => {
+  notImplemented("BlzSetItemSkin");
+};
+
+export const BlzGetItemSkin = (whichItem: item): number => {
+  notImplemented("BlzGetItemSkin");
+  return 0;
+};
+
+export const BlzCreateItemWithSkin = (
+  itemid: number,
+  x: number,
+  y: number,
+  skinId: number,
+): item => {
+  notImplemented("BlzCreateItemWithSkin");
+  return null as unknown as item;
 };
