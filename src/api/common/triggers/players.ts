@@ -1,6 +1,13 @@
 // deno-lint-ignore-file no-unused-vars
 import { notImplemented } from "../../../errors";
 import { newRun, wrapRun } from "../../../Run";
+import { adapter } from "../../../ui/adapter";
+import {
+  EVENT_PLAYER_CHAT,
+  EVENT_PLAYER_KEY_DOWN,
+  EVENT_PLAYER_KEY_UP,
+} from "../constants/gamePlayerAndUnitEvents";
+import { GetLocalPlayer } from "../players";
 import { getEvent } from "./events";
 
 // ============================================================================
@@ -12,8 +19,12 @@ export const TriggerRegisterPlayerEvent = (
   whichPlayer: player,
   whichPlayerEvent: playerevent,
 ): event => {
-  notImplemented("TriggerRegisterPlayerEvent");
-  return (null as unknown) as event;
+  const event = getEvent(whichPlayerEvent);
+  event.player = whichPlayer;
+
+  whichTrigger.events.push(event);
+
+  return event;
 };
 
 // EVENT_PLAYER_DEFEAT
@@ -28,8 +39,13 @@ export const TriggerRegisterPlayerUnitEvent = (
   whichPlayerUnitEvent: playerunitevent,
   filter: boolexpr | null,
 ): event => {
-  notImplemented("TriggerRegisterPlayerUnitEvent");
-  return (null as unknown) as event;
+  const event = getEvent(whichPlayerUnitEvent);
+  event.player = whichPlayer;
+  if (filter) event.filter = filter;
+
+  whichTrigger.events.push(event);
+
+  return event;
 };
 
 // EVENT_PLAYER_HERO_LEVEL
@@ -380,7 +396,7 @@ export const TriggerRegisterPlayerChatEvent = (
     );
   };
 
-  const event = getEvent();
+  const event = getEvent(EVENT_PLAYER_CHAT);
   whichPlayer.addChatListener(callback, event);
   return event;
 };
@@ -404,4 +420,44 @@ export const TriggerRegisterDeathEvent = (
 ): event => {
   notImplemented("TriggerRegisterDeathEvent");
   return (null as unknown) as event;
+};
+
+export const BlzTriggerRegisterPlayerKeyEvent = (
+  whichTrigger: trigger,
+  whichPlayer: player,
+  key: oskeytype,
+  metaKey: number,
+  keyDown: boolean,
+): event => {
+  const event = getEvent(keyDown ? EVENT_PLAYER_KEY_DOWN : EVENT_PLAYER_KEY_UP);
+
+  // TODO: cleanup when clearing events... or don't hook here at all
+  if (whichPlayer === GetLocalPlayer()) {
+    adapter.addListener(keyDown ? "keydown" : "keyup", (e) => {
+      // TODO: check metaKey
+      if (e.keyCode === key.oskeytypeId) {
+        newRun({ triggeringPlayer: whichPlayer, triggerKey: key }, () => {
+          if (whichTrigger.evaluate()) whichTrigger.execute();
+        });
+      }
+    });
+  }
+
+  whichTrigger.events.push(event);
+
+  return event;
+};
+
+export const BlzGetTriggerPlayerKey = wrapRun((run): oskeytype | null =>
+  run.triggerKey
+);
+
+export const BlzGetTriggerPlayerMetaKey = (): number => {
+  notImplemented("BlzGetTriggerPlayerMetaKey");
+  return 0;
+};
+
+export const BlzGetTriggerPlayerIsKeyDown = (): boolean => {
+  notImplemented("BlzGetTriggerPlayerIsKeyDown");
+  return false;
 };

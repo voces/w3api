@@ -29,6 +29,16 @@ declare interface agent extends handle {
 }
 declare interface event extends agent {
   eventId: number;
+  type: eventid | frameeventtype;
+  player?: player;
+  region?: region;
+  trackable?: trackable;
+  filter?: boolexpr;
+  button?: button;
+  dialog?: dialog;
+  gamestate?: gamestate;
+  limitop?: limitop;
+  limitval?: number;
 }
 declare interface player extends agent {
   alliances: Map<player, Map<alliancetype, boolean>>;
@@ -99,7 +109,7 @@ declare interface trigger extends agent {
 }
 declare interface triggercondition extends agent {
   triggerconditionId: number;
-  condition: conditionfunc;
+  condition: boolexpr;
 }
 declare interface triggeraction extends handle {
   triggeractionId: number;
@@ -369,7 +379,16 @@ declare interface hashtable extends agent {
 }
 type RelativeFrameSide = {
   relative: framehandle;
-  relativeSide: "left" | "top" | "right" | "bottom" | framepointtype;
+  relativeSide:
+    | "topleft"
+    | "top"
+    | "topright"
+    | "left"
+    | "center"
+    | "right"
+    | "bottomleft"
+    | "bottom"
+    | "bottomright";
   xOffset: number;
   yOffset: number;
 };
@@ -395,6 +414,8 @@ declare interface framehandle extends handle {
   children: framehandle[];
   text?: string;
   visible: boolean;
+  scale: number;
+  image?: string;
 }
 declare interface originframetype extends handle {
   originframetypeId: number;

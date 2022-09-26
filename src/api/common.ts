@@ -3878,32 +3878,6 @@ export const BlzGetTriggerSyncData = (): string => {
   return "";
 };
 
-export const BlzTriggerRegisterPlayerKeyEvent = (
-  whichTrigger: trigger,
-  whichPlayer: player,
-  key: oskeytype,
-  metaKey: number,
-  keyDown: boolean,
-): event => {
-  notImplemented("BlzTriggerRegisterPlayerKeyEvent");
-  return (null as unknown) as event;
-};
-
-export const BlzGetTriggerPlayerKey = (): oskeytype => {
-  notImplemented("BlzGetTriggerPlayerKey");
-  return (null as unknown) as oskeytype;
-};
-
-export const BlzGetTriggerPlayerMetaKey = (): number => {
-  notImplemented("BlzGetTriggerPlayerMetaKey");
-  return 0;
-};
-
-export const BlzGetTriggerPlayerIsKeyDown = (): boolean => {
-  notImplemented("BlzGetTriggerPlayerIsKeyDown");
-  return false;
-};
-
 export const BlzEnableCursor = (enable: boolean): void => {};
 
 export const BlzSetMousePos = (x: number, y: number): void => {};

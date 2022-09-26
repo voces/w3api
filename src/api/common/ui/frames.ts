@@ -2,6 +2,7 @@
 
 import { notImplemented } from "../../../errors";
 import { contextIndexer, getHandle } from "../../../handles";
+import { newRun } from "../../../Run";
 import { adapter } from "../../../ui/adapter";
 import {
   FRAMEPOINT_BOTTOM,
@@ -14,6 +15,7 @@ import {
   FRAMEPOINT_TOPLEFT,
   FRAMEPOINT_TOPRIGHT,
 } from "../constants";
+import { getEvent } from "../triggers/events";
 
 export const BlzGetOriginFrame = (
   frameType: originframetype,
@@ -64,7 +66,10 @@ export const BlzCreateFrame = contextIndexer(
       },
       children: [],
       visible: true,
+      scale: 1,
     };
+    // owner may be missing on root frame
+    owner?.children.push(fh);
     fh.node = adapter.createNode(fh, owner);
     return fh;
   },
@@ -89,7 +94,9 @@ export const BlzCreateFrameByType = (
   return frame;
 };
 
-export const BlzDestroyFrame = (frame: framehandle): void => {};
+export const BlzDestroyFrame = (frame: framehandle): void => {
+  adapter.remove(frame);
+};
 
 const leftPoints = [FRAMEPOINT_TOPLEFT, FRAMEPOINT_LEFT, FRAMEPOINT_BOTTOMLEFT];
 const rightPoints = [
@@ -103,6 +110,17 @@ const bottomPoints = [
   FRAMEPOINT_BOTTOM,
   FRAMEPOINT_BOTTOMLEFT,
 ];
+const pointMap = new Map<framepointtype, RelativeFrameSide["relativeSide"]>([
+  [FRAMEPOINT_TOPLEFT, "topleft"],
+  [FRAMEPOINT_TOP, "top"],
+  [FRAMEPOINT_TOPRIGHT, "topright"],
+  [FRAMEPOINT_LEFT, "left"],
+  [FRAMEPOINT_CENTER, "center"],
+  [FRAMEPOINT_RIGHT, "right"],
+  [FRAMEPOINT_BOTTOMLEFT, "bottomleft"],
+  [FRAMEPOINT_BOTTOM, "bottom"],
+  [FRAMEPOINT_BOTTOMRIGHT, "bottomright"],
+]);
 
 export const BlzFrameSetPoint = (
   frame: framehandle,
@@ -112,49 +130,32 @@ export const BlzFrameSetPoint = (
   x: number,
   y: number,
 ): void => {
+  const relativeSide = pointMap.get(relativePoint);
+  if (!relativeSide) {
+    return console.warn(
+      "Unknown relativePoint passed to BlzFrameSetPoint: " +
+        relativePoint.framepointtypeId,
+    );
+  }
+
   if (leftPoints.includes(point)) {
-    frame.pos.left = {
-      relative,
-      relativeSide: leftPoints.includes(relativePoint) ? "left" : "right",
-      xOffset: x,
-      yOffset: 0,
-    };
+    frame.pos.left = { relative, relativeSide, xOffset: x, yOffset: 0 };
   }
 
   if (rightPoints.includes(point)) {
-    frame.pos.right = {
-      relative,
-      relativeSide: leftPoints.includes(relativePoint) ? "left" : "right",
-      xOffset: x,
-      yOffset: 0,
-    };
+    frame.pos.right = { relative, relativeSide, xOffset: x, yOffset: 0 };
   }
 
   if (topPoints.includes(point)) {
-    frame.pos.top = {
-      relative,
-      relativeSide: topPoints.includes(relativePoint) ? "top" : "bottom",
-      xOffset: 0,
-      yOffset: y,
-    };
+    frame.pos.top = { relative, relativeSide, xOffset: 0, yOffset: y };
   }
 
   if (bottomPoints.includes(point)) {
-    frame.pos.bottom = {
-      relative,
-      relativeSide: topPoints.includes(relativePoint) ? "top" : "bottom",
-      xOffset: 0,
-      yOffset: y,
-    };
+    frame.pos.bottom = { relative, relativeSide, xOffset: 0, yOffset: y };
   }
 
   if (point === FRAMEPOINT_CENTER) {
-    frame.pos.center = {
-      relative,
-      relativeSide: relativePoint,
-      xOffset: x,
-      yOffset: y,
-    };
+    frame.pos.center = { relative, relativeSide, xOffset: x, yOffset: y };
   }
 
   adapter.update(frame);
@@ -217,7 +218,7 @@ export const BlzFrameIsVisible = (frame: framehandle): boolean => {
 export const BlzGetFrameByName = (
   name: string,
   createContext: number,
-): framehandle => adapter.selectAll(name)[createContext];
+): framehandle => adapter.selectAll(`[name=${name}]`)[createContext];
 
 export const BlzFrameGetName = (frame: framehandle): string => {
   notImplemented("BlzFrameGetName");
@@ -228,14 +229,16 @@ export const BlzFrameClick = (frame: framehandle): void => {};
 
 export const BlzFrameSetText = (frame: framehandle, text: string): void => {
   frame.text = text;
+  adapter.update(frame);
 };
 
-export const BlzFrameGetText = (frame: framehandle): string => {
-  notImplemented("BlzFrameGetText");
-  return "";
-};
+export const BlzFrameGetText = (frame: framehandle): string | undefined =>
+  frame.text;
 
-export const BlzFrameAddText = (frame: framehandle, text: string): void => {};
+export const BlzFrameAddText = (frame: framehandle, text: string): void => {
+  frame.text = (frame.text ?? "") + text;
+  adapter.update(frame);
+};
 
 export const BlzFrameSetTextSizeLimit = (
   frame: framehandle,
@@ -288,9 +291,15 @@ export const BlzFrameSetTexture = (
   texFile: string,
   flag: number,
   blend: boolean,
-): void => {};
+): void => {
+  frame.image = texFile;
+  adapter.update(frame);
+};
 
-export const BlzFrameSetScale = (frame: framehandle, scale: number): void => {};
+export const BlzFrameSetScale = (frame: framehandle, scale: number): void => {
+  frame.scale = scale;
+  adapter.update(frame);
+};
 
 export const BlzFrameSetTooltip = (
   frame: framehandle,
@@ -375,8 +384,16 @@ export const BlzTriggerRegisterFrameEvent = (
   frame: framehandle,
   eventId: frameeventtype,
 ): event => {
-  notImplemented("BlzTriggerRegisterFrameEvent");
-  return (null as unknown) as event;
+  const event = getEvent(eventId);
+  whichTrigger.events.push(event);
+
+  adapter.addFrameListener(frame, eventId, () => {
+    newRun({}, () => {
+      if (whichTrigger.evaluate()) whichTrigger.execute();
+    });
+  });
+
+  return event;
 };
 
 export const BlzGetTriggerFrame = (): framehandle => {

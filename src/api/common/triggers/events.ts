@@ -1,5 +1,9 @@
 import { contextIndexer, getAgent } from "../../../handles";
 
 export const getEvent = contextIndexer(
-  (id): event => ({ ...getAgent(), eventId: id }),
+  (id, type: eventid | frameeventtype): event => ({
+    ...getAgent(),
+    eventId: id,
+    type,
+  }),
 );

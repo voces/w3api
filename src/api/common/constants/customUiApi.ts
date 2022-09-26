@@ -27,6 +27,13 @@ export const ORIGIN_FRAME_UNIT_MSG = ConvertOriginFrameType(14);
 export const ORIGIN_FRAME_TOP_MSG = ConvertOriginFrameType(15);
 export const ORIGIN_FRAME_PORTRAIT = ConvertOriginFrameType(16);
 export const ORIGIN_FRAME_WORLD_FRAME = ConvertOriginFrameType(17);
+export const ORIGIN_FRAME_SIMPLE_UI_PARENT = ConvertOriginFrameType(18);
+export const ORIGIN_FRAME_PORTRAIT_HP_TEXT = ConvertOriginFrameType(19);
+export const ORIGIN_FRAME_PORTRAIT_MANA_TEXT = ConvertOriginFrameType(20);
+export const ORIGIN_FRAME_UNIT_PANEL_BUFF_BAR = ConvertOriginFrameType(21);
+export const ORIGIN_FRAME_UNIT_PANEL_BUFF_BAR_LABEL = ConvertOriginFrameType(
+  22,
+);
 
 export const FRAMEPOINT_TOPLEFT = ConvertFramePointType(0);
 export const FRAMEPOINT_TOP = ConvertFramePointType(1);

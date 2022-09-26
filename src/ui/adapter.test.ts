@@ -1,6 +1,6 @@
 import {
   getAspectRatio,
-  getScale,
+  getGlobalScale,
   getXOffset,
   getYOffset,
   wc2px,
@@ -15,7 +15,7 @@ it("when aspect ratio is 4:3", () => {
   expect(getAspectRatio()).toEqual(4 / 3);
   expect(getXOffset()).toEqual(0);
   expect(getYOffset()).toEqual(0);
-  expect(getScale()).toEqual(2000);
+  expect(getGlobalScale()).toEqual(2000);
 
   expect(wc2px(0)).toEqual(0);
 
@@ -37,7 +37,7 @@ it("when aspect ratio is 16:10", () => {
   expect(getAspectRatio()).toEqual(16 / 10);
   expect(getXOffset()).toBeCloseTo(160);
   expect(getYOffset()).toEqual(0);
-  expect(getScale()).toEqual(2000);
+  expect(getGlobalScale()).toEqual(2000);
 
   expect(wc2px(0)).toEqual(0);
 
@@ -58,7 +58,7 @@ it("when aspect ratio is 1:1", () => {
   expect(getAspectRatio()).toEqual(1);
   expect(getXOffset()).toBeCloseTo(0);
   expect(getYOffset()).toBeCloseTo(150);
-  expect(getScale()).toEqual(1500);
+  expect(getGlobalScale()).toEqual(1500);
 
   expect(wc2px(0)).toEqual(0);
 

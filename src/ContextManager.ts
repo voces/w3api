@@ -44,9 +44,14 @@ export class ContextManager {
   with<T>(context: Context, fn: () => T): T {
     const oldContext = this.currentContext;
     this.currentContext = context;
-    const v = fn();
-    this.currentContext = oldContext;
-    return v;
+    try {
+      const v = fn();
+      this.currentContext = oldContext;
+      return v;
+    } catch (err) {
+      this.currentContext = oldContext;
+      throw err;
+    }
   }
 
   /**
@@ -56,9 +61,14 @@ export class ContextManager {
   withTemp<T>(fn: (context: Context) => T): T {
     const oldContext = this.currentContext;
     this.currentContext = newContext();
-    const v = fn(this.currentContext);
-    this.currentContext = oldContext;
-    return v;
+    try {
+      const v = fn(this.currentContext);
+      this.currentContext = oldContext;
+      return v;
+    } catch (err) {
+      this.currentContext = oldContext;
+      throw err;
+    }
   }
 
   /**
@@ -67,9 +77,14 @@ export class ContextManager {
   fork<T>(fn: () => T): T {
     const oldContext = this.currentContext;
     this.currentContext = { ...oldContext };
-    const v = fn();
-    this.currentContext = oldContext;
-    return v;
+    try {
+      const v = fn();
+      this.currentContext = oldContext;
+      return v;
+    } catch (err) {
+      this.currentContext = oldContext;
+      throw err;
+    }
   }
 
   /**

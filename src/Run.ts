@@ -27,6 +27,7 @@ type RunData = {
   triggeringTrackable: trackable | null;
   triggeringTrigger: trigger | null;
   triggerUnit: unit | null;
+  triggerKey: oskeytype | null;
   winningPlayer: player | null;
 };
 
@@ -58,6 +59,7 @@ export const wrapRun = runContext.dataWrapper(
     triggeringTrackable: null,
     triggeringTrigger: null,
     triggerUnit: null,
+    triggerKey: null,
     winningPlayer: null,
   }),
 );
