@@ -336,7 +336,7 @@ export const adapter: Adapter = {
       const html = frame.text
         .replace(/\|cff([0-9a-fA-F]{6})/g, '<div style="color: #$1">')
         .replace(/\|r/g, "</div>");
-      (element as any).setHTML(html);
+      (element as unknown as { setHTML: (html: string) => void }).setHTML(html);
     }
 
     if (typeof frame.image === "string") {
@@ -352,7 +352,7 @@ export const adapter: Adapter = {
     }
 
     // size & points
-    let updated = new Set();
+    const updated = new Set();
     updateSizeAndPosition(frame, updated);
     if (visibilityChange) {
       frame.children.forEach((child) => updateSizeAndPosition(child, updated));
