@@ -176,8 +176,8 @@ const getXAnchor = (frame: framehandle, width?: number): number | undefined => {
     if ("x" in frame.pos.center) return frame.pos.center.x - width / 2;
 
     if (frame.parent) {
-      const top = resolveY(frame, frame.pos.center);
-      if (top !== undefined) return top - width / 2;
+      const left = resolveX(frame, frame.pos.center);
+      if (left !== undefined) return left - width / 2;
     }
   }
 };
@@ -211,11 +211,11 @@ export const wcy2px = (y: number): number => wc2px(0.6 - y) + getYOffset();
 export const wcx2px = (x: number): number => wc2px(x) + getXOffset();
 
 // TODO: Is it safe to batch these calls?
-const updateSizeAndPosition = (frame: framehandle, updated = new Set()) => {
-  if (updated.has(frame)) {
-    console.error("recursive updateSizeAndPosition");
-    return;
-  }
+const updateSizeAndPosition = (
+  frame: framehandle,
+  updated = new Set<framehandle>(),
+) => {
+  if (updated.has(frame)) return;
   updated.add(frame);
 
   const reverseDeps = reversePositionDependencies.get(frame);
@@ -352,7 +352,7 @@ export const adapter: Adapter = {
     }
 
     // size & points
-    const updated = new Set();
+    const updated = new Set<framehandle>();
     updateSizeAndPosition(frame, updated);
     if (visibilityChange) {
       frame.children.forEach((child) => updateSizeAndPosition(child, updated));
