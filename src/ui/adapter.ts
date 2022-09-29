@@ -251,7 +251,7 @@ const frameEventMap = new Map([
   [FRAMEEVENT_MOUSE_LEAVE, "mouseleave"],
   [FRAMEEVENT_MOUSE_UP, "mouseup"],
   [FRAMEEVENT_MOUSE_DOWN, "mousedown"],
-  [FRAMEEVENT_MOUSE_WHEEL, "scroll"],
+  [FRAMEEVENT_MOUSE_WHEEL, "wheel"],
   // TODO: need to wrap these...
   [FRAMEEVENT_CHECKBOX_CHECKED, "change"],
   [FRAMEEVENT_CHECKBOX_UNCHECKED, "change"],
