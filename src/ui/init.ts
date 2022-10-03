@@ -6,11 +6,14 @@ import {
   BlzCreateFrame,
   BlzFrameSetAbsPoint,
   BlzFrameSetSize,
+  BlzLoadTOCFile,
 } from "../api/common/ui/frames";
 import { wrapGame } from "../Game";
 import { adapter } from "./adapter";
 
 export const initUI = wrapGame(() => {
+  BlzLoadTOCFile("ui/framedef/framedef.toc");
+
   const gameUI = BlzCreateFrame(
     // TODO: grab the actual name
     "ORIGIN_FRAME_GAME_UI",
