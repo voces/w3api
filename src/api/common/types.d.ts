@@ -416,6 +416,7 @@ declare interface framehandle extends handle {
   visible: boolean;
   scale: number;
   image?: string;
+  controlStyles?: string[];
 }
 declare interface originframetype extends handle {
   originframetypeId: number;

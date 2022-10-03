@@ -8,6 +8,7 @@ import {
 } from "./api/common/constants/mapSetup";
 import { BinaryHeap } from "./BinaryHeap";
 import { gameContext } from "./contexts";
+import type { FdfFrame } from "./helpers/fdf";
 import { newRun } from "./Run";
 
 export class Game {
@@ -31,6 +32,8 @@ export class Game {
   timers = new BinaryHeap((t: timer) => t.nextTick);
   triggers: Set<trigger> = new Set();
   localPlayerId = 0;
+  frameDefs: Record<string, FdfFrame> = {};
+  loadedFdfs = new Set<string>();
 
   data: {
     units: Record<string, UnitSpec>;
