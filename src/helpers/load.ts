@@ -15,7 +15,6 @@ export const load = (path: string): string | undefined => {
   if (req.status >= 400) {
     req.open(
       "GET",
-      // `https://www.hiveworkshop.com/assets/wc3/war3.w3mod/${path}`,
       `https://www.hiveworkshop.com/casc-contents?path=${path}`,
       false,
     );

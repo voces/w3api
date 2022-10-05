@@ -4,7 +4,7 @@ import { notImplemented } from "../../../errors";
 import { Game, wrapGame } from "../../../Game";
 import { contextIndexer, getHandle } from "../../../handles";
 import { load } from "../../../helpers";
-import { FdfArg, loadFdf } from "../../../helpers/fdf";
+import { FdfArg, FdfFrame, loadFdf } from "../../../helpers/fdf";
 import { newRun } from "../../../Run";
 import { adapter } from "../../../ui/adapter";
 import {
@@ -60,9 +60,13 @@ export const BlzLoadTOCFile = wrapGame((game, TOCFile: string): boolean => {
 });
 
 type ParseArg<T> = {
-  (args: FdfArg[] | undefined, name: string, fn: (text: T) => void): void;
   (
-    args: FdfArg[] | undefined,
+    args: ReadonlyArray<FdfArg> | undefined,
+    name: string,
+    fn: (text: T) => void,
+  ): void;
+  (
+    args: ReadonlyArray<FdfArg> | undefined,
     name: string,
     index: number,
     fn: (text: T) => void,
@@ -70,7 +74,7 @@ type ParseArg<T> = {
 };
 
 const parseString = ((
-  args: FdfArg[] | undefined,
+  args: ReadonlyArray<FdfArg> | undefined,
   name: string,
   index: number | ((text: string) => void),
   fn: undefined | ((text: string) => void),
@@ -83,12 +87,14 @@ const parseString = ((
   const value = args?.[index];
   if (typeof value === "string") fn!(value);
   else {console.warn(
-      `Expected string for ${name}, got: ${JSON.stringify(value)}`,
+      `Expected string for ${name}, got: ${
+        JSON.stringify(value)
+      } (index ${index}) in ${JSON.stringify(args)}`,
     );}
 }) as ParseArg<string>;
 
 const parseNumber = ((
-  args: FdfArg[] | undefined,
+  args: ReadonlyArray<FdfArg> | undefined,
   name: string,
   index: number | ((value: number) => void),
   fn: undefined | ((value: number) => void),
@@ -101,7 +107,9 @@ const parseNumber = ((
   const value = args?.[index];
   if (typeof value === "number") fn!(value);
   else {console.warn(
-      `Expected number for ${name}, got: ${JSON.stringify(value)}`,
+      `Expected number for ${name}, got: ${
+        JSON.stringify(value)
+      } (index ${index}) in ${JSON.stringify(args)}`,
     );}
 }) as ParseArg<number>;
 
@@ -148,7 +156,8 @@ const createFrame = wrapGame(
     // owner may be missing on root frame
     owner?.children.push(fh);
 
-    const inherits = fh.inherits ? game.frameDefs[fh.inherits] : undefined;
+    const inherits: FdfFrame | undefined =
+      game.frameDefs[fh.inherits ?? fh.name];
     let decorateFileNames = false;
     const functionalChildren = new Set<string>();
     if (inherits) {
@@ -170,8 +179,10 @@ const createFrame = wrapGame(
             break;
           case "Width":
             parseNumber(args, "Width", (width) => fh.width = width);
+            break;
           case "Height":
             parseNumber(args, "Height", (height) => fh.height = height);
+            break;
           case "ControlStyle":
             parseString(
               args,
@@ -182,8 +193,11 @@ const createFrame = wrapGame(
           case "ButtonPushedTextOffset":
             // IDK
             break;
+          case "FrameFont":
+            parseNumber(args, "FrameFont", 1, (size) => fh.fontSize = size);
+            break;
           default:
-            console.warn(`Unhandled fdf property ${property.name}`);
+            // console.warn(`Unhandled fdf property ${property.name}`);
         }
       }
     }
@@ -435,12 +449,13 @@ export const BlzFrameGetEnable = (frame: framehandle): boolean => {
   return false;
 };
 
-export const BlzFrameSetAlpha = (frame: framehandle, alpha: number): void => {};
-
-export const BlzFrameGetAlpha = (frame: framehandle): number => {
-  notImplemented("BlzFrameGetAlpha");
-  return 0;
+export const BlzFrameSetAlpha = (frame: framehandle, alpha: number): void => {
+  frame.alpha = alpha;
+  adapter.update(frame);
 };
+
+export const BlzFrameGetAlpha = (frame: framehandle): number =>
+  frame.alpha ?? 255;
 
 export const BlzFrameSetSpriteAnimate = (
   frame: framehandle,

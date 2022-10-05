@@ -62,7 +62,7 @@ export type FdfArg = string | number | FdfId;
 
 type FdfProperty = {
   name: string;
-  args?: FdfArg[];
+  args?: ReadonlyArray<FdfArg>;
 };
 
 export type FdfFrame = {
