@@ -1,4 +1,3 @@
-import { readFileSync } from "fs";
 import { parseFdf, tokenizeFdf } from "./fdf";
 
 describe("tokenize", () => {

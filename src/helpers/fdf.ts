@@ -105,8 +105,9 @@ const parseProperty = (context: Context): FdfProperty => {
     else if (token.type === "id") {
       args.push({ type: "FdfId", name: token.content });
     } else if (token.type === "number") args.push(parseFloat(token.content));
-    else if (token.type == "comma" || token.type === "comment") {}
-    else {throw new Error(
+    else if (
+      token.type == "comma" || token.type === "comment"
+    ) { /* do nothing */ } else {throw new Error(
         `Unexpected token when parsing property: ${JSON.stringify(token)}`,
       );}
   }
