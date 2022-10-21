@@ -1,7 +1,10 @@
 // deno-lint-ignore-file no-unused-vars
 
 import { notImplemented } from "../../../errors";
+import { Game, wrapGame } from "../../../Game";
 import { contextIndexer, getHandle } from "../../../handles";
+import { load } from "../../../helpers";
+import { FdfArg, FdfFrame, loadFdf } from "../../../helpers/fdf";
 import { newRun } from "../../../Run";
 import { adapter } from "../../../ui/adapter";
 import {
@@ -34,26 +37,108 @@ export const BlzConvertColor = (
   b: number,
 ): number => a * 255 ** 3 + r * 255 ** 2 + g * 255 + b;
 
-export const BlzLoadTOCFile = (TOCFile: string): boolean => {
-  notImplemented("BlzLoadTOCFile", true);
-  return false;
+export const BlzLoadTOCFile = wrapGame((game, TOCFile: string): boolean => {
+  try {
+    const contents = load(TOCFile);
+    if (!contents) return false;
+
+    const fdfs = contents.split("\n").filter((v) => v.length > 0);
+    fdfs.forEach((fdf) => {
+      if (game.loadedFdfs.has(fdf.toLowerCase())) return;
+      game.loadedFdfs.add(fdf.toLowerCase());
+      const contents = load(fdf);
+      if (!contents) return;
+
+      loadFdf(game, contents);
+    });
+
+    return true;
+  } catch (err) {
+    console.error(err);
+    return false;
+  }
+});
+
+type ParseArg<T> = {
+  (
+    args: ReadonlyArray<FdfArg> | undefined,
+    name: string,
+    fn: (text: T) => void,
+  ): void;
+  (
+    args: ReadonlyArray<FdfArg> | undefined,
+    name: string,
+    index: number,
+    fn: (text: T) => void,
+  ): void;
 };
 
-export const BlzCreateFrame = contextIndexer(
-  (
-    id,
-    name: string,
-    owner: framehandle,
-    priority: number,
-    createContext: number,
-  ): framehandle => {
+const parseString = ((
+  args: ReadonlyArray<FdfArg> | undefined,
+  name: string,
+  index: number | ((text: string) => void),
+  fn: undefined | ((text: string) => void),
+) => {
+  if (typeof index === "function") {
+    fn = index;
+    index = 0;
+  }
+
+  const value = args?.[index];
+  if (typeof value === "string") fn!(value);
+  else {console.warn(
+      `Expected string for ${name}, got: ${
+        JSON.stringify(value)
+      } (index ${index}) in ${JSON.stringify(args)}`,
+    );}
+}) as ParseArg<string>;
+
+const parseNumber = ((
+  args: ReadonlyArray<FdfArg> | undefined,
+  name: string,
+  index: number | ((value: number) => void),
+  fn: undefined | ((value: number) => void),
+) => {
+  if (typeof index === "function") {
+    fn = index;
+    index = 0;
+  }
+
+  const value = args?.[index];
+  if (typeof value === "number") fn!(value);
+  else {console.warn(
+      `Expected number for ${name}, got: ${
+        JSON.stringify(value)
+      } (index ${index}) in ${JSON.stringify(args)}`,
+    );}
+}) as ParseArg<number>;
+
+const createFrame = wrapGame(
+  contextIndexer((id, game: Game, { owner, ...props }:
+    & Omit<
+      framehandle,
+      | "framehandleId"
+      | "parent"
+      | "node"
+      | "width"
+      | "height"
+      | "pos"
+      | "children"
+      | "visible"
+      | "scale"
+      | keyof ReturnType<typeof getHandle>
+    >
+    & Partial<
+      Pick<framehandle, "width" | "height" | "pos" | "visible" | "scale">
+    >
+    & {
+      owner: framehandle | null;
+    }) => {
     const fh: framehandle = {
       ...getHandle(),
+      ...props,
       framehandleId: id,
-      name,
       parent: owner,
-      priority,
-      createContext,
       node: null,
       width: 0,
       height: 0,
@@ -70,10 +155,105 @@ export const BlzCreateFrame = contextIndexer(
     };
     // owner may be missing on root frame
     owner?.children.push(fh);
-    fh.node = adapter.createNode(fh, owner);
+
+    const inherits: FdfFrame | undefined =
+      game.frameDefs[fh.inherits ?? fh.name];
+    let decorateFileNames = false;
+    const functionalChildren = new Set<string>();
+    if (inherits) {
+      for (const property of (inherits.properties ?? [])) {
+        const args = property.args;
+        switch (property.name) {
+          case "DecorateFileNames":
+            decorateFileNames = true;
+            break;
+          case "ButtonText":
+            parseString(
+              args,
+              "ButtonText",
+              (name) => functionalChildren.add(name),
+            );
+            break;
+          case "Text":
+            parseString(args, "Text", (text) => fh.text = text);
+            break;
+          case "Width":
+            parseNumber(args, "Width", (width) => fh.width = width);
+            break;
+          case "Height":
+            parseNumber(args, "Height", (height) => fh.height = height);
+            break;
+          case "ControlStyle":
+            parseString(
+              args,
+              "ControlStyle",
+              (styles) => fh.controlStyles = styles.split("|"),
+            );
+            break;
+          case "ButtonPushedTextOffset":
+            // IDK
+            break;
+          case "FrameFont":
+            parseNumber(args, "FrameFont", 1, (size) => fh.fontSize = size);
+            break;
+          default:
+            // console.warn(`Unhandled fdf property ${property.name}`);
+        }
+      }
+    }
+
+    fh.node = adapter.createNode(fh, owner!);
+
+    if (inherits) {
+      for (const child of (inherits.children ?? [])) {
+        createFrame({
+          name: child.name,
+          owner: fh,
+          priority: 0,
+          createContext: 0,
+          pos: functionalChildren.has(child.name)
+            ? {
+              top: {
+                relative: fh,
+                relativeSide: "top",
+                xOffset: 0,
+                yOffset: 0,
+              },
+              bottom: {
+                relative: fh,
+                relativeSide: "bottom",
+                xOffset: 0,
+                yOffset: 0,
+              },
+              left: {
+                relative: fh,
+                relativeSide: "left",
+                xOffset: 0,
+                yOffset: 0,
+              },
+              right: {
+                relative: fh,
+                relativeSide: "right",
+                xOffset: 0,
+                yOffset: 0,
+              },
+              center: undefined,
+            }
+            : undefined,
+        });
+      }
+    }
+
     return fh;
-  },
+  }),
 );
+
+export const BlzCreateFrame = (
+  name: string,
+  owner: framehandle,
+  priority: number,
+  createContext: number,
+): framehandle => createFrame({ name, owner, priority, createContext });
 
 export const BlzCreateSimpleFrame = (
   name: string,
@@ -87,12 +267,8 @@ export const BlzCreateFrameByType = (
   owner: framehandle,
   inherits: string,
   createContext: number,
-): framehandle => {
-  const frame = BlzCreateFrame(name, owner, -1, createContext);
-  frame.typeName = typeName;
-  frame.inherits = inherits;
-  return frame;
-};
+): framehandle =>
+  createFrame({ name, owner, inherits, typeName, createContext, priority: -1 });
 
 export const BlzDestroyFrame = (frame: framehandle): void => {
   adapter.remove(frame);
@@ -273,12 +449,13 @@ export const BlzFrameGetEnable = (frame: framehandle): boolean => {
   return false;
 };
 
-export const BlzFrameSetAlpha = (frame: framehandle, alpha: number): void => {};
-
-export const BlzFrameGetAlpha = (frame: framehandle): number => {
-  notImplemented("BlzFrameGetAlpha");
-  return 0;
+export const BlzFrameSetAlpha = (frame: framehandle, alpha: number): void => {
+  frame.alpha = alpha;
+  adapter.update(frame);
 };
+
+export const BlzFrameGetAlpha = (frame: framehandle): number =>
+  frame.alpha ?? 255;
 
 export const BlzFrameSetSpriteAnimate = (
   frame: framehandle,

@@ -24,6 +24,24 @@ const reversePositionDependencies = new WeakMap<
   Set<Set<framehandle>>
 >();
 
+// const testLines: Record<string, HTMLElement | undefined> = {};
+// const testHLine = (key: string, top: string) => {
+//   const line = testLines[key] ?? (() => {
+//     const line = document.createElement("span");
+//     line.style.display = "inline-block";
+//     line.style.position = "fixed";
+//     line.style.backgroundColor = "red";
+//     line.style.height = "1px";
+//     line.style.width = "100vw";
+//     line.setAttribute("name", key);
+//     document.body.appendChild(line);
+//     testLines[key] = line;
+//     return line;
+//   })();
+
+//   line.style.top = top;
+// };
+
 const markDeps = (frame: framehandle, side: FrameSide) => {
   if (typeof side !== "object") return;
   let deps = positionDependencies.get(side.relative);
@@ -102,8 +120,16 @@ const getSize = (
     width = resolveX(frame, frame.pos.right)! -
       resolveX(frame, frame.pos.left)!;
   } else if (widthFrom === "implicit") {
-    const pxWidth = nodeMap.get(frame)?.clientWidth;
-    width = typeof pxWidth === "number" ? px2wc(pxWidth) : undefined;
+    const element = nodeMap.get(frame);
+    if (element) {
+      const oldOpacity = element.style.opacity;
+      const oldVisibility = element.style.visibility;
+      element.style.opacity = "0";
+      element.style.visibility = "visible";
+      width = px2wc(element.clientWidth);
+      element.style.visibility = oldVisibility;
+      element.style.opacity = oldOpacity;
+    }
   }
 
   const heightFrom =
@@ -118,8 +144,16 @@ const getSize = (
     height = resolveY(frame, frame.pos.top)! -
       resolveY(frame, frame.pos.bottom)!;
   } else if (heightFrom === "implicit") {
-    const pxHeight = nodeMap.get(frame)?.clientHeight;
-    height = typeof pxHeight === "number" ? px2wc(pxHeight) : undefined;
+    const element = nodeMap.get(frame);
+    if (element) {
+      const oldOpacity = element.style.opacity;
+      const oldVisibility = element.style.visibility;
+      element.style.opacity = "0";
+      element.style.visibility = "visible";
+      height = px2wc(element.clientHeight);
+      element.style.visibility = oldVisibility;
+      element.style.opacity = oldOpacity;
+    }
   }
 
   return {
@@ -131,7 +165,10 @@ const getSize = (
 };
 
 /** Returns how many wc units the frame's top is from the bottom */
-const getYAnchor = (frame: framehandle, height?: number) => {
+const getYAnchor = (
+  frame: framehandle,
+  height?: number,
+): number | undefined => {
   let top: number | undefined;
 
   // Simple top
@@ -152,6 +189,26 @@ const getYAnchor = (frame: framehandle, height?: number) => {
     if (frame.parent) {
       const top = resolveY(frame, frame.pos.center);
       if (top !== undefined) return top + height / 2;
+    }
+  }
+
+  // Implicit center
+  if (
+    frame.pos.top === undefined && frame.pos.bottom === undefined &&
+    (frame.pos.left !== undefined || frame.pos.right !== undefined) &&
+    height !== undefined
+  ) {
+    const relative = typeof frame.pos.left === "object"
+      ? frame.pos.left.relative
+      : typeof frame.pos.right === "object"
+      ? frame.pos.right.relative
+      : undefined;
+    if (relative) {
+      const relativeHeight = getSize(relative).height;
+      const relativeTop = getYAnchor(relative, relativeHeight);
+      if (relativeHeight !== undefined && relativeTop !== undefined) {
+        return relativeTop - relativeHeight / 2 + height / 2;
+      }
     }
   }
 };
@@ -178,6 +235,26 @@ const getXAnchor = (frame: framehandle, width?: number): number | undefined => {
     if (frame.parent) {
       const left = resolveX(frame, frame.pos.center);
       if (left !== undefined) return left - width / 2;
+    }
+  }
+
+  // Implicit center
+  if (
+    frame.pos.left === undefined && frame.pos.right === undefined &&
+    (frame.pos.top !== undefined || frame.pos.bottom !== undefined) &&
+    width !== undefined
+  ) {
+    const relative = typeof frame.pos.top === "object"
+      ? frame.pos.top.relative
+      : typeof frame.pos.bottom === "object"
+      ? frame.pos.bottom.relative
+      : undefined;
+    if (relative) {
+      const relativeWidth = getSize(relative).width;
+      const relativeLeft = getXAnchor(relative, relativeWidth);
+      if (relativeWidth !== undefined && relativeLeft !== undefined) {
+        return relativeLeft + relativeWidth / 2 - width / 2;
+      }
     }
   }
 };
@@ -285,12 +362,12 @@ type Adapter = {
 export const adapter: Adapter = {
   createNode: (handle, owner) => {
     const div = document.createElement("span");
+    frameMap.set(div, handle);
+    nodeMap.set(handle, div);
     div.style.position = "fixed";
     Reflect.set(div, "frame", handle);
     div.setAttribute("frame", handle.handleId.toString());
     div.setAttribute("name", handle.name);
-    frameMap.set(div, handle);
-    nodeMap.set(handle, div);
     if (owner) {
       const ownerNode = nodeMap.get(owner);
       if (ownerNode) ownerNode.appendChild(div);
@@ -335,8 +412,13 @@ export const adapter: Adapter = {
     if (typeof frame.text === "string") {
       const html = frame.text
         .replace(/\|cff([0-9a-fA-F]{6})/g, '<div style="color: #$1">')
-        .replace(/\|r/g, "</div>");
+        .replace(/\|r/g, "</div>")
+        .replace(/\|n/g, "<br/>");
       (element as unknown as { setHTML: (html: string) => void }).setHTML(html);
+
+      if (typeof frame.fontSize === "number") {
+        element.style.fontSize = wc2px(frame.fontSize) + "px";
+      }
     }
 
     if (typeof frame.image === "string") {
@@ -346,9 +428,13 @@ export const adapter: Adapter = {
 
     // visible
     const visibilityChange =
-      frame.visible !== (element.style.display !== "none");
+      frame.visible !== (element.style.visibility !== "hidden");
     if (visibilityChange) {
-      element.style.display = frame.visible ? "" : "none";
+      element.style.visibility = frame.visible ? "" : "hidden";
+    }
+
+    if (typeof frame.alpha === "number") {
+      element.style.opacity = (frame.alpha / 255).toString();
     }
 
     // size & points
