@@ -1,5 +1,5 @@
 import { promises as fs } from "fs";
-import { runLua } from "./runLua";
+import { runLua } from "./runLua.js";
 
 describe("smoke", () => {
   beforeEach(() => {

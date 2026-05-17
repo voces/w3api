@@ -1,8 +1,8 @@
 // deno-lint-ignore-file no-unused-vars
-import { runContext } from "../../../contexts";
-import { notImplemented } from "../../../errors";
-import { wrapGame } from "../../../Game";
-import { getRun, newRun, wrapRun } from "../../../Run";
+import { runContext } from "../../../contexts.js";
+import { notImplemented } from "../../../errors.js";
+import { wrapGame } from "../../../Game.js";
+import { getRun, newRun, wrapRun } from "../../../Run.js";
 import {
   EVENT_DIALOG_BUTTON_CLICK,
   EVENT_DIALOG_CLICK,
@@ -13,7 +13,7 @@ import {
   EVENT_GAME_TRACKABLE_HIT,
   EVENT_GAME_TRACKABLE_TRACK,
   EVENT_GAME_VARIABLE_LIMIT,
-} from "../constants/gamePlayerAndUnitEvents";
+} from "../constants/gamePlayerAndUnitEvents.js";
 import {
   EQUAL,
   GREATER_THAN,
@@ -21,9 +21,9 @@ import {
   LESS_THAN,
   LESS_THAN_OR_EQUAL,
   NOT_EQUAL,
-} from "../constants/limitEventApi";
-import { CreateTimer, TimerStart } from "../timers";
-import { getEvent } from "./events";
+} from "../constants/limitEventApi.js";
+import { CreateTimer, TimerStart } from "../timers.js";
+import { getEvent } from "./events.js";
 
 // ============================================================================
 // Trigger Game Event API

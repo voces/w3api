@@ -1,5 +1,6 @@
 target
 dist
+.claude
 
 # Logs
 logs

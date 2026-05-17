@@ -1,4 +1,4 @@
-import { contextConverter, getHandle } from "./handles";
+import { contextConverter, getHandle } from "./handles.js";
 
 it("contextConverter", () => {
   const cc = contextConverter((value: number) => ({ ...getHandle(), value }));

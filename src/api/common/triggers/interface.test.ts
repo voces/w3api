@@ -1,4 +1,4 @@
-import { CreateTrigger } from "./interface";
+import { CreateTrigger } from "./interface.js";
 
 it("CreateTrigger", () =>
   expect(CreateTrigger()).toMatchObject({ triggerId: 0 }));

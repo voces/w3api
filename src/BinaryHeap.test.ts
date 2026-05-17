@@ -1,4 +1,4 @@
-import { BinaryHeap } from "./BinaryHeap";
+import { BinaryHeap } from "./BinaryHeap.js";
 
 it("smoke", () => {
   const values: Array<number> = [];

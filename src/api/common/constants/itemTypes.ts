@@ -1,4 +1,4 @@
-import { ConvertItemType } from "../converters";
+import { ConvertItemType } from "../converters.js";
 
 // ===================================================
 // Unit Type Constants for use with ChooseRandomItemEx()

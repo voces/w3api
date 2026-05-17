@@ -1,6 +1,6 @@
 // deno-lint-ignore-file no-unused-vars
 
-import { contextIndexer, getAgent } from "../../handles";
+import { contextIndexer, getAgent } from "../../handles.js";
 
 // ============================================================================
 // Force API

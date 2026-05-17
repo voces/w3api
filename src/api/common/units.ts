@@ -1,11 +1,11 @@
 // deno-lint-ignore-file no-unused-vars
 import { deepClone, UnitSpec } from "w3xdata";
 
-import { notImplemented } from "../../errors";
-import { wrapGame } from "../../Game";
-import { contextIndexer, getWidget } from "../../handles";
-import { revFourCC } from "../../helpers/string";
-import { RACE_HUMAN, UNIT_TYPE_STRUCTURE } from "./constants";
+import { notImplemented } from "../../errors.js";
+import { wrapGame } from "../../Game.js";
+import { contextIndexer, getWidget } from "../../handles.js";
+import { revFourCC } from "../../helpers/string.js";
+import { RACE_HUMAN, UNIT_TYPE_STRUCTURE } from "./constants/index.js";
 
 // ============================================================================
 // Unit API

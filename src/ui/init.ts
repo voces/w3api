@@ -1,15 +1,15 @@
 import {
   FRAMEPOINT_BOTTOMLEFT,
   ORIGIN_FRAME_GAME_UI,
-} from "../api/common/constants/customUiApi";
+} from "../api/common/constants/customUiApi.js";
 import {
   BlzCreateFrame,
   BlzFrameSetAbsPoint,
   BlzFrameSetSize,
   BlzLoadTOCFile,
-} from "../api/common/ui/frames";
-import { wrapGame } from "../Game";
-import { adapter } from "./adapter";
+} from "../api/common/ui/frames.js";
+import { wrapGame } from "../Game.js";
+import { adapter } from "./adapter.js";
 
 export const initUI = wrapGame(() => {
   BlzLoadTOCFile("ui/framedef/framedef.toc");

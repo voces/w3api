@@ -1,7 +1,7 @@
-import { getGame } from "../../../Game";
-import { GREATER_THAN } from "../constants/limitEventApi";
-import { TriggerRegisterVariableEvent } from "./gameEventApi";
-import { CreateTrigger } from "./interface";
+import { getGame } from "../../../Game.js";
+import { GREATER_THAN } from "../constants/limitEventApi.js";
+import { TriggerRegisterVariableEvent } from "./gameEventApi.js";
+import { CreateTrigger } from "./interface.js";
 
 it("TriggerRegisterVariableEvent", () => {
   const game = getGame();

@@ -1,6 +1,6 @@
-import { wrapRun } from "../../Run";
-import { Game, wrapGame } from "../../Game";
-import { contextIndexer, getAgent } from "../../handles";
+import { wrapRun } from "../../Run.js";
+import { Game, wrapGame } from "../../Game.js";
+import { contextIndexer, getAgent } from "../../handles.js";
 
 export const CreateTimer = contextIndexer(
   wrapGame(

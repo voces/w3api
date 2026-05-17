@@ -1,4 +1,4 @@
-import { ConvertUnitType } from "../converters";
+import { ConvertUnitType } from "../converters.js";
 
 // ===================================================
 // Unit Type Constants for use with IsUnitType()

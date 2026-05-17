@@ -1,4 +1,4 @@
-import { luaToJavaScript } from "./luaToJavaScript";
+import { luaToJavaScript } from "./luaToJavaScript.js";
 
 /**
  * Executes Lua code as transpiled JavaScript.

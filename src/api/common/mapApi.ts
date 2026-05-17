@@ -1,10 +1,10 @@
 // deno-lint-ignore-file no-unused-vars
-import { notImplemented } from "../../errors";
-import { Game, wrapGame } from "../../Game";
-import { getPlayer } from "../../PlayerClass";
-import { GAME_TYPE_USE_MAP_SETTINGS } from "./constants/mapSetup";
-import { initStartLocation } from "./converters";
-import { Location } from "./geometry";
+import { notImplemented } from "../../errors.js";
+import { Game, wrapGame } from "../../Game.js";
+import { getPlayer } from "../../PlayerClass.js";
+import { GAME_TYPE_USE_MAP_SETTINGS } from "./constants/mapSetup.js";
+import { initStartLocation } from "./converters.js";
+import { Location } from "./geometry.js";
 
 // ============================================================================
 // Map Setup API

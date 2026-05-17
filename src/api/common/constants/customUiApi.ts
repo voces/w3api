@@ -3,7 +3,7 @@ import {
   ConvertFramePointType,
   ConvertOriginFrameType,
   ConvertTextAlignType,
-} from "../converters";
+} from "../converters.js";
 
 // ===================================================
 // Custom UI API constants

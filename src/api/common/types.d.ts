@@ -12,16 +12,13 @@ declare interface handle {
   handleId: number;
   onRemove: (
     callback: (handle: handle) => void,
-    // deno-lint-ignore ban-types
     reference?: object,
   ) => void;
   remove: () => void;
   clearRemoveHook: (
     callback: (handle: handle) => void,
-    // deno-lint-ignore ban-types
     reference?: object,
   ) => void;
-  // deno-lint-ignore ban-types
   clearRemoveHookByReference: (reference: object) => void;
 }
 declare interface agent extends handle {

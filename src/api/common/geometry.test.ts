@@ -1,4 +1,4 @@
-import { Rect } from "./geometry";
+import { Rect } from "./geometry.js";
 
 it("Rect", () => {
   const rect = Rect(-2, -1, 2, 1);

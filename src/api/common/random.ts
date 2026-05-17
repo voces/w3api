@@ -1,5 +1,5 @@
 // deno-lint-ignore-file no-unused-vars
-import { notImplemented } from "../../errors";
+import { notImplemented } from "../../errors.js";
 
 // ============================================================================
 

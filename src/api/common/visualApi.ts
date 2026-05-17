@@ -1,7 +1,7 @@
 // deno-lint-ignore-file no-unused-vars
-import { notImplemented } from "../../errors";
-import { wrapGame } from "../../Game";
-import { contextIndexer, getHandle } from "../../handles";
+import { notImplemented } from "../../errors.js";
+import { wrapGame } from "../../Game.js";
+import { contextIndexer, getHandle } from "../../handles.js";
 
 // ============================================================================
 // Visual API

@@ -1,4 +1,4 @@
-import { ConvertVolumeGroup } from "../converters";
+import { ConvertVolumeGroup } from "../converters.js";
 
 // ===================================================
 // Sound Constants

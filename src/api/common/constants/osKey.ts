@@ -1,4 +1,4 @@
-import { ConvertOsKeyType } from "../converters";
+import { ConvertOsKeyType } from "../converters.js";
 
 // ===================================================
 // OS Key constants

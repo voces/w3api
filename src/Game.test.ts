@@ -1,6 +1,6 @@
 import { promises as fs } from "fs";
 
-import { Game } from "./Game";
+import { Game } from "./Game.js";
 
 it("#loadData", async () => {
   const game = new Game();

@@ -1,6 +1,6 @@
-import { MAP_CONTROL_NONE } from "./api/common/constants/mapSetup";
-import { ConvertPlayerColor } from "./api/common/converters";
-import { contextConverter, getAgent } from "./handles";
+import { MAP_CONTROL_NONE } from "./api/common/constants/mapSetup.js";
+import { ConvertPlayerColor } from "./api/common/converters.js";
+import { contextConverter, getAgent } from "./handles.js";
 
 export class PlayerClass implements player {
   alliances: Map<player, Map<alliancetype, boolean>> = new Map();
@@ -14,15 +14,12 @@ export class PlayerClass implements player {
   team = 0;
 
   handleId: number;
-  // deno-lint-ignore ban-types
   onRemove: (callback: (handle: handle) => void, reference?: object) => void;
   remove: () => void;
   clearRemoveHook: (
     callback: (handle: handle) => void,
-    // deno-lint-ignore ban-types
     reference?: object,
   ) => void;
-  // deno-lint-ignore ban-types
   clearRemoveHookByReference: (reference: object) => void;
   agentId: number;
   onChatMap: Map<unknown, (message: string) => void> = new Map();

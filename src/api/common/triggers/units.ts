@@ -1,6 +1,6 @@
 // deno-lint-ignore-file no-unused-vars
-import { notImplemented } from "../../../errors";
-import { wrapRun } from "../../../Run";
+import { notImplemented } from "../../../errors.js";
+import { wrapRun } from "../../../Run.js";
 
 // ============================================================================
 // Trigger Unit Based Event API

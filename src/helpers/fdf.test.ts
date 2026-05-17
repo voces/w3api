@@ -1,4 +1,4 @@
-import { parseFdf, tokenizeFdf } from "./fdf";
+import { parseFdf, tokenizeFdf } from "./fdf.js";
 
 describe("tokenize", () => {
   it("two simple frames", () => {

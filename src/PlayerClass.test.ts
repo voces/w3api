@@ -1,4 +1,4 @@
-import { getPlayer } from "./PlayerClass";
+import { getPlayer } from "./PlayerClass.js";
 
 it("getPlayer", () => {
   const player0First = getPlayer(0);

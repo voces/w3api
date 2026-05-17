@@ -2,9 +2,11 @@
   "compilerOptions": {
     "outDir": "dist",
     "allowJs": false,
-    "target": "es6",
+    "target": "es2020",
     "lib": ["es2020", "dom"],
-    "moduleResolution": "node",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "isolatedModules": true,
     "strict": true,
     "declaration": true,
     "types": ["@types/jest", "@types/node"],

@@ -11,8 +11,11 @@ import {
   ConvertSubAnimType,
   ConvertVersion,
   ConvertWeaponType,
-} from "../converters";
-import { GetPlayerNeutralAggressive, GetPlayerNeutralPassive } from "./general";
+} from "../converters.js";
+import {
+  GetPlayerNeutralAggressive,
+  GetPlayerNeutralPassive,
+} from "./general.js";
 
 // ===================================================
 // Game Constants

@@ -1,14 +1,14 @@
 // deno-lint-ignore-file no-unused-vars
-import { notImplemented } from "../../../errors";
-import { newRun, wrapRun } from "../../../Run";
-import { adapter } from "../../../ui/adapter";
+import { notImplemented } from "../../../errors.js";
+import { newRun, wrapRun } from "../../../Run.js";
+import { adapter } from "../../../ui/adapter.js";
 import {
   EVENT_PLAYER_CHAT,
   EVENT_PLAYER_KEY_DOWN,
   EVENT_PLAYER_KEY_UP,
-} from "../constants/gamePlayerAndUnitEvents";
-import { GetLocalPlayer } from "../players";
-import { getEvent } from "./events";
+} from "../constants/gamePlayerAndUnitEvents.js";
+import { GetLocalPlayer } from "../players.js";
+import { getEvent } from "./events.js";
 
 // ============================================================================
 // Trigger Player Based Event API

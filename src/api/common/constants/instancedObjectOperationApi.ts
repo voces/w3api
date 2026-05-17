@@ -27,8 +27,8 @@ import {
   ConvertUnitWeaponIntegerField,
   ConvertUnitWeaponRealField,
   ConvertUnitWeaponStringField,
-} from "../converters";
-import { FourCC } from "../string";
+} from "../converters.js";
+import { FourCC } from "../string.js";
 
 // ===================================================
 // Instanced Object Operation API constants

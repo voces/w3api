@@ -1,7 +1,7 @@
 // deno-lint-ignore-file no-unused-vars
 
-import { notImplemented } from "../../../errors";
-import { contextIndexer, getAgent, getHandle } from "../../../handles";
+import { notImplemented } from "../../../errors.js";
+import { contextIndexer, getAgent, getHandle } from "../../../handles.js";
 
 export const TriggerAddCondition = contextIndexer((
   id,

@@ -1,6 +1,6 @@
-import { wrapGame } from "../../../Game";
-import { contextIndexer, getAgent } from "../../../handles";
-import { wrapRun } from "../../../Run";
+import { wrapGame } from "../../../Game.js";
+import { contextIndexer, getAgent } from "../../../handles.js";
+import { wrapRun } from "../../../Run.js";
 
 // ============================================================================
 // Native trigger interface
@@ -93,4 +93,5 @@ export const GetTriggerEvalCount = (whichTrigger: trigger): number =>
   whichTrigger.evaluations;
 export const GetTriggerExecCount = (whichTrigger: trigger): number =>
   whichTrigger.executions;
-export const ExecuteFunc = (funcName: string): void => globalThis[funcName as keyof typeof globalThis]();
+export const ExecuteFunc = (funcName: string): void =>
+  globalThis[funcName as keyof typeof globalThis]();

@@ -1,4 +1,4 @@
-import { runContext } from "./contexts";
+import { runContext } from "./contexts.js";
 
 type RunData = {
   chatString: string;

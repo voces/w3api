@@ -1,4 +1,4 @@
-import { ConvertLimitOp } from "../converters";
+import { ConvertLimitOp } from "../converters.js";
 
 // ===================================================
 // Limit Event API constants

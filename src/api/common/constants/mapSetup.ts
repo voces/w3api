@@ -9,7 +9,7 @@ import {
   ConvertPlayerSlotState,
   ConvertRacePref,
   ConvertStartLocPrio,
-} from "../converters";
+} from "../converters.js";
 
 // ===================================================
 // Map Setup Constants

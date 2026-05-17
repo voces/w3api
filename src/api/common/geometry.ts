@@ -1,8 +1,8 @@
 // deno-lint-ignore-file no-unused-vars
 
-import { notImplemented } from "../../errors";
-import { Game, wrapGame } from "../../Game";
-import { contextIndexer, getAgent } from "../../handles";
+import { notImplemented } from "../../errors.js";
+import { Game, wrapGame } from "../../Game.js";
+import { contextIndexer, getAgent } from "../../handles.js";
 
 // ============================================================================
 // Region and Location API

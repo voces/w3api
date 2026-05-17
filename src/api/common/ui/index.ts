@@ -1,1 +1,1 @@
-export * from "./frames";
+export * from "./frames.js";

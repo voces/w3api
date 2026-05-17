@@ -1,5 +1,5 @@
-import { revFourCC } from "../../helpers/string";
-import { FourCC } from "./string";
+import { revFourCC } from "../../helpers/string.js";
+import { FourCC } from "./string.js";
 
 describe("FourCC", () => {
   it("0000", () => expect(FourCC("0000")).toEqual(808464432));

@@ -1,2 +1,2 @@
-export * from "./load";
-export * from "./string";
+export * from "./load.js";
+export * from "./string.js";

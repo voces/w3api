@@ -4,7 +4,7 @@ import {
   ConvertFogState,
   ConvertRarityControl,
   ConvertTexMapFlags,
-} from "../converters";
+} from "../converters.js";
 
 // ===================================================
 // Animatable Camera Fields

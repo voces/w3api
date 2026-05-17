@@ -1,6 +1,6 @@
-import { gameContext } from "../../contexts";
-import { Game, wrapGame } from "../../Game";
-import { CreateTimer, TimerStart } from "./timers";
+import { gameContext } from "../../contexts.js";
+import { Game, wrapGame } from "../../Game.js";
+import { CreateTimer, TimerStart } from "./timers.js";
 
 it("smoke", () =>
   gameContext.withTemp(

@@ -1,4 +1,4 @@
-import { Atan2, Deg2Rad, Pow, Rad2Deg, SquareRoot } from "./math";
+import { Atan2, Deg2Rad, Pow, Rad2Deg, SquareRoot } from "./math.js";
 
 it("Deg2Rad", () =>
   expect([0, 30, 45, 90, 180, 270, -180, 360].map(Deg2Rad)).toEqual([

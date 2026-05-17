@@ -5,7 +5,7 @@ import {
   ConvertPlayerScore,
   ConvertPlayerState,
   ConvertUnitState,
-} from "../converters";
+} from "../converters.js";
 
 // ===================================================
 // Game, Player, and Unit States

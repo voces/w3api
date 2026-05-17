@@ -1,4 +1,4 @@
-import { contextIndexer, getAgent } from "../../handles";
+import { contextIndexer, getAgent } from "../../handles.js";
 
 const getBoolExpr = contextIndexer(
   (id, func: () => boolean): boolexpr => ({

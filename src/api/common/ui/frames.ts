@@ -1,12 +1,12 @@
 // deno-lint-ignore-file no-unused-vars
 
-import { notImplemented } from "../../../errors";
-import { Game, wrapGame } from "../../../Game";
-import { contextIndexer, getHandle } from "../../../handles";
-import { load } from "../../../helpers";
-import { FdfArg, FdfFrame, loadFdf } from "../../../helpers/fdf";
-import { newRun } from "../../../Run";
-import { adapter } from "../../../ui/adapter";
+import { notImplemented } from "../../../errors.js";
+import { Game, wrapGame } from "../../../Game.js";
+import { contextIndexer, getHandle } from "../../../handles.js";
+import { load } from "../../../helpers/index.js";
+import { FdfArg, FdfFrame, loadFdf } from "../../../helpers/fdf.js";
+import { newRun } from "../../../Run.js";
+import { adapter } from "../../../ui/adapter.js";
 import {
   FRAMEPOINT_BOTTOM,
   FRAMEPOINT_BOTTOMLEFT,
@@ -17,8 +17,8 @@ import {
   FRAMEPOINT_TOP,
   FRAMEPOINT_TOPLEFT,
   FRAMEPOINT_TOPRIGHT,
-} from "../constants";
-import { getEvent } from "../triggers/events";
+} from "../constants/index.js";
+import { getEvent } from "../triggers/events.js";
 
 export const BlzGetOriginFrame = (
   frameType: originframetype,

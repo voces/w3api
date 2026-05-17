@@ -1,5 +1,5 @@
-import type { Game } from "../Game";
-import { load } from "./load";
+import type { Game } from "../Game.js";
+import { load } from "./load.js";
 
 type Token = {
   type:

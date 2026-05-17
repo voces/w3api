@@ -2,7 +2,7 @@ import {
   ContextManager,
   injectContextData,
   newContext,
-} from "./ContextManager";
+} from "./ContextManager.js";
 
 it("newContext", () => {
   const context1 = newContext();

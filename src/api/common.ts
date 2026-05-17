@@ -1,25 +1,25 @@
 // deno-lint-ignore-file no-unused-vars
 
-export * from "./common/booleanExpressions";
-export * from "./common/constants";
-export * from "./common/converters";
-export * from "./common/forces";
-export * from "./common/geometry";
-export * from "./common/groups";
-export * from "./common/mapApi";
-export * from "./common/math";
-export * from "./common/players";
-export * from "./common/random";
-export * from "./common/string";
-export * from "./common/timerDialogs";
-export * from "./common/timers";
-export * from "./common/triggers";
-export * from "./common/ui";
-export * from "./common/units";
-export * from "./common/visualApi";
+export * from "./common/booleanExpressions.js";
+export * from "./common/constants/index.js";
+export * from "./common/converters.js";
+export * from "./common/forces.js";
+export * from "./common/geometry.js";
+export * from "./common/groups.js";
+export * from "./common/mapApi.js";
+export * from "./common/math.js";
+export * from "./common/players.js";
+export * from "./common/random.js";
+export * from "./common/string.js";
+export * from "./common/timerDialogs.js";
+export * from "./common/timers.js";
+export * from "./common/triggers/index.js";
+export * from "./common/ui/index.js";
+export * from "./common/units.js";
+export * from "./common/visualApi.js";
 
-import { notImplemented } from "../errors";
-import { AI_DIFFICULTY_NEWBIE } from "./common/constants";
+import { notImplemented } from "../errors.js";
+import { AI_DIFFICULTY_NEWBIE } from "./common/constants/index.js";
 
 // ============================================================================
 // Widget API

@@ -6,7 +6,7 @@ import {
   wc2px,
   wcx2px,
   wcy2px,
-} from "./adapter";
+} from "./adapter.js";
 
 it("when aspect ratio is 4:3", () => {
   globalThis.innerWidth = 1600;

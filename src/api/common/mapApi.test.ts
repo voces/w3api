@@ -1,4 +1,4 @@
-import { GetTeams } from "./mapApi";
+import { GetTeams } from "./mapApi.js";
 
 describe("Set/GetTeams", () => {
   it("run one", () => {

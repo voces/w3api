@@ -1,4 +1,4 @@
-import { ConvertEffectType, ConvertSoundType } from "../converters";
+import { ConvertEffectType, ConvertSoundType } from "../converters.js";
 
 // ===================================================
 // Effect API constants

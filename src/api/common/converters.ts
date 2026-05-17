@@ -1,11 +1,11 @@
 // deno-lint-ignore-file no-unused-vars
-import { notImplemented } from "../../errors";
+import { notImplemented } from "../../errors.js";
 import {
   contextConverter,
   contextIndexer,
   getAgent,
   getHandle,
-} from "../../handles";
+} from "../../handles.js";
 
 const getGamestate = contextIndexer(
   (id): gamestate => ({ ...getAgent(), gamestateId: id }),

@@ -12,8 +12,8 @@ import {
   FRAMEEVENT_MOUSE_UP,
   FRAMEEVENT_MOUSE_WHEEL,
   FRAMEEVENT_SLIDER_VALUE_CHANGED,
-} from "../api";
-import { notImplemented } from "../errors";
+} from "../api/index.js";
+import { notImplemented } from "../errors.js";
 
 const frameMap = new Map<HTMLElement, framehandle>();
 const nodeMap = new Map<framehandle, HTMLElement>();
@@ -411,8 +411,8 @@ export const adapter: Adapter = {
     // text
     if (typeof frame.text === "string") {
       const html = frame.text
-        .replace(/\|cff([0-9a-fA-F]{6})/g, '<div style="color: #$1">')
-        .replace(/\|r/g, "</div>")
+        .replace(/\|cff([0-9a-fA-F]{6})/g, '<span style="color: #$1">')
+        .replace(/\|r/g, "</span>")
         .replace(/\|n/g, "<br/>");
       (element as unknown as { setHTML: (html: string) => void }).setHTML(html);
 
@@ -423,7 +423,7 @@ export const adapter: Adapter = {
 
     if (typeof frame.image === "string") {
       element.style.backgroundImage = adapter.urlRewriter(frame.image);
-      element.style.backgroundSize = "cover";
+      element.style.backgroundSize = "100% 100%";
     }
 
     // visible

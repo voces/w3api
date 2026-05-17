@@ -1,4 +1,4 @@
-import { gameContext } from "./contexts";
+import { gameContext } from "./contexts.js";
 
 const converter = (): (index?: number) => number => {
   let _index = 0;
@@ -38,13 +38,11 @@ type HandleCallback = (handle: handle) => void;
 export const getHandle = contextIndexer(
   (id): handle => {
     const onRemoveListeners: Set<HandleCallback> = new Set();
-    // deno-lint-ignore ban-types
     const referenceMap: WeakMap<object, HandleCallback> = new WeakMap();
     return {
       handleId: id,
       onRemove: (
         cb: HandleCallback,
-        // deno-lint-ignore ban-types
         reference?: object,
       ): void => {
         onRemoveListeners.add(cb);
@@ -52,13 +50,11 @@ export const getHandle = contextIndexer(
       },
       clearRemoveHook(
         cb: HandleCallback,
-        // deno-lint-ignore ban-types
         reference?: object,
       ): void {
         onRemoveListeners.delete(cb);
         if (reference) referenceMap.delete(reference);
       },
-      // deno-lint-ignore ban-types
       clearRemoveHookByReference(reference: object): void {
         const cb = referenceMap.get(reference);
         if (cb) {

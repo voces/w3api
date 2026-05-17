@@ -835,7 +835,7 @@ import {
   WaygateIsActive,
   WaygateSetDestination,
   WEAPON_TYPE_WHOKNOWS,
-} from "./common";
+} from "./common.js";
 import {
   CachePlayerHeroData,
   CripplePlayer,
@@ -861,7 +861,7 @@ import {
   SetPlayerState,
   SetPlayerTechMaxAllowed,
   SetPlayerTechResearched,
-} from "./common/players";
+} from "./common/players.js";
 import {
   GetClickedButton,
   GetClickedDialog,
@@ -876,7 +876,7 @@ import {
   TriggerRegisterLeaveRegion,
   TriggerRegisterTimerEvent,
   TriggerRegisterTimerExpireEvent,
-} from "./common/triggers/gameEventApi";
+} from "./common/triggers/gameEventApi.js";
 
 // ===========================================================================
 // Blizzard.j ( define Jass2 functions that need to be in every map script )
@@ -1763,7 +1763,7 @@ export const TriggerExecuteBJ = (
   trig: trigger | null,
   checkConditions: boolean,
 ): boolean => {
-  if (checkConditions) if (!TriggerEvaluate(trig)) return false;
+  if (checkConditions) { if (!TriggerEvaluate(trig)) return false; }
 
   TriggerExecute(trig);
   return true;
@@ -1778,7 +1778,7 @@ export const PostTriggerExecuteBJ = (
   trig: trigger,
   checkConditions: boolean,
 ): boolean => {
-  if (checkConditions) if (!TriggerEvaluate(trig)) return false;
+  if (checkConditions) { if (!TriggerEvaluate(trig)) return false; }
 
   TriggerRegisterTimerEvent(trig, 0, false);
   return true;

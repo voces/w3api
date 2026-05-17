@@ -5,7 +5,7 @@ import {
   ConvertPlayerUnitEvent,
   ConvertUnitEvent,
   ConvertWidgetEvent,
-} from "../converters";
+} from "../converters.js";
 
 // ===================================================
 // Game, Player and Unit Events

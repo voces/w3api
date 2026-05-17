@@ -5,11 +5,11 @@ import {
   MAP_DIFFICULTY_NORMAL,
   MAP_PLACEMENT_RANDOM,
   MAP_SPEED_FASTEST,
-} from "./api/common/constants/mapSetup";
-import { BinaryHeap } from "./BinaryHeap";
-import { gameContext } from "./contexts";
-import type { FdfFrame } from "./helpers/fdf";
-import { newRun } from "./Run";
+} from "./api/common/constants/mapSetup.js";
+import { BinaryHeap } from "./BinaryHeap.js";
+import { gameContext } from "./contexts.js";
+import type { FdfFrame } from "./helpers/fdf.js";
+import { newRun } from "./Run.js";
 
 export class Game {
   creatureDensity: mapdensity = MAP_DENSITY_MEDIUM;

@@ -1,12 +1,12 @@
-import * as api from "./api";
-import * as w3ts from "./w3ts";
-import { getAgent, getHandle, getWidget } from "./handles";
+import * as api from "./api/index.js";
+import * as w3ts from "./w3ts.js";
+import { getAgent, getHandle, getWidget } from "./handles.js";
 
-export * from "./contexts";
-export * from "./Game";
-export * from "./helpers";
-export * from "./PlayerClass";
-export * from "./ui/init";
-export * as ui from "./ui/adapter";
+export * from "./contexts.js";
+export * from "./Game.js";
+export * from "./helpers/index.js";
+export * from "./PlayerClass.js";
+export * from "./ui/init.js";
+export * as ui from "./ui/adapter.js";
 
 export { api, getAgent, getHandle, getWidget, w3ts };

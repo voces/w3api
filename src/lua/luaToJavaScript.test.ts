@@ -1,4 +1,4 @@
-import { luaToJavaScript } from "./luaToJavaScript";
+import { luaToJavaScript } from "./luaToJavaScript.js";
 
 const trimEmptyLines = (str: string): string => {
   const lines = str.split("\n");
