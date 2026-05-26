@@ -1,5 +1,3 @@
-// deno-lint-ignore-file no-unused-vars
-
 import { notImplemented } from "../../../errors.js";
 import { contextIndexer, getAgent, getHandle } from "../../../handles.js";
 

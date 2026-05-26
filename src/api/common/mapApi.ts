@@ -1,4 +1,3 @@
-// deno-lint-ignore-file no-unused-vars
 import { notImplemented } from "../../errors.js";
 import { Game, wrapGame } from "../../Game.js";
 import { getPlayer } from "../../PlayerClass.js";

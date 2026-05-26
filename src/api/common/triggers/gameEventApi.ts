@@ -1,4 +1,3 @@
-// deno-lint-ignore-file no-unused-vars
 import { runContext } from "../../../contexts.js";
 import { notImplemented } from "../../../errors.js";
 import { wrapGame } from "../../../Game.js";

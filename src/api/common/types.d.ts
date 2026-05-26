@@ -69,12 +69,14 @@ declare interface unit extends widget {
   owner: player;
   type: number;
   unitId: number;
+  isIllusion: boolean;
 }
 declare interface destructable extends widget {
   destructableId: number;
 }
 declare interface item extends widget {
   itemId: number;
+  type: number;
 }
 declare interface ability extends agent {
   abilityId: number;

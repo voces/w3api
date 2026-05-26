@@ -1,4 +1,3 @@
-// deno-lint-ignore-file no-unused-vars
 import { notImplemented } from "../../../errors.js";
 import { newRun, wrapRun } from "../../../Run.js";
 import { adapter } from "../../../ui/adapter.js";

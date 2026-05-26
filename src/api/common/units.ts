@@ -1,4 +1,3 @@
-// deno-lint-ignore-file no-unused-vars
 import { deepClone, UnitSpec } from "w3xdata";
 
 import { notImplemented } from "../../errors.js";
@@ -24,7 +23,7 @@ export const CreateUnit = contextIndexer(
       const prettyType = revFourCC(unitType);
       let data = game.data.units[prettyType];
       if (!data) {
-        console.warn(`Uknown unit type ${prettyType} (${unitType})`);
+        console.warn(`Unknown unit type ${prettyType} (${unitType})`);
         data = {} as UnitSpec;
       }
 
@@ -37,6 +36,7 @@ export const CreateUnit = contextIndexer(
         unitId: id,
         x,
         y,
+        isIllusion: false,
       };
       game.addUnit(unit);
       return unit;
@@ -762,10 +762,8 @@ export const IsUnitHidden = (whichUnit: unit): boolean => {
   return false;
 };
 
-export const IsUnitIllusion = (whichUnit: unit): boolean => {
-  notImplemented("IsUnitIllusion");
-  return false;
-};
+export const IsUnitIllusion = (whichUnit: unit): boolean =>
+  whichUnit.isIllusion;
 
 export const IsUnitInTransport = (
   whichUnit: unit,
