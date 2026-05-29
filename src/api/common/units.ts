@@ -1,10 +1,26 @@
-import { deepClone, UnitSpec } from "w3xdata";
+import { UnitSpec } from "w3xdata";
 
 import { notImplemented } from "../../errors.js";
 import { wrapGame } from "../../Game.js";
 import { contextIndexer, getWidget } from "../../handles.js";
 import { revFourCC } from "../../helpers/string.js";
-import { RACE_HUMAN, UNIT_TYPE_STRUCTURE } from "./constants/index.js";
+import {
+  RACE_DEMON,
+  RACE_HUMAN,
+  RACE_NIGHTELF,
+  RACE_ORC,
+  RACE_OTHER,
+  RACE_UNDEAD,
+  UNIT_TYPE_STRUCTURE,
+} from "./constants/index.js";
+
+const RACE_BY_SPEC: Record<string, race> = {
+  human: RACE_HUMAN,
+  orc: RACE_ORC,
+  undead: RACE_UNDEAD,
+  nightelf: RACE_NIGHTELF,
+  demon: RACE_DEMON,
+};
 
 // ============================================================================
 // Unit API
@@ -29,7 +45,7 @@ export const CreateUnit = contextIndexer(
 
       const unit: unit = {
         ...getWidget(),
-        data: deepClone(data),
+        data: structuredClone(data),
         facing,
         owner,
         type: unitType,
@@ -169,25 +185,19 @@ export const GetUnitFlyHeight = (whichUnit: unit): number => {
   return 0;
 };
 
-export const GetUnitDefaultAcquireRange = (whichUnit: unit): number => {
-  notImplemented("GetUnitDefaultAcquireRange");
-  return 0;
-};
+export const GetUnitDefaultAcquireRange = (whichUnit: unit): number =>
+  whichUnit.data.combat?.acquire || 0;
 
-export const GetUnitDefaultTurnSpeed = (whichUnit: unit): number => {
-  notImplemented("GetUnitDefaultTurnSpeed");
-  return 0;
-};
+export const GetUnitDefaultTurnSpeed = (whichUnit: unit): number =>
+  whichUnit.data.move?.turnRate || 0;
 
 export const GetUnitDefaultPropWindow = (whichUnit: unit): number => {
-  notImplemented("GetUnitDefaultPropWindow");
-  return 0;
+  const art = whichUnit.data.art;
+  return (art && "propWin" in art && art.propWin) || 0;
 };
 
-export const GetUnitDefaultFlyHeight = (whichUnit: unit): number => {
-  notImplemented("GetUnitDefaultFlyHeight");
-  return 0;
-};
+export const GetUnitDefaultFlyHeight = (whichUnit: unit): number =>
+  whichUnit.data.move?.moveHeight || 0;
 
 export const SetUnitOwner = (
   whichUnit: unit,
@@ -292,26 +302,17 @@ export const SetHeroInt = (
 export const GetHeroStr = (
   whichHero: unit,
   includeBonuses: boolean,
-): number => {
-  notImplemented("GetHeroStr");
-  return 0;
-};
+): number => whichHero.data.stats?.STR || 0;
 
 export const GetHeroAgi = (
   whichHero: unit,
   includeBonuses: boolean,
-): number => {
-  notImplemented("GetHeroAgi");
-  return 0;
-};
+): number => whichHero.data.stats?.AGI || 0;
 
 export const GetHeroInt = (
   whichHero: unit,
   includeBonuses: boolean,
-): number => {
-  notImplemented("GetHeroInt");
-  return 0;
-};
+): number => whichHero.data.stats?.INT || 0;
 
 export const UnitStripHeroLevel = (
   whichHero: unit,
@@ -357,15 +358,11 @@ export const SetHeroLevel = (
   showEyeCandy: boolean,
 ): void => {};
 
-export const GetHeroLevel = (whichHero: unit): number => {
-  notImplemented("GetHeroLevel");
-  return 0;
-};
+export const GetHeroLevel = (whichHero: unit): number =>
+  whichHero.data.stats?.level || 0;
 
-export const GetUnitLevel = (whichUnit: unit): number => {
-  notImplemented("GetUnitLevel");
-  return 0;
-};
+export const GetUnitLevel = (whichUnit: unit): number =>
+  whichUnit.data.stats?.level || 0;
 
 export const GetHeroProperName = (whichHero: unit): string => {
   notImplemented("GetHeroProperName");
@@ -450,15 +447,13 @@ export const ClearSelection = (): void => {};
 
 export const SelectUnit = (whichUnit: unit, flag: boolean): void => {};
 
-export const GetUnitPointValue = (whichUnit: unit): number => {
-  notImplemented("GetUnitPointValue");
-  return 0;
-};
+export const GetUnitPointValue = (whichUnit: unit): number =>
+  whichUnit.data.stats?.points || 0;
 
-export const GetUnitPointValueByType = (unitType: number): number => {
-  notImplemented("GetUnitPointValueByType");
-  return 0;
-};
+export const GetUnitPointValueByType = wrapGame(
+  (game, unitType: number): number =>
+    game.data.units[revFourCC(unitType)]?.stats?.points || 0,
+);
 
 // native        SetUnitPointValueByType takes integer unitType, integer newPointValue returns nothing
 
@@ -573,10 +568,8 @@ export const GetUnitMoveSpeed = (whichUnit: unit): number => {
   return 0;
 };
 
-export const GetUnitDefaultMoveSpeed = (whichUnit: unit): number => {
-  notImplemented("GetUnitDefaultMoveSpeed");
-  return 0;
-};
+export const GetUnitDefaultMoveSpeed = (whichUnit: unit): number =>
+  whichUnit.data.move?.spd || 0;
 
 export const GetUnitState = (
   whichUnit: unit,
@@ -591,34 +584,26 @@ export const GetOwningPlayer = (whichUnit: unit): player => whichUnit.owner;
 export const GetUnitTypeId = (whichUnit: unit): number => whichUnit.type;
 
 export const GetUnitRace = (whichUnit: unit): race => {
-  notImplemented("GetUnitName");
-  return RACE_HUMAN;
+  const r = whichUnit.data.stats?.race;
+  return (r && RACE_BY_SPEC[r]) || RACE_OTHER;
 };
 
-export const GetUnitName = (whichUnit: unit): string => {
-  notImplemented("GetUnitName");
-  return "";
-};
+export const GetUnitName = (whichUnit: unit): string =>
+  whichUnit.data.text?.Name || "";
 
-export const GetUnitFoodUsed = (whichUnit: unit): number => {
-  notImplemented("GetUnitFoodUsed");
-  return 0;
-};
+export const GetUnitFoodUsed = (whichUnit: unit): number =>
+  whichUnit.data.stats?.fused || 0;
 
-export const GetUnitFoodMade = (whichUnit: unit): number => {
-  notImplemented("GetUnitFoodMade");
-  return 0;
-};
+export const GetUnitFoodMade = (whichUnit: unit): number =>
+  whichUnit.data.stats?.fmade || 0;
 
-export const GetFoodMade = (unitId: number): number => {
-  notImplemented("GetFoodMade");
-  return 0;
-};
+export const GetFoodMade = wrapGame((game, unitId: number): number =>
+  game.data.units[revFourCC(unitId)]?.stats?.fmade || 0
+);
 
-export const GetFoodUsed = (unitId: number): number => {
-  notImplemented("GetFoodUsed");
-  return 0;
-};
+export const GetFoodUsed = wrapGame((game, unitId: number): number =>
+  game.data.units[revFourCC(unitId)]?.stats?.fused || 0
+);
 
 export const SetUnitUseFood = (whichUnit: unit, useFood: boolean): void => {};
 
@@ -650,10 +635,7 @@ export const IsUnitInForce = (whichUnit: unit, whichForce: force): boolean => {
 export const IsUnitOwnedByPlayer = (
   whichUnit: unit,
   whichPlayer: player,
-): boolean => {
-  notImplemented("IsUnitOwnedByPlayer");
-  return false;
-};
+): boolean => whichUnit.owner === whichPlayer;
 
 export const IsUnitAlly = (whichUnit: unit, whichPlayer: player): boolean => {
   notImplemented("IsUnitAlly");
@@ -778,10 +760,9 @@ export const IsUnitLoaded = (whichUnit: unit): boolean => {
   return false;
 };
 
-export const IsHeroUnitId = (unitId: number): boolean => {
-  notImplemented("IsHeroUnitId");
-  return false;
-};
+export const IsHeroUnitId = wrapGame((game, unitId: number): boolean =>
+  game.data.units[revFourCC(unitId)]?.stats?.Primary !== undefined
+);
 
 export const IsUnitIdType = (
   unitId: number,

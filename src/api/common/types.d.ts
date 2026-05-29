@@ -75,6 +75,7 @@ declare interface destructable extends widget {
   destructableId: number;
 }
 declare interface item extends widget {
+  data: import("w3xdata").ItemSpec;
   itemId: number;
   type: number;
 }

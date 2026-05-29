@@ -1,4 +1,11 @@
-import { mapStrings, mapUnitSpecs, replaceStrings, UnitSpec } from "w3xdata";
+import {
+  ItemSpec,
+  mapItemSpecs,
+  mapStrings,
+  mapUnitSpecs,
+  replaceStrings,
+  UnitSpec,
+} from "w3xdata";
 
 import {
   MAP_DENSITY_MEDIUM,
@@ -36,9 +43,10 @@ export class Game {
   loadedFdfs = new Set<string>();
 
   data: {
+    items: Record<string, ItemSpec>;
     units: Record<string, UnitSpec>;
     strings: Record<string, string>;
-  } = { units: {}, strings: {} };
+  } = { items: {}, units: {}, strings: {} };
 
   private units: Set<unit> = new Set();
 
@@ -88,9 +96,20 @@ export class Game {
     this.units.forEach((u) => fn(u));
   }
 
-  loadData({ w3u, wts }: { w3u: Buffer; wts: Buffer | string }): void {
-    this.data.strings = mapStrings(wts.toString());
-    this.data.units = replaceStrings(mapUnitSpecs(w3u), this.data.strings);
+  loadData(
+    { w3t, w3u, wts }: {
+      w3t?: Buffer;
+      w3u?: Buffer;
+      wts?: Buffer | string;
+    },
+  ): void {
+    if (wts) this.data.strings = mapStrings(wts.toString());
+    if (w3u) {
+      this.data.units = replaceStrings(mapUnitSpecs(w3u), this.data.strings);
+    }
+    if (w3t) {
+      this.data.items = replaceStrings(mapItemSpecs(w3t), this.data.strings);
+    }
   }
 }
 

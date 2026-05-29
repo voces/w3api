@@ -1,16 +1,32 @@
+import { ItemSpec } from "w3xdata";
+
 import { notImplemented } from "../../errors.js";
+import { wrapGame } from "../../Game.js";
 import { contextIndexer, getWidget } from "../../handles.js";
+import { revFourCC } from "../../helpers/string.js";
 
 // ============================================================================
 // Item API
 export const CreateItem = contextIndexer(
-  (id, itemid: number, x: number, y: number): item => ({
-    ...getWidget(),
-    itemId: id,
-    type: itemid,
-    x,
-    y,
-  }),
+  wrapGame(
+    (game, id: number, itemid: number, x: number, y: number): item => {
+      const prettyType = revFourCC(itemid);
+      let data = game.data.items[prettyType];
+      if (!data) {
+        console.warn(`Unknown item type ${prettyType} (${itemid})`);
+        data = {} as ItemSpec;
+      }
+
+      return {
+        ...getWidget(),
+        data: structuredClone(data),
+        itemId: id,
+        type: itemid,
+        x,
+        y,
+      };
+    },
+  ),
 );
 
 export const RemoveItem = (whichItem: item): void => {};
@@ -22,15 +38,9 @@ export const GetItemPlayer = (whichItem: item): player => {
 
 export const GetItemTypeId = (i: item): number => i.type;
 
-export const GetItemX = (i: item): number => {
-  notImplemented("GetItemX");
-  return 0;
-};
+export const GetItemX = (i: item): number => i.x;
 
-export const GetItemY = (i: item): number => {
-  notImplemented("GetItemY");
-  return 0;
-};
+export const GetItemY = (i: item): number => i.y;
 
 export const SetItemPosition = (i: item, x: number, y: number): void => {};
 
@@ -65,35 +75,26 @@ export const IsItemOwned = (whichItem: item): boolean => {
   return false;
 };
 
-export const IsItemPowerup = (whichItem: item): boolean => {
-  notImplemented("IsItemPowerup");
-  return false;
-};
+export const IsItemPowerup = (whichItem: item): boolean =>
+  whichItem.data.stats?.powerup || false;
 
-export const IsItemSellable = (whichItem: item): boolean => {
-  notImplemented("IsItemSellable");
-  return false;
-};
+export const IsItemSellable = (whichItem: item): boolean =>
+  whichItem.data.stats?.sellable || false;
 
-export const IsItemPawnable = (whichItem: item): boolean => {
-  notImplemented("IsItemPawnable");
-  return false;
-};
+export const IsItemPawnable = (whichItem: item): boolean =>
+  whichItem.data.stats?.pawnable || false;
 
-export const IsItemIdPowerup = (itemId: number): boolean => {
-  notImplemented("IsItemIdPowerup");
-  return false;
-};
+export const IsItemIdPowerup = wrapGame((game, itemId: number): boolean =>
+  game.data.items[revFourCC(itemId)]?.stats?.powerup || false
+);
 
-export const IsItemIdSellable = (itemId: number): boolean => {
-  notImplemented("IsItemIdSellable");
-  return false;
-};
+export const IsItemIdSellable = wrapGame((game, itemId: number): boolean =>
+  game.data.items[revFourCC(itemId)]?.stats?.sellable || false
+);
 
-export const IsItemIdPawnable = (itemId: number): boolean => {
-  notImplemented("IsItemIdPawnable");
-  return false;
-};
+export const IsItemIdPawnable = wrapGame((game, itemId: number): boolean =>
+  game.data.items[revFourCC(itemId)]?.stats?.pawnable || false
+);
 
 export const EnumItemsInRect = (
   r: rect,
@@ -101,10 +102,8 @@ export const EnumItemsInRect = (
   actionFunc: () => void,
 ): void => {};
 
-export const GetItemLevel = (whichItem: item): number => {
-  notImplemented("GetItemLevel");
-  return 0;
-};
+export const GetItemLevel = (whichItem: item): number =>
+  whichItem.data.stats?.Level || 0;
 
 export const GetItemType = (whichItem: item): itemtype => {
   notImplemented("GetItemType");
@@ -113,10 +112,8 @@ export const GetItemType = (whichItem: item): itemtype => {
 
 export const SetItemDropID = (whichItem: item, unitId: number): void => {};
 
-export const GetItemName = (whichItem: item): string => {
-  notImplemented("GetItemName");
-  return "";
-};
+export const GetItemName = (whichItem: item): string =>
+  whichItem.data.text?.Name || "";
 
 export const GetItemCharges = (whichItem: item): number => {
   notImplemented("GetItemCharges");
@@ -141,37 +138,29 @@ export const BlzSetItemDescription = (
   description: string,
 ): void => {};
 
-export const BlzGetItemDescription = (whichItem: item): string => {
-  notImplemented("BlzGetItemDescription");
-  return "";
-};
+export const BlzGetItemDescription = (whichItem: item): string =>
+  whichItem.data.text?.Description || "";
 
 export const BlzSetItemTooltip = (whichItem: item, tooltip: string): void => {};
 
-export const BlzGetItemTooltip = (whichItem: item): string => {
-  notImplemented("BlzGetItemTooltip");
-  return "";
-};
+export const BlzGetItemTooltip = (whichItem: item): string =>
+  whichItem.data.text?.Tip || "";
 
 export const BlzSetItemExtendedTooltip = (
   whichItem: item,
   extendedTooltip: string,
 ): void => {};
 
-export const BlzGetItemExtendedTooltip = (whichItem: item): string => {
-  notImplemented("BlzGetItemExtendedTooltip");
-  return "";
-};
+export const BlzGetItemExtendedTooltip = (whichItem: item): string =>
+  whichItem.data.text?.Ubertip || "";
 
 export const BlzSetItemIconPath = (
   whichItem: item,
   iconPath: string,
 ): void => {};
 
-export const BlzGetItemIconPath = (whichItem: item): string => {
-  notImplemented("BlzGetItemIconPath");
-  return "";
-};
+export const BlzGetItemIconPath = (whichItem: item): string =>
+  whichItem.data.art?.Art || "";
 
 export const BlzGetItemAbilityByIndex = (
   whichItem: item,
